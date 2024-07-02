@@ -19,19 +19,14 @@ export async function checkTokens(
   accessToken: string | undefined, 
   refreshToken: string | undefined
 ): Promise<{ accessToken: string, refreshToken: string }> {
-  console.log('checkTokens started');
 
   if (!accessToken) {
-    console.log('Access token is not available');
     return Promise.reject('Access token is not available');
   }
 
   if (!refreshToken) {
-    console.log('Refresh token is not available');
     return Promise.reject('Refresh token is not available');
   }
-
-  console.log('Access token and Refresh token available, checking expiration');
 
   if (isTokenExpired(accessToken)) {
     console.log('Access token is expired, attempting to refresh');
@@ -51,8 +46,6 @@ export async function checkTokens(
   } else {
     console.log('Access token is still valid');
   }
-
-  console.log('checkTokens completed');
 
   return { accessToken, refreshToken };
 }

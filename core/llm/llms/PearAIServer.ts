@@ -127,22 +127,12 @@ class PearAIServer extends BaseLLM {
       if (this.getCredentials) {
         console.log("Attempting to get credentials...");
         creds = await this.getCredentials();
-  
-        if (creds) {
-          console.log("Credentials retrieved successfully:", creds);
-        } else {
-          console.log("No credentials retrieved.");
-        }
+
 
         if (creds && creds.accessToken && creds.refreshToken) {
-          console.log("Setting apiKey and refreshToken from retrieved credentials.");
           this.apiKey = creds.accessToken;
           this.refreshToken = creds.refreshToken;
-        } else {
-          console.log("Access token or refresh token is missing in the credentials.");
-      }
-      } else {
-        console.log("getCredentials function is not defined.");
+        } 
       }
 
       const tokens = await checkTokens(this.apiKey, this.refreshToken);
