@@ -182,7 +182,7 @@ function ModelConfig() {
                 onClick={() =>
                   postToIde(
                     "openUrl",
-                    "http://localhost:3000/signin?callback=code-oss://pearai.pearai/auth" // Change to localhost:3000 and run pear-landing-page repo to test locally
+                    "https://trypear.ai/signin?callback=code-oss://pearai.pearai/auth" // Change to http://localhost:3000 and run pear-landing-page repo to test locally
                   )
                 }
               >
