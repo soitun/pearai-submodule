@@ -121,39 +121,48 @@ class PearAIServer extends BaseLLM {
       true,
     );
 
-    let accessToken: string | undefined = this.apiKey;
-    let refreshToken: string | undefined = this.refreshToken;
-
     try {
       let creds = undefined;
 
       if (this.getCredentials) {
+        console.log("Attempting to get credentials...");
         creds = await this.getCredentials();
   
+        if (creds) {
+          console.log("Credentials retrieved successfully:", creds);
+        } else {
+          console.log("No credentials retrieved.");
+        }
+
         if (creds && creds.accessToken && creds.refreshToken) {
+          console.log("Setting apiKey and refreshToken from retrieved credentials.");
           this.apiKey = creds.accessToken;
           this.refreshToken = creds.refreshToken;
-        }
+        } else {
+          console.log("Access token or refresh token is missing in the credentials.");
+      }
+      } else {
+        console.log("getCredentials function is not defined.");
       }
 
-      const tokens = await checkTokens(accessToken, refreshToken);
+      const tokens = await checkTokens(this.apiKey, this.refreshToken);
 
-      if (tokens.accessToken !== accessToken || tokens.refreshToken !== refreshToken) {
-        if (tokens.accessToken !== accessToken) {
+      if (tokens.accessToken !== this.apiKey || tokens.refreshToken !== this.refreshToken) {
+        if (tokens.accessToken !== this.apiKey) {
           this.apiKey = tokens.accessToken;
           console.log(
             "PearAI access token changed from:",
-            accessToken,
+            this.apiKey,
             "to:",
             tokens.accessToken,
           );
         }
       
-        if (tokens.refreshToken !== refreshToken) {
+        if (tokens.refreshToken !== this.refreshToken) {
           this.refreshToken = tokens.refreshToken;
           console.log(
             "PearAI refresh token changed from:",
-            refreshToken,
+            this.refreshToken,
             "to:",
             tokens.refreshToken,
           );
@@ -173,7 +182,7 @@ class PearAIServer extends BaseLLM {
       method: "POST",
       headers: {
         ...(await this._getHeaders()),
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${this.apiKey}`,
       },
       body: JSON.stringify({
         messages: messages.map(this._convertMessage),
