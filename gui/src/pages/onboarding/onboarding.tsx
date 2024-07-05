@@ -100,11 +100,11 @@ function Onboarding() {
       >
         <h3>⚙️ Your own models</h3>
         <p>
-          Continue lets you use your own API key or self-hosted LLMs.{" "}
+          PearAI lets you use your own API key or self-hosted LLMs.{" "}
           <a href="https://trypear.ai/customization/overview">
             Read the docs
           </a>{" "}
-          to learn more about using config.json to customize Continue. This can
+          to learn more about using config.json to customize PearAI. This can
           always be done later.
         </p>
       </Div>
