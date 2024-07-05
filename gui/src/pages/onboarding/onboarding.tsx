@@ -33,7 +33,7 @@ function Onboarding() {
       >
         <h3>✨ Cloud models</h3>
         <p>
-          This is the best experience. Continue will use the strongest available
+          This is the best experience. PearAI will use the strongest available
           commercial models to index code and answer questions. Code is only
           ever stored locally.
         </p>
