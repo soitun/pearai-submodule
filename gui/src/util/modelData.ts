@@ -700,7 +700,14 @@ export const PROVIDER_INFO: { [key: string]: ModelInfo } = {
     icon: "pearai.png",
     tags: [ModelProviderTag["Requires Login"], ModelProviderTag["Hosted"]],
     packages: [
-      { ...gpt4o, title: "GPT-4o (PearAI Server)" },
+      {
+        ...gpt4o,
+        title: "PearAI Server",
+        params: {
+          ...gpt4o.params,
+          title: "PearAI Server"
+        }
+      }
     ],
   },
   openai: {

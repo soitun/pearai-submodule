@@ -192,11 +192,6 @@ function ModelConfig() {
               style={{ marginRight: "5px" }}
               />
                 <h3 className="text-center my-2">Login</h3>
-              <img
-              src={`${window.vscMediaUrl}/logos/${modelInfo.icon}`}
-              height="24px"
-              style={{ marginLeft: "5px" }}
-              />
               </CustomModelButton>
               <h3>3. Click To Complete </h3>
               <GridDiv>
