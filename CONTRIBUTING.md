@@ -2,6 +2,14 @@
 
 ## 🌐 **For how to setup, build, and run PearAI, please visit [PearAI Contributing](https://github.com/pearai/pearai-app)!**
 
+- [✨ Writing Slash Commands](#✨-writing-slash-commands)
+- [📜 Writing Context Providers](#📜-writing-context-providers)
+- [🤖 Adding an LLM Provider](#🤖-adding-an-llm-provider)
+- [🧠 Adding Models](#🧠-adding-models)
+- [📖 Adding Pre-indexed Documentation](#📖-adding-pre-indexed-documentation)
+- [⚙️ PearAI Architecture](#⚙️-pearai-architecture)
+ - [🧩 PearAI VS Code Extension](#🧩-pearai-vs-code-extension)
+
 ### 📚 PearAI Submodule Specific Guides:
 
 #### ✨ Writing Slash Commands
@@ -70,7 +78,3 @@ PearAI consists of 2 parts that are split so that it can be extended to work in 
 ### 🧩 PearAI VS Code Extension
 
 The starting point for the VS Code extension is [activate.ts](./extensions/vscode/src/activation/activate.ts). The `activateExtension` function here will register all commands and load the PearAI GUI in the sidebar of the IDE as a webview.
-
-### 🔬 PearAI JetBrains Extension
-
-The JetBrains extension is currently in alpha testing. Please reach out on [Discord](https://discord.gg/vapESyrFmJ) if you are interested in contributing to its development.
