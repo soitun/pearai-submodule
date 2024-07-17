@@ -2,13 +2,13 @@
 
 ## 🌐 **For how to setup, build, and run PearAI, please visit [PearAI Contributing](https://github.com/pearai/pearai-app)!**
 
-- [✨ Writing Slash Commands](#✨-writing-slash-commands)
-- [📜 Writing Context Providers](#📜-writing-context-providers)
-- [🤖 Adding an LLM Provider](#🤖-adding-an-llm-provider)
-- [🧠 Adding Models](#🧠-adding-models)
-- [📖 Adding Pre-indexed Documentation](#📖-adding-pre-indexed-documentation)
-- [⚙️ PearAI Architecture](#⚙️-pearai-architecture)
- - [🧩 PearAI VS Code Extension](#🧩-pearai-vs-code-extension)
+- [✨ Writing Slash Commands](#-writing-slash-commands)
+- [📜 Writing Context Providers](#-writing-context-providers)
+- [🤖 Adding an LLM Provider](#-adding-an-llm-provider)
+- [🧠 Adding Models](#-adding-models)
+- [📖 Adding Pre-indexed Documentation](#-adding-pre-indexed-documentation)
+- [⚙️ PearAI Architecture](#-pearai-architecture)
+ - [🧩 PearAI VS Code Extension](#-pearai-vs-code-extension)
 
 ### 📚 PearAI Submodule Specific Guides:
 
