@@ -1,7 +1,7 @@
 
 # PearAI Submodule / Extension
 
-This is the source code for the bulk of PearAI's functionality, which is bundled as a VSCode/PearAI extension. It is a fork of Continue.
+This is the source code for the bulk of PearAI's functionality, which is bundled as a VSCode / PearAI extension. It is a fork of Continue.
 
 ## 🌐 **For how to setup, build, and run PearAI, please visit [PearAI Contributing](https://github.com/pearai/pearai-app)!**
 
