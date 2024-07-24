@@ -31,6 +31,8 @@ export const RETRIEVAL_PARAMS = {
   bm25Threshold: -2.5,
 };
 
-// Todo: Make this into an env variable (with default digitalocean link)
-export const SERVER_URL = "https://stingray-app-gb2an.ondigitalocean.app/pearai-server-api2"
-// export const SERVER_URL = "http://localhost:8000";
+require('dotenv').config();
+
+export const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:8000";
+
+console.log("Server url:", process.env.REACT_APP_SERVER_URL)

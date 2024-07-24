@@ -3,32 +3,21 @@
 # Start developing with:
 # - Run Task -> Install Dependencies
 # - Debug -> Extension
+
+# Exit immediately if a command exits with a non-zero status
 set -e
-echo "Installing Core extension dependencies..."
-pushd core
-npm install
-npm link
-popd
 
-echo "Installing GUI extension dependencies..."
-pushd gui
-npm install
-npm link @pearai/core
-npm run build
-popd
-# VSCode Extension (will also package GUI)
-echo "Installing VSCode extension dependencies..."
+echo "Building VSCode extension..."
 pushd extensions/vscode
-
-# This does way too many things inline but is the common denominator between many of the scripts
-npm install
-npm link @pearai/core
-npm run prepackage
-npm run package
-
+npm run tsc
+node scripts/prepackage.js
+npm run esbuild
 popd
 
-echo "Installing binary dependencies..."
-pushd binary
-npm install
+echo "Building GUI..."
+pushd gui
 npm run build
+popd
+
+# Inform the user that the build is complete
+echo "Build process complete."

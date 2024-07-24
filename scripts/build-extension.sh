@@ -1,24 +1,19 @@
 #!/usr/bin/env bash
 
-# Run each command in parallel
-(
-  cd extensions/vscode
-  npm run tsc
-) &
+# Exit immediately if a command exits with a non-zero status
+set -e
 
-(
-  cd extensions/vscode
-  node scripts/prepackage.js
-) &
+# Change to the VS Code extension directory and build
+cd extensions/vscode
+npm run tsc
+node scripts/prepackage.js
+npm run esbuild
+cd -
 
-(
-  cd extensions/vscode
-  npm run esbuild
-) &
+# Change to the GUI directory and build
+cd gui
+npm run build
+cd -
 
-(
-  cd gui
-  npm run build
-) &
-
-wait
+# Inform the user that the build is complete
+echo "Build process complete."
