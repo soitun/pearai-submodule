@@ -9,7 +9,7 @@ import {
 import { SERVER_URL } from "../../util/parameters.js";
 import { Telemetry } from "../../util/posthog.js";
 import { BaseLLM } from "../index.js";
-import { streamResponse, streamJSON } from "../stream.js";
+import { streamJSON } from "../stream.js";
 import { checkTokens } from "../../db/token.js";
 import { stripImages } from "../countTokens.js";
 
@@ -23,13 +23,18 @@ class PearAIServer extends BaseLLM {
   }
   
   private async _getHeaders() {
-    return {
-      uniqueId: this.uniqueId || "None",
-      extensionVersion: Telemetry.extensionVersion ?? "Unknown",
-      os: Telemetry.os ?? "Unknown",
-      "Content-Type": "application/json",
-      ...(await getHeaders()),
-    };
+    try{
+      return {
+        uniqueId: this.uniqueId || "None",
+        extensionVersion: Telemetry.extensionVersion ?? "Unknown",
+        os: Telemetry.os ?? "Unknown",
+        "Content-Type": "application/json",
+        ...(await getHeaders()),
+      };
+    } catch (error) {
+      console.error("Error getting headers:", error);
+      throw new Error("Failed to get headers");
+    }
   }
 
   private async _countTokens(prompt: string, model: string, isPrompt: boolean) {
@@ -122,28 +127,20 @@ class PearAIServer extends BaseLLM {
 
       if (tokens.accessToken !== this.apiKey || tokens.refreshToken !== this.refreshToken) {
         if (tokens.accessToken !== this.apiKey) {
-          this.apiKey = tokens.accessToken;
-          console.log(
-            "PearAI access token changed from:",
-            this.apiKey,
-            "to:",
-            tokens.accessToken,
-          );
+          console.log("PearAI access token has changed.");
         }
       
         if (tokens.refreshToken !== this.refreshToken) {
-          this.refreshToken = tokens.refreshToken;
-          console.log(
-            "PearAI refresh token changed from:",
-            this.refreshToken,
-            "to:",
-            tokens.refreshToken,
-          );
+          console.log("PearAI refresh token has changed.")
         }
+
+        this.apiKey = tokens.accessToken;
+        this.refreshToken = tokens.refreshToken;
+
         if (creds) {
-          creds.accessToken = tokens.accessToken
-          creds.refreshToken = tokens.refreshToken
-          this.setCredentials(creds)
+          creds.accessToken = tokens.accessToken;
+          creds.refreshToken = tokens.refreshToken;
+          this.setCredentials(creds);
         }
       }
     } catch (error) {
