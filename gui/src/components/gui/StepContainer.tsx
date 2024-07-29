@@ -1,8 +1,10 @@
 import {
   ArrowUturnLeftIcon,
   BarsArrowDownIcon,
+  CubeIcon,
   HandThumbDownIcon,
   HandThumbUpIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 import { ChatHistoryItem } from "core";
 import { stripImages } from "core/llm/countTokens";

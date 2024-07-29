@@ -33,7 +33,14 @@ import { AllEmbeddingsProviders } from "../indexing/embeddings/index.js";
 import { BaseLLM } from "../llm/index.js";
 import CustomLLMClass from "../llm/llms/CustomLLM.js";
 import { llmFromDescription } from "../llm/llms/index.js";
+<<<<<<< HEAD
 import { IdeSettings } from "../protocol.js";
+=======
+
+import { execSync } from "child_process";
+import CodebaseContextProvider from "../context/providers/CodebaseContextProvider.js";
+import ContinueProxyContextProvider from "../context/providers/ContinueProxyContextProvider.js";
+>>>>>>> 8387e0ee6 (Preview (#1750))
 import { fetchwithRequestOptions } from "../util/fetchWithOptions.js";
 import { copyOf } from "../util/index.js";
 import mergeJson from "../util/merge.js";
@@ -51,9 +58,13 @@ import {
   defaultSlashCommandsJetBrains,
   defaultSlashCommandsVscode,
 } from "./default.js";
-import { getPromptFiles, slashCommandFromPromptFile } from "./promptFile.js";
 import PearAIServer from "../llm/llms/PearAIServer.js";
 const { execSync } = require("child_process");
+import {
+  DEFAULT_PROMPTS_FOLDER,
+  getPromptFiles,
+  slashCommandFromPromptFile,
+} from "./promptFile.js";
 
 function resolveSerializedConfig(filepath: string): SerializedContinueConfig {
   let content = fs.readFileSync(filepath, "utf8");

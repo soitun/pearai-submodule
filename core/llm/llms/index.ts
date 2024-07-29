@@ -9,6 +9,7 @@ import { IdeSettings } from "../../protocol.js";
 import { DEFAULT_MAX_TOKENS } from "../constants.js";
 import { BaseLLM } from "../index.js";
 import Anthropic from "./Anthropic.js";
+import Azure from "./Azure.js";
 import Bedrock from "./Bedrock.js";
 import Cohere from "./Cohere.js";
 import DeepInfra from "./DeepInfra.js";
@@ -22,6 +23,7 @@ import LMStudio from "./LMStudio.js";
 import LlamaCpp from "./LlamaCpp.js";
 import Llamafile from "./Llamafile.js";
 import Mistral from "./Mistral.js";
+import Msty from "./Msty.js";
 import Ollama from "./Ollama.js";
 import OpenAI from "./OpenAI.js";
 import OpenAIFreeTrial from "./OpenAIFreeTrial.js";
@@ -30,6 +32,7 @@ import TextGenWebUI from "./TextGenWebUI.js";
 import Together from "./Together.js";
 import PearAIProxy from "./stubs/PearAIProxy.js";
 import PearAIServer from "./PearAIServer.js";
+import WatsonX from "./WatsonX.js";
 
 function convertToLetter(num: number): string {
   let result = "";
@@ -101,6 +104,12 @@ const LLMs = [
   Groq,
   PearAIProxy,
   PearAIServer,
+  Fireworks,
+  Cloudflare,
+  Deepseek,
+  Msty,
+  Azure,
+  WatsonX,
 ];
 
 export async function llmFromDescription(

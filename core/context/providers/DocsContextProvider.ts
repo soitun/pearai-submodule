@@ -1,13 +1,24 @@
+<<<<<<< HEAD
 import { BaseContextProvider } from "../index.js";
+=======
+import { BaseContextProvider } from "../";
+>>>>>>> 8387e0ee6 (Preview (#1750))
 import {
   ContextItem,
   ContextProviderDescription,
   ContextProviderExtras,
   ContextSubmenuItem,
   LoadSubmenuItemsArgs,
+<<<<<<< HEAD
 } from "../../index.js";
 import configs from "../../indexing/docs/preIndexedDocs.js";
 import TransformersJsEmbeddingsProvider from "../../indexing/embeddings/TransformersJsEmbeddingsProvider.js";
+=======
+} from "../..";
+import DocsService from "../../indexing/docs/DocsService";
+import preIndexedDocs from "../../indexing/docs/preIndexedDocs";
+import { Telemetry } from "../../util/posthog";
+>>>>>>> 8387e0ee6 (Preview (#1750))
 
 class DocsContextProvider extends BaseContextProvider {
   static DEFAULT_N_RETRIEVE = 30;
@@ -23,8 +34,43 @@ class DocsContextProvider extends BaseContextProvider {
     query: string,
     extras: ContextProviderExtras,
   ): Promise<ContextItem[]> {
+<<<<<<< HEAD
     const { retrieveDocs } = await import("../../indexing/docs/db");
     const embeddingsProvider = new TransformersJsEmbeddingsProvider();
+=======
+    const docsService = DocsService.getSingleton();
+
+    if (!docsService) {
+      console.error(`${DocsService.name} has not been initialized`);
+      return [];
+    }
+
+    const isJetBrainsAndPreIndexedDocsProvider =
+      await docsService.isJetBrainsAndPreIndexedDocsProvider();
+
+    if (isJetBrainsAndPreIndexedDocsProvider) {
+      extras.ide.errorPopup(
+        `${DocsService.preIndexedDocsEmbeddingsProvider.id} is configured as ` +
+          "the embeddings provider, but it cannot be used with JetBrains. " +
+          "Please select a different embeddings provider to use the '@docs' " +
+          "context provider.",
+      );
+
+      return [];
+    }
+
+    const preIndexedDoc = preIndexedDocs[query];
+
+    if (!!preIndexedDoc) {
+      Telemetry.capture("docs_pre_indexed_doc_used", {
+        doc: preIndexedDoc["title"],
+      });
+    }
+
+    const embeddingsProvider =
+      await docsService.getEmbeddingsProvider(!!preIndexedDoc);
+
+>>>>>>> 8387e0ee6 (Preview (#1750))
     const [vector] = await embeddingsProvider.embed([extras.fullInput]);
 
     let chunks = await retrieveDocs(

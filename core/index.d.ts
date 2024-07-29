@@ -304,6 +304,18 @@ export interface LLMOptions {
   // GCP Options
   region?: string;
   projectId?: string;
+<<<<<<< HEAD
+=======
+  capabilities?: ModelCapability;
+
+  // WatsonX options
+  watsonxUrl?: string;
+  watsonxApiKey?: string;
+  watsonxZenApiKeyBase64?: string; // Required if using watsonx software with ZenApiKey auth
+  watsonxUsername?: string;
+  watsonxPassword?: string;
+  watsonxProjectId?: string;
+>>>>>>> 8387e0ee6 (Preview (#1750))
 }
 type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
   T,
