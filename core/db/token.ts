@@ -15,6 +15,16 @@ function isTokenExpired(token: string): boolean {
   return decodedToken.exp < currentTime;
 }
 
+export async function attemptTokenCheck(accessToken: string | undefined, 
+  refreshToken: string | undefined) {
+  try {
+    return await checkTokens(accessToken, refreshToken);
+  } catch (error) {
+    console.log(`Token check failed: ${error}`);
+    return null;
+  }
+}
+
 export async function checkTokens(
   accessToken: string | undefined, 
   refreshToken: string | undefined
@@ -29,8 +39,7 @@ export async function checkTokens(
   }
 
   if (isTokenExpired(accessToken)) {
-    console.log('Access token is expired, attempting to refresh');
-    const { data, error } = await supabase.auth.refreshSession({ refresh_token: refreshToken });
+    const { data, error } = await supabase.auth.refreshSession({refresh_token: refreshToken});
 
     if (error || !data) {
       console.log('Error refreshing token, redirecting to login:', error);

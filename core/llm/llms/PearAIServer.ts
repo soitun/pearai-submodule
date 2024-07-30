@@ -10,7 +10,7 @@ import { SERVER_URL } from "../../util/parameters.js";
 import { Telemetry } from "../../util/posthog.js";
 import { BaseLLM } from "../index.js";
 import { streamResponse, streamJSON } from "../stream.js";
-import { checkTokens } from "../../db/token.js";
+import { attemptTokenCheck } from "../../db/token.js";
 import { stripImages } from "../countTokens.js";
 
 class PearAIServer extends BaseLLM {
@@ -106,48 +106,52 @@ class PearAIServer extends BaseLLM {
 
     try {
       let creds = undefined;
+      let tokens: { accessToken: string; refreshToken: string } | null = null;
 
+      // Note: It is possible for the webapp tokens to get out of sync with the app tokens (i.e. app refreshes session but the webapp has not), so  we keep track of both just in case.
       if (this.getCredentials) {
         console.log("Attempting to get credentials...");
         creds = await this.getCredentials();
-
-
-        if (creds && creds.accessToken && creds.refreshToken) {
-          this.apiKey = creds.accessToken;
-          this.refreshToken = creds.refreshToken;
-        } 
-      }
-
-      const tokens = await checkTokens(this.apiKey, this.refreshToken);
-
-      if (tokens.accessToken !== this.apiKey || tokens.refreshToken !== this.refreshToken) {
-        if (tokens.accessToken !== this.apiKey) {
-          this.apiKey = tokens.accessToken;
-          console.log(
-            "PearAI access token changed from:",
-            this.apiKey,
-            "to:",
-            tokens.accessToken,
-          );
-        }
-      
-        if (tokens.refreshToken !== this.refreshToken) {
-          this.refreshToken = tokens.refreshToken;
-          console.log(
-            "PearAI refresh token changed from:",
-            this.refreshToken,
-            "to:",
-            tokens.refreshToken,
-          );
-        }
         if (creds) {
-          creds.accessToken = tokens.accessToken
-          creds.refreshToken = tokens.refreshToken
-          this.setCredentials(creds)
+          tokens = await attemptTokenCheck(creds.loginAccessToken, creds.loginRefreshToken);
+          if (!tokens) {
+            console.log("Login tokens failed. Trying previous tokens...");
+            tokens = await attemptTokenCheck(creds.accessToken, creds.refreshToken);
+            if (!tokens) {
+              console.log("Both login and previous token checks failed.");
+            }
+          } else {
+            const hasChanged = (
+              creds.loginAccessToken !== tokens.accessToken ||
+              creds.loginRefreshToken !== tokens.refreshToken ||
+              creds.accessToken !== tokens.accessToken ||
+              creds.refreshToken !== tokens.refreshToken
+            )
+            if (hasChanged) {
+              console.log("Credentials have changed. Updating...");
+              creds.loginAccessToken = tokens.accessToken
+              creds.loginRefreshToken = tokens.refreshToken
+              creds.accessToken = tokens.accessToken
+              creds.refreshToken = tokens.refreshToken
+              this.setCredentials(creds)
+            }
+          }
+          console.log("Successfully got credentials!", creds);
         }
       }
+      else {
+        console.log("Credentials are empty...");
+      }
+
+      if (!tokens) {
+        // If we have token issues, let the server return an error and prompt login from user
+        tokens = {accessToken: "", refreshToken: "" };
+      }  
+
+      this.apiKey = tokens.accessToken;
+      this.refreshToken = tokens.refreshToken;
     } catch (error) {
-      console.error("Error checking token expiration:", error);
+      console.error("Error checking tokens:", error);
       // Handle the error (e.g., redirect to login page)
     }
 

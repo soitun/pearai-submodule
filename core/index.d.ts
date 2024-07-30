@@ -375,6 +375,8 @@ export interface IndexTag extends BranchAndDir {
 }
 
 export interface PearAuth {
+  loginAccessToken?: string;
+  loginRefreshToken?: string;
   accessToken?: string;
   refreshToken?: string;
 }

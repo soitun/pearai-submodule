@@ -121,8 +121,9 @@ export class VsCodeExtension {
             } else if (uri.path === "/auth") {
               const queryParams = new URLSearchParams(uri.query);
               const data = {
-                accessToken: queryParams.get("accessToken"),
-                refreshToken: queryParams.get("refreshToken"),
+                loginAccessToken: queryParams.get("accessToken"),
+                loginRefreshToken: queryParams.get("refreshToken"),
+                show: true,
               };
 
               vscode.commands.executeCommand("pearai.updateUserAuth", data);

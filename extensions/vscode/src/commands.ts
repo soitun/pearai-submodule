@@ -179,12 +179,16 @@ const commandsMap: (
     },
     "pearai.getPearAuth": async () => {
       // TODO: This may need some work, for now we dont have vscode ExtensionContext access in the ideProtocol.ts so this will do
+      const loginAccessToken = await extensionContext.secrets.get("pearai-token-login");
+      const loginRefreshToken = await extensionContext.secrets.get("pearai-refresh-login");
       const accessToken = await extensionContext.secrets.get("pearai-token");
       const refreshToken = await extensionContext.secrets.get("pearai-refresh");
 
       const creds = {
         accessToken: accessToken ? accessToken.toString() : null,
         refreshToken: refreshToken ? refreshToken.toString() : null,
+        loginAccessToken: loginAccessToken ? loginAccessToken.toString() : null,
+        loginRefreshToken: loginRefreshToken ? loginRefreshToken.toString() : null,
       };
 
       return creds;
@@ -205,22 +209,51 @@ const commandsMap: (
       );
     },
     "pearai.updateUserAuth": async (data: {
-      accessToken: string;
-      refreshToken: string;
+      accessToken?: string;
+      refreshToken?: string;
+      loginAccessToken?: string;
+      loginRefreshToken?: string;
+      show?: boolean;
     }) => {
-      // Ensure that refreshToken and accessToken are both present
-      if (!data || !(data.refreshToken && data.accessToken)) {
+      // Check if at least one token is provided
+      if (!data || Object.keys(data).length === 0) {
         vscode.window.showWarningMessage(
-          "PearAI: Failed to parse user auth request!",
+          "PearAI: No auth data provided for update!"
         );
         return;
       }
 
-      extensionContext.secrets.store("pearai-token", data.accessToken);
-      extensionContext.secrets.store("pearai-refresh", data.refreshToken);
+      let updatedTokens = [];
 
-      vscode.window.showInformationMessage("PearAI: Successfully logged in!");
+      if (data.accessToken) {
+        extensionContext.secrets.store("pearai-token", data.accessToken);
+        updatedTokens.push("access token");
+      }
+
+      if (data.refreshToken) {
+        extensionContext.secrets.store("pearai-refresh", data.refreshToken);
+        updatedTokens.push("refresh token");
+      }
+
+      if (data.loginAccessToken) {
+        extensionContext.secrets.store("pearai-token-login", data.loginAccessToken);
+        updatedTokens.push("login access token");
+      }
+
+      if (data.loginRefreshToken) {
+        extensionContext.secrets.store("pearai-refresh-login", data.loginRefreshToken);
+        updatedTokens.push("login refresh token");
+      }
+
+      if (data.show) {
+        if (updatedTokens.length > 0) {
+          vscode.window.showInformationMessage(`PearAI: Successfully logged in!`);
+        } else {
+          vscode.window.showWarningMessage("PearAI: No tokens were updated.");
+        }
+      }
     },
+
     "pearai.acceptDiff": async (newFilepath?: string | vscode.Uri) => {
       if (newFilepath instanceof vscode.Uri) {
         newFilepath = newFilepath.fsPath;
