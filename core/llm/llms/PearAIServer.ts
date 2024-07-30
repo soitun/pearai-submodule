@@ -120,7 +120,9 @@ class PearAIServer extends BaseLLM {
             if (!tokens) {
               console.log("Both login and previous token checks failed.");
             }
-          } else {
+          } 
+        
+          if (tokens) {
             const hasChanged = (
               creds.loginAccessToken !== tokens.accessToken ||
               creds.loginRefreshToken !== tokens.refreshToken ||
