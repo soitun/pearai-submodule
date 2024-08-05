@@ -6,7 +6,6 @@ import { setLocalStorage } from "../../util/localStorage";
 import { Div, StyledButton } from "./components";
 
 enum ModelType {
-  PearAI,
   Cloud,
   Local,
   Custom // your own models
@@ -19,9 +18,6 @@ function Onboarding() {
   const navigate = useNavigate();
   const handleNavigate = (selectedModel: ModelType) => {
     switch (selectedModel) {
-      case ModelType.PearAI:
-        navigate("/modelconfig/pearaiserver");
-        break;
       case ModelType.Cloud:
         navigate("/models");
         break;
@@ -46,31 +42,6 @@ function Onboarding() {
       <p className="text-center pb-2">
         Let's find the setup that works best for you
       </p>
-
-      <br></br>
-      <Div
-        color={"#be1b55"}
-        disabled={false}
-        selected={selected === ModelType.PearAI}
-        hovered={hovered === ModelType.PearAI}
-        onClick={() => {
-          setSelected(ModelType.PearAI);
-        }}
-        onMouseEnter={() => setHovered(ModelType.PearAI)}
-        onMouseLeave={() => setHovered(-1)}
-      >
-        <div className="flex items-center">
-          <img src={`${window.vscMediaUrl}/logos/pearai-color.png`} className="mr-1" height="24px"></img>
-          <h3>PearAI Server</h3>
-        </div>
-        <p className="mt-0">
-          This is the best experience. PearAI will use the strongest available
-          commercial models to index code and answer questions. 
-        </p>
-        <p className="mt-0">
-          Code is not stored, and only passes through our server to the model provider.
-        </p>
-      </Div>
       <br></br>
       <Div
         color={"#be841b"}

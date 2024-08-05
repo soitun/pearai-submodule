@@ -7,17 +7,6 @@ export function setupOptimizedMode(
     ...config,
     models: [
     ],
-    tabAutocompleteModel: {
-      title: "Tab Autocomplete",
-      provider: "free-trial",
-      model: "starcoder-7b",
-    },
-    embeddingsProvider: {
-      provider: "free-trial",
-    },
-    reranker: {
-      name: "free-trial",
-    },
   };
 }
 
@@ -26,17 +15,6 @@ export function setupOptimizedExistingUserMode(
 ): SerializedContinueConfig {
   return {
     ...config,
-    tabAutocompleteModel: {
-      title: "Tab Autocomplete",
-      provider: "free-trial",
-      model: "starcoder-7b",
-    },
-    embeddingsProvider: {
-      provider: "free-trial",
-    },
-    reranker: {
-      name: "free-trial",
-    },
   };
 }
 
