@@ -713,7 +713,7 @@ export const PROVIDER_INFO: { [key: string]: ModelInfo } = {
     description:
       "Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language models.",
     longDescription:
-      "Eliminate the need to set up or maintain your own API key, and ensure the best experience with PearAI.",
+      "Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language models.",
     icon: "pearai.png",
     tags: [ModelProviderTag["Recommended"], ModelProviderTag["Hosted"]],
     packages: [

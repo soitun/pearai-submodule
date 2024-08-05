@@ -164,9 +164,9 @@ function ModelCard(props: ModelCardProps) {
             href={props.refUrl}
             target="_blank"
           >
-            <HeaderButtonWithText text="Read the docs">
+            {/* <HeaderButtonWithText text="Read the docs">
               <BookOpenIcon width="1.6em" height="1.6em" />
-            </HeaderButtonWithText>
+            </HeaderButtonWithText> */}
           </a>
         )}
       </div>
