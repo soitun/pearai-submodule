@@ -19,7 +19,8 @@ import { postToIde } from "../util/ide";
 import {
   MODEL_PROVIDER_TAG_COLORS,
   ModelInfo,
-  PROVIDER_INFO,
+  PROVIDER_HOME,
+  OTHER_PROVIDERS,
   updatedObj,
 } from "../util/modelData";
 
@@ -64,10 +65,15 @@ function ModelConfig() {
 
   useEffect(() => {
     if (modelName) {
-      setModelInfo(PROVIDER_INFO[modelName]);
+      const info = PROVIDER_HOME[modelName] || OTHER_PROVIDERS[modelName];
+      if (info) {
+        setModelInfo(info);
+      } else {
+        console.warn(`No model info found for ${modelName}`);
+      }
     }
   }, [modelName]);
-
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -297,8 +303,7 @@ function ModelConfig() {
                     }}
                   />
                   <p style={{ color: lightGray }}>
-                    OR choose from other providers / models by editing
-                    config.json.
+                    Or edit manually in config.json.
                   </p>
                   <CustomModelButton
                     disabled={false}

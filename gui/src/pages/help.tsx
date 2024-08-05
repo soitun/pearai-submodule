@@ -77,14 +77,14 @@ function HelpPage() {
           onClick={() => navigate('/')}
           className='inline-block ml-4 cursor-pointer'
         />
-        <h3 className='text-lg font-bold m-2 inline-block'>Help Center</h3>
+        <h3 className='text-lg font-bold m-2 inline-block'>Help</h3>
         <TutorialButton
           onClick={() => {
             postToIde('showTutorial', undefined);
             navigate('/onboarding');
           }}
         >
-          Open tutorial
+          Open Tutorial
         </TutorialButton>
       </div>
 

@@ -9,7 +9,8 @@ import {
 } from "..";
 import {
   MODEL_PROVIDER_TAG_COLORS,
-  PROVIDER_INFO,
+  PROVIDER_HOME,
+  OTHER_PROVIDERS,
   PackageDimension,
 } from "../../util/modelData";
 import HeaderButtonWithText from "../HeaderButtonWithText";
@@ -214,7 +215,8 @@ function ModelCard(props: ModelCardProps) {
               </div>
               <div className="flex items-center flex-wrap justify-end rtl">
                 {props.providerOptions?.map((option, i) => {
-                  const info = PROVIDER_INFO[option];
+                  const info = PROVIDER_HOME[option] ?? OTHER_PROVIDERS[option];
+
                   if (!info) {
                     return null;
                   }

@@ -6,6 +6,7 @@ import { setLocalStorage } from "../../util/localStorage";
 import { Div, StyledButton } from "./components";
 
 enum ModelType {
+  PearAI,
   Cloud,
   Local,
   Custom // your own models
@@ -18,6 +19,9 @@ function Onboarding() {
   const navigate = useNavigate();
   const handleNavigate = (selectedModel: ModelType) => {
     switch (selectedModel) {
+      case ModelType.PearAI:
+        navigate("/modelconfig/pearaiserver");
+        break;
       case ModelType.Cloud:
         navigate("/models");
         break;
@@ -42,6 +46,30 @@ function Onboarding() {
       <p className="text-center pb-2">
         Let's find the setup that works best for you
       </p>
+
+      <br></br>
+      <Div
+        color={"#6db33f"} 
+        disabled={false}
+        selected={selected === ModelType.PearAI}
+        hovered={hovered === ModelType.PearAI}
+        onClick={() => {
+          setSelected(ModelType.PearAI);
+        }}
+        onMouseEnter={() => setHovered(ModelType.PearAI)}
+        onMouseLeave={() => setHovered(-1)}
+      >
+        <div className="flex items-center">
+          <img src={`${window.vscMediaUrl}/logos/pearai-color.png`} className="mr-1" height="24px"></img>
+          <h3>PearAI Server</h3>
+        </div>
+        <p className="mt-0">
+          Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language models.
+        </p>
+        <p className="mt-0">
+          Code is not stored, and only passes through our server to the model provider.
+        </p>
+      </Div>
       <br></br>
       <Div
         color={"#be841b"}
@@ -54,96 +82,13 @@ function Onboarding() {
         onMouseEnter={() => setHovered(ModelType.Cloud)}
         onMouseLeave={() => setHovered(-1)}
       >
-        <h3>✨ Cloud models</h3>
+        <h3>⚙️ Other Models</h3>
         <p>
-          Choose between different commercial models available and use your own API key. Code is only ever stored locally.
+          Use your own API key for different cloud, local, and other LLM providers (i.e. OpenAI).
         </p>
       </Div>
-      {selected === ModelType.Cloud && (
-        <p className="px-3">
-          <b>Embeddings:</b> Voyage Code 2
-          <br />
-          <br />
-          <b>Autocomplete:</b> Starcoder 7b via Fireworks AI (free trial)
-          <br />
-          <br />
-          <b>Chat:</b> GPT-4, Claude 3.5, and others (free trial)
-        </p>
-      )}
+      {selected === ModelType.Cloud}
       <br></br>
-      <Div
-        color={greenButtonColor}
-        disabled={false}
-        selected={selected === ModelType.Local}
-        hovered={hovered === ModelType.Local}
-        onClick={() => {
-          setSelected(ModelType.Local);
-        }}
-        onMouseEnter={() => setHovered(ModelType.Local)}
-        onMouseLeave={() => setHovered(-1)}
-      >
-        <h3>🔒 Local models</h3>
-        <p>
-          No code will leave your computer, but less powerful models are used.
-          Works with Ollama, LM Studio and others.
-        </p>
-      </Div>
-      {selected === ModelType.Local && (
-        <p className="px-3">
-          <b>Embeddings:</b> Local sentence-transformers model
-          <br />
-          <br />
-          <b>Autocomplete:</b> Starcoder2 3b (set up with Ollama, LM Studio,
-          etc.)
-          <br />
-          <br />
-          <b>Chat:</b> Llama 3 with Ollama, LM Studio, etc.
-        </p>
-      )}
-      <br></br>
-      {/* <p>
-        <a href="https://trypear.ai/customization/overview">
-          Read the docs
-        </a>{" "}
-        to learn more and fully customize Continue by opening config.json.
-      </p> */}
-      <Div
-        color={"#1b84be"}
-        disabled={false}
-        selected={selected === ModelType.Custom}
-        hovered={hovered === ModelType.Custom}
-        onMouseEnter={() => setHovered(ModelType.Custom)}
-        onMouseLeave={() => setHovered(-1)}
-        onClick={() => {
-          setSelected(ModelType.Custom);
-          postToIde("openConfigJson", undefined);
-        }}
-      >
-        <h3>⚙️ Your own models</h3>
-        <p>
-          PearAI lets you use your own API key or self-hosted LLMs.{" "}
-          <a href="https://trypear.ai/customization/overview">
-            Read the docs
-          </a>{" "}
-          to learn more about using config.json to customize PearAI. This can
-          always be done later.
-        </p>
-      </Div>
-      {selected === ModelType.Custom && (
-        <p className="px-3">
-          Use <code>config.json</code> to configure your own{" "}
-          <a href="https://trypear.ai/model-setup/overview">models</a>,{" "}
-          <a href="https://trypear.ai/customization/context-providers">
-            context providers
-          </a>
-          ,{" "}
-          <a href="https://trypear.ai/customization/slash-commands">
-            slash commands
-          </a>
-          , and <a href="https://trypear.ai/reference/config">more</a>.
-        </p>
-      )}
-
       <br />
       <div className="flex">
         <StyledButton

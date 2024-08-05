@@ -705,14 +705,12 @@ export const MODEL_INFO: (ModelPackage | string)[] = [
   // phindCodeLlama,
 ];
 
-export const PROVIDER_INFO: { [key: string]: ModelInfo } = {
+export const PROVIDER_HOME: { [key: string]: ModelInfo } = {
   pearaiserver: {
     title: "PearAI Server",
     provider: "pearai-server",
     refPage: "pearai-server",
     description:
-      "Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language models.",
-    longDescription:
       "Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language models.",
     icon: "pearai.png",
     tags: [ModelProviderTag["Recommended"], ModelProviderTag["Hosted"]],
@@ -722,6 +720,18 @@ export const PROVIDER_INFO: { [key: string]: ModelInfo } = {
       }
     ],
   },
+  other: {
+    title: "Other",
+    provider: "openai",
+    description: "Use your own API key for different cloud, local, and other LLM providers (i.e. OpenAI).",
+    icon: "openai.png",
+    tags: [ModelProviderTag["Requires API Key"]],
+    packages: [
+    ],
+  },
+};
+
+export const OTHER_PROVIDERS: { [key: string]: ModelInfo } = {
   openai: {
     title: "OpenAI",
     provider: "openai",
