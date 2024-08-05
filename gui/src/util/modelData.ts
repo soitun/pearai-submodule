@@ -18,6 +18,7 @@ export function updatedObj(old: any, pathToValue: { [key: string]: any }) {
 }
 
 export enum ModelProviderTag {
+  "Recommended" = "Recommended",
   "Requires Login" = "Requires Login",
   "Requires API Key" = "Requires API Key",
   "Local" = "Local",
@@ -27,6 +28,7 @@ export enum ModelProviderTag {
 }
 
 export const MODEL_PROVIDER_TAG_COLORS: any = {};
+MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Recommended"]] = "#1E90FF";
 MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Requires Login"]] = "#FF4500"; 
 MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Hosted"]] = "#008000"; 
 MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Requires API Key"]] = "#FF0000";
@@ -709,11 +711,11 @@ export const PROVIDER_INFO: { [key: string]: ModelInfo } = {
     provider: "pearai-server",
     refPage: "pearai-server",
     description:
-      "Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language model.",
+      "Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language models.",
     longDescription:
       "Eliminate the need to set up or maintain your own API key, and ensure the best experience with PearAI.",
     icon: "pearai.png",
-    tags: [ModelProviderTag["Requires Login"], ModelProviderTag["Hosted"]],
+    tags: [ModelProviderTag["Recommended"], ModelProviderTag["Hosted"]],
     packages: [
       {
         ...pearai_model
@@ -723,9 +725,9 @@ export const PROVIDER_INFO: { [key: string]: ModelInfo } = {
   openai: {
     title: "OpenAI",
     provider: "openai",
-    description: "Use gpt-4, gpt-3.5-turbo, or any other OpenAI model",
+    description: "Use gpt-4o, gpt-3.5-turbo, or any other OpenAI model",
     longDescription:
-      "Use gpt-4, gpt-3.5-turbo, or any other OpenAI model. See [here](https://openai.com/product#made-for-developers) to obtain an API key.",
+      "Use gpt-4o, gpt-3.5-turbo, or any other OpenAI model. See [here](https://openai.com/product#made-for-developers) to obtain an API key.",
     icon: "openai.png",
     tags: [ModelProviderTag["Requires API Key"]],
     packages: [

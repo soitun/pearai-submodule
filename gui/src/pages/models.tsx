@@ -52,26 +52,19 @@ function Models() {
           onClick={() => navigate("/")}
           className="inline-block ml-4 cursor-pointer"
         />
-        <h3 className="text-lg font-bold m-2 inline-block">Add new model</h3>
+        <h3 className="text-lg font-bold m-2 inline-block">Add Model</h3>
       </div>
       <br />
-      <Toggle
+      {/* <Toggle
         selected={providersSelected}
         optionOne={"Providers"}
         optionTwo={"Models"}
         onClick={() => {
           setProvidersSelected((prev) => !prev);
         }}
-      ></Toggle>
-      <IntroDiv>
-        Welcome! Get set up by choosing:
-        <ul>
-          <li>
-            a provider (the service used to run the LLM, e.g. Ollama,
-            TogetherAI) and
-          </li>
-          <li>a model (the LLM being run, e.g. GPT-4, CodeLlama).</li>
-        </ul>
+      ></Toggle> */}
+      <IntroDiv style={{ textAlign: "center" }}>
+        Welcome to PearAI! <br />Get started by selecting one of the providers below:
       </IntroDiv>
       {providersSelected ? (
         <GridDiv>
