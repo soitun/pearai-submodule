@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import _ from "lodash";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { defaultBorderRadius, lightGray, vscBackground } from "../components";
 import ModelCard from "../components/modelSelection/ModelCard";
@@ -31,11 +31,22 @@ const GridDiv = styled.div`
 function Models() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
   useNavigationListener();
 
-  const [showOtherProviders, setShowOtherProviders] = useState(false);
-
+  const [showOtherProviders, setShowOtherProviders] = useState(
+    location.state?.showOtherProviders || false
+  );
   const handleOtherClick = () => setShowOtherProviders(true);
+
+  const handleBackArrowClick = () => {
+    if (showOtherProviders) {
+      setShowOtherProviders(false);
+    } else {
+      navigate("/");
+    }
+  };  
 
   return (
     <div>
@@ -50,7 +61,7 @@ function Models() {
         <ArrowLeftIcon
           width="1.2em"
           height="1.2em"
-          onClick={() => navigate(showOtherProviders ? "/models" : "/")}
+          onClick={handleBackArrowClick}
           className="inline-block ml-4 cursor-pointer"
         />
         <h3 className="text-lg font-bold m-2 inline-block">Add Model</h3>
@@ -93,13 +104,13 @@ function Models() {
       <div style={{ padding: "8px" }}>
         <hr style={{ color: lightGray, border: `1px solid ${lightGray}` }} />
         <p style={{ color: lightGray }}>
-          Or edit manually in config.json.
+          Or edit manually in config.json:
         </p>
         <CustomModelButton
           disabled={false}
           onClick={() => postToIde("openConfigJson", undefined)}
         >
-          <h3 className="text-center my-2">Open config.json</h3>
+          <h3 className="text-center my-2">Open Config</h3>
         </CustomModelButton>
       </div>
     </div>

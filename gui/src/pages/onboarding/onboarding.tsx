@@ -1,39 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { greenButtonColor } from "../../components";
 import { postToIde } from "../../util/ide";
 import { setLocalStorage } from "../../util/localStorage";
-import { Div, StyledButton } from "./components";
+import { Div } from "./components";
+import { greenButtonColor } from "../../components";
+
 
 enum ModelType {
   PearAI,
-  Cloud,
-  Local,
-  Custom // your own models
+  Other,
 }
 
 function Onboarding() {
   const [hovered, setHovered] = useState(-1);
-  const [selected, setSelected] = useState(-1);
-
   const navigate = useNavigate();
-  const handleNavigate = (selectedModel: ModelType) => {
+
+  const handleSelect = (selectedModel: ModelType) => {
+    postToIde("completeOnboarding", {
+      mode: "optimized" as any,
+    });
+    setLocalStorage("onboardingComplete", true);
+
     switch (selectedModel) {
       case ModelType.PearAI:
         navigate("/modelconfig/pearaiserver");
         break;
-      case ModelType.Cloud:
-        navigate("/models");
-        break;
-      case ModelType.Local:
-        navigate("/localOnboarding");
-        break;
-      case ModelType.Custom:
-        // Only needed when we switch from the default (local) embeddings provider
-        postToIde("index/forceReIndex", undefined);
-        // Don't show the tutorial above yet because there's another step to complete at /localOnboarding
-        postToIde("showTutorial", undefined);
-        navigate("/");
+      case ModelType.Other:
+        navigate("/models", { state: { showOtherProviders: false } });
         break;
       default:
         break;
@@ -42,26 +35,24 @@ function Onboarding() {
 
   return (
     <div className="p-2 max-w-96 mt-10 mx-auto">
-      <h1 className="text-center">Welcome to PearAI</h1>
+      <h1 className="text-center">Welcome to PearAI!</h1>
       <p className="text-center pb-2">
-        Let's find the setup that works best for you
+        Select one of the following providers to get setup! Don't worry, this can always be changed later.
       </p>
 
       <br></br>
       <Div
-        color={"#6db33f"} 
+        color={greenButtonColor} 
         disabled={false}
-        selected={selected === ModelType.PearAI}
+        selected={false}
         hovered={hovered === ModelType.PearAI}
-        onClick={() => {
-          setSelected(ModelType.PearAI);
-        }}
+        onClick={() => handleSelect(ModelType.PearAI)}
         onMouseEnter={() => setHovered(ModelType.PearAI)}
         onMouseLeave={() => setHovered(-1)}
       >
         <div className="flex items-center">
           <img src={`${window.vscMediaUrl}/logos/pearai-color.png`} className="mr-1" height="24px"></img>
-          <h3>PearAI Server</h3>
+          <h3>PearAI Server (Recommended) </h3>
         </div>
         <p className="mt-0">
           Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language models.
@@ -72,45 +63,19 @@ function Onboarding() {
       </Div>
       <br></br>
       <Div
-        color={"#be841b"}
+        color={greenButtonColor} 
         disabled={false}
-        selected={selected === ModelType.Cloud}
-        hovered={hovered === ModelType.Cloud} 
-        onClick={() => {
-          setSelected(ModelType.Cloud);
-        }}
-        onMouseEnter={() => setHovered(ModelType.Cloud)}
+        selected={false}
+        hovered={hovered === ModelType.Other} 
+        onClick={() => handleSelect(ModelType.Other)}
+        onMouseEnter={() => setHovered(ModelType.Other)}
         onMouseLeave={() => setHovered(-1)}
       >
-        <h3>⚙️ Other Models</h3>
+        <h3>⚙️ Other Providers</h3>
         <p>
           Use your own API key for different cloud, local, and other LLM providers (i.e. OpenAI).
         </p>
       </Div>
-      {selected === ModelType.Cloud}
-      <br></br>
-      <br />
-      <div className="flex">
-        <StyledButton
-          blurColor={
-            selected === 0
-              ? "#be841b"
-              : selected === 1
-              ? greenButtonColor
-              : "#1b84be"
-          }
-          disabled={selected < 0}
-          onClick={() => {
-            postToIde("completeOnboarding", {
-              mode: ["optimized", "local", "custom"][selected+1] as any,
-            });
-            setLocalStorage("onboardingComplete", true);
-            handleNavigate(selected);
-          }}
-        >
-          Continue
-        </StyledButton>
-      </div>
     </div>
   );
 }
