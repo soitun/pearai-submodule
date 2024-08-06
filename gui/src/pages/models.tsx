@@ -36,8 +36,9 @@ function Models() {
   useNavigationListener();
 
   const [showOtherProviders, setShowOtherProviders] = useState(
-    location.state?.showOtherProviders || false
+    location.state?.showOtherProviders ?? false
   );
+
   const handleOtherClick = () => setShowOtherProviders(true);
 
   const handleBackArrowClick = () => {

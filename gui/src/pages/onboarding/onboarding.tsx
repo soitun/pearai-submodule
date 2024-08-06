@@ -26,7 +26,7 @@ function Onboarding() {
         navigate("/modelconfig/pearaiserver");
         break;
       case ModelType.Other:
-        navigate("/models", { state: { showOtherProviders: false } });
+        navigate("/models", { state: { showOtherProviders: true } });
         break;
       default:
         break;
