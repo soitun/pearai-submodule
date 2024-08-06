@@ -110,7 +110,7 @@ function Models() {
           disabled={false}
           onClick={() => postToIde("openConfigJson", undefined)}
         >
-          <h3 className="text-center my-2">Open Config</h3>
+          <h3 className="text-center my-2">Open config.json</h3>
         </CustomModelButton>
       </div>
     </div>
