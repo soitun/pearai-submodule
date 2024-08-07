@@ -23,10 +23,10 @@ function Onboarding() {
 
     switch (selectedModel) {
       case ModelType.PearAI:
-        navigate("/modelconfig/pearaiserver");
+        navigate("/modelconfig/pearaiserver", { state: { referrer: "/onboarding" } });
         break;
       case ModelType.Other:
-        navigate("/models", { state: { showOtherProviders: true } });
+        navigate("/models", { state: { showOtherProviders: true, referrer: "/onboarding" } });
         break;
       default:
         break;

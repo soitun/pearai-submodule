@@ -42,12 +42,16 @@ function Models() {
   const handleOtherClick = () => setShowOtherProviders(true);
 
   const handleBackArrowClick = () => {
-    if (showOtherProviders) {
+    if (location.state?.referrer) {
+      navigate(location.state.referrer);
+    }
+    else if (showOtherProviders) {
       setShowOtherProviders(false);
-    } else {
+    }  
+    else {
       navigate("/");
     }
-  };  
+  };
 
   return (
     <div>
@@ -98,7 +102,9 @@ function Models() {
               description={modelInfo.description}
               tags={modelInfo.tags}
               icon={modelInfo.icon}
-              onClick={() => navigate(`/modelconfig/${name}`)}
+              onClick={() => navigate(`/modelconfig/${name}`, {
+                state: { referrer: location.state?.referrer }
+              })}
             />
           ))}
       </GridDiv>

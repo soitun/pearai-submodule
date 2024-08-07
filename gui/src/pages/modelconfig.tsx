@@ -3,7 +3,7 @@ import _ from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import {
   Input,
@@ -76,6 +76,8 @@ function ModelConfig() {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const referrer = location.state?.referrer;
 
   const disableModelCards = useCallback(() => {
     return (
@@ -140,7 +142,13 @@ function ModelConfig() {
           <ArrowLeftIcon
             width="1.2em"
             height="1.2em"
-            onClick={() => navigate("/models")}
+            onClick={() => {
+              if (referrer) {
+                navigate(referrer);
+              } else {
+                navigate("/models");
+              }
+            }}
             className="inline-block ml-4 cursor-pointer"
           />
           <h3 className="text-lg font-bold m-2 inline-block">
