@@ -28,7 +28,7 @@ class ContinueQuickFixProvider implements vscode.CodeActionProvider {
         Math.min(document.lineCount, range.end.line + 3),
         0,
       );
-      quickFix.command = {
+      quickFix.command = { // TODO: FIX THIS
         command: "pearai.quickFix",
         title: "PearAI Quick Fix",
         arguments: [
