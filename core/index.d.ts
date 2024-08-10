@@ -610,6 +610,7 @@ type ModelProvider =
   | "watsonx"  
   | "pearai-proxy"
   | "pearai-server"
+  | "other"
 
 export type ModelName =
   | "AUTODETECT"

@@ -101,7 +101,7 @@ export class ContinueGUIWebviewViewProvider
     private readonly windowId: string,
     private readonly extensionContext: vscode.ExtensionContext,
   ) {
-    this.outputChannel = vscode.window.createOutputChannel("Continue");
+    this.outputChannel = vscode.window.createOutputChannel("PearAI");
     this.enableDebugLogs = false;
     this.updateDebugLogsStatus();
     this.setupDebugLogsListener();

@@ -109,7 +109,8 @@
             "text-gen-webui",
             "gemini",
             "lmstudio",
-            "llamafile"
+            "llamafile",
+            "pearai-server"
           ],
           "type": "string"
         },

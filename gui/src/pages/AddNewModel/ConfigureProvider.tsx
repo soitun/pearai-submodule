@@ -160,7 +160,7 @@ function ConfigureProvider() {
             source={modelInfo?.longDescription || modelInfo?.description}
           />
           <br />
-
+          
           {/* The WatsonX Authentication coukd be done by two different ways
            1 ==> Using Api key
            2 ==> Using Credentials */}
@@ -301,6 +301,47 @@ function ConfigureProvider() {
               })}
             </details>
           )}
+
+        {/* {providerName === "pearai" ? (
+            <>
+              <h3>1. Sign Up and Subscribe at <a href="https://trypear.ai/pricing" target="_blank" rel="noopener noreferrer">trypear.ai/pricing</a></h3>
+              <h3>2. Login w/ PearAI </h3>
+              <p style={{ color: lightGray }}>After login, the webapp should redirect you back here. If it doesn't, click again.</p>
+              <CustomModelButton
+                className="m-5"
+                disabled={false}
+                onClick={() =>
+                  ideMessenger.post(
+                    "openUrl",
+                    "https://trypear.ai/signin?callback=pearai://pearai.pearai/auth" // Change to http://localhost:3000 and run pear-landing-page repo to test locally
+                  )
+                }
+              >
+                <h3 className="text-center my-2">Login</h3>
+                <img
+                  src={`${window.vscMediaUrl}/logos/${modelInfo?.icon}`}
+                  height="24px"
+                  style={{ marginRight: "5px" }}
+                />
+              </CustomModelButton>
+              <h3>3. Click To Complete </h3>
+              <GridDiv>
+                {modelInfo?.packages.map((pkg, idx) => (
+                  <ModelCard
+                    key={idx}
+                    disabled={disableModelCards()}
+                    title={"Start Coding 😎"}
+                    description={""}
+                    tags={pkg.tags}
+                    dimensions={pkg.dimensions}
+                    onClick={null}
+                  />
+                ))}
+              </GridDiv>
+            </>
+            ) : (
+              <></>
+          )} */}
 
           <h3 className="mb-2">Select a model preset</h3>
         </div>

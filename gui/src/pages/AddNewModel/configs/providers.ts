@@ -56,6 +56,29 @@ export const apiBaseInput: InputDescriptor = {
 };
 
 export const providers: Partial<Record<ModelProvider, ProviderInfo>> = {
+  pearai: {
+    title: "PearAI Server",
+    provider: "pearai-server",
+    refPage: "pearai-server",
+    description:
+      "Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language models.",
+    icon: "pearai.png",
+    tags: [ModelProviderTags.Recommended, ModelProviderTags.Hosted],
+    packages: [
+      {
+        ...models.pearai_model
+      }
+    ],
+  },
+  other: {
+    title: "Other",
+    provider: "other",
+    description: "Use your own API key for different cloud, local, and other LLM providers (i.e. OpenAI).",
+    icon: "openai.png",
+    tags: [ModelProviderTags.RequiresApiKey],
+    packages: [
+    ],
+  },
   openai: {
     title: "OpenAI",
     provider: "openai",

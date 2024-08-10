@@ -3,7 +3,7 @@
   "publisher": "pearai",
   "icon": "media/icon.png",
   "author": "PearAI",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "repository": {
     "type": "git",
     "url": "https://github.com/trypear/pearai-app"
@@ -18,7 +18,7 @@
   "homepage": "https://trypear.ai",
   "qna": "https://github.com/trypear/pearai-app/issues/new/choose",
   "license": "Apache-2.0",
-  "displayName": "Continue - Codestral, Claude, and more",
+  "displayName": "PearAI",
   "pricing": "Free",
   "description": "The leading open-source AI code assistant",
   "engines": {
@@ -78,7 +78,7 @@
         "pearai.enableContinueForTeams": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "_(Requires window reload)_ Enable Continue for teams beta features. To sign in, click the person icon in the bottom right of the sidebar."
+          "markdownDescription": "_(Requires window reload)_ Enable PearAI for teams beta features. To sign in, click the person icon in the bottom right of the sidebar."
         },
         "pearai.showInlineTip": {
           "type": "boolean",
@@ -93,22 +93,22 @@
         "pearai.enableTabAutocomplete": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "Enable Continue's tab autocomplete feature. Read our walkthrough to learn about configuration and how to share feedback: [pearai.dev › Walkthrough: Tab Autocomplete (beta)](https://docs.pearai.dev/features/tab-autocomplete)"
+          "markdownDescription": "Enable PearAI's tab autocomplete feature. Read our walkthrough to learn about configuration and how to share feedback: [pearai.dev › Walkthrough: Tab Autocomplete (beta)](https://docs.pearai.dev/features/tab-autocomplete)"
         },
         "pearai.pauseTabAutocompleteOnBattery": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "Pause Continue's tab autocomplete feature when your battery is low."
+          "markdownDescription": "Pause PearAI's tab autocomplete feature when your battery is low."
         },
         "pearai.pauseCodebaseIndexOnStart": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "Pause Continue's codebase index on start."
+          "markdownDescription": "Pause PearAI's codebase index on start."
         },
         "pearai.enableDebugLogs": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "Enable Continue Debug Logs in the Output panel."
+          "markdownDescription": "Enable PearAI Debug Logs in the Output panel."
         },
         "pearai.remoteConfigServerUrl": {
           "type": "string",
@@ -173,7 +173,7 @@
       },
       {
         "command": "pearai.focusPearAIInput",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Add Highlighted Code to Context",
         "group": "PearAI"
       },
@@ -210,9 +210,9 @@
       },
       {
         "command": "pearai.selectFilesAsContext",
-        "category": "Continue",
-        "title": "Continue: Select Files as Context",
-        "group": "Continue"
+        "category": "PearAI",
+        "title": "PearAI: Select Files as Context",
+        "group": "PearAI"
       },
       {
         "command": "pearai.newSession",
@@ -274,25 +274,25 @@
         "command": "pearai.fixGrammar",
         "category": "PearAI",
         "title": "Fix Grammar / Spelling",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.codebaseForceReIndex",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Codebase Force Re-Index",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.docsIndex",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Docs Index",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.docsReIndex",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Docs Force Re-Index",
-        "group": "Continue"
+        "group": "PearAI"
       }
     ],
     "keybindings": [

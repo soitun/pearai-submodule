@@ -1,6 +1,8 @@
 import { defaultBorderRadius } from "..";
 
 export enum ModelProviderTags {
+  Recommended = "Recommended",
+  Hosted = "Hosted",
   RequiresApiKey = "Requires API Key",
   Local = "Local",
   Free = "Free",
@@ -12,6 +14,8 @@ export interface ModelProviderTagProps {
 }
 
 export const MODEL_PROVIDER_TAG_COLORS = {
+  [ModelProviderTags.Recommended]: "#1E90FF",
+  [ModelProviderTags.Hosted]: "#008000",
   [ModelProviderTags.RequiresApiKey]: "#FF0000",
   [ModelProviderTags.Local]: "#00bb00",
   [ModelProviderTags.OpenSource]: "#0033FF",
