@@ -72,6 +72,10 @@ export abstract class BaseLLM implements ILLM {
     return ["ollama", "anthropic", "claude"].includes(this.providerName);
   }
 
+  supportsFim(): boolean {
+    return false;
+  }
+
   uniqueId: string;
   model: string;
 
@@ -328,6 +332,66 @@ ${prompt}`;
     return formatted;
   }
 
+  async *_streamFim(
+    prefix: string,
+    suffix: string,
+    options: CompletionOptions,
+  ): AsyncGenerator<string, PromptLog> {
+    throw new Error("Not implemented");
+  }
+
+
+  async *streamFim(
+    prefix: string,
+    suffix: string,
+    options: LLMFullCompletionOptions = {},
+  ): AsyncGenerator<string> {
+    const { completionOptions, log } = this._parseCompletionOptions(options);
+
+
+    const madeUpFimPrompt = `${prefix}<FIM>${suffix}`;
+    if (log) {
+      if (this.writeLog) {
+        await this.writeLog(
+          this._compileLogMessage(madeUpFimPrompt, completionOptions),
+        );
+      }
+      if (this.llmRequestHook) {
+        this.llmRequestHook(completionOptions.model, madeUpFimPrompt);
+      }
+    }
+
+
+    let completion = "";
+    for await (const chunk of this._streamFim(
+      prefix,
+      suffix,
+      completionOptions,
+    )) {
+      completion += chunk;
+      yield chunk;
+    }
+
+
+    this._logTokensGenerated(
+      completionOptions.model,
+      madeUpFimPrompt,
+      completion,
+    );
+
+
+    if (log && this.writeLog) {
+      await this.writeLog(`Completion:\n\n${completion}\n\n`);
+    }
+
+
+    return {
+      prompt: madeUpFimPrompt,
+      completion,
+      completionOptions,
+    };
+  }
+  
   async *streamComplete(
     prompt: string,
     options: LLMFullCompletionOptions = {},
@@ -418,7 +482,7 @@ ${prompt}`;
   ): AsyncGenerator<ChatMessage, PromptLog> {
     const { completionOptions, log, raw } =
       this._parseCompletionOptions(options);
-
+    console.log("index.ts streamChat...")
     messages = this._compileChatMessages(completionOptions, messages);
 
     const prompt = this.templateMessages

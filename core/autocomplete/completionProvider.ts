@@ -45,6 +45,7 @@ import { AutocompleteSnippet } from "./ranking.js";
 import { RecentlyEditedRange } from "./recentlyEdited.js";
 import { getTemplateForModel } from "./templates.js";
 import { GeneratorReuseManager } from "./util.js";
+import { getConfigJsonPath } from "../util/paths.js";
 
 export interface AutocompleteInput {
   completionId: string;
@@ -326,11 +327,16 @@ export async function getTabCompletion(
     let generator = generatorReuseManager.getGenerator(
       prefix,
       () =>
-        llm.streamComplete(prompt, {
-          ...completionOptions,
-          raw: true,
-          stop,
-        }),
+        llm.supportsFim()
+          ? llm.streamFim(prefix, suffix, {
+              ...completionOptions,
+              stop,
+            })
+          : llm.streamComplete(prompt, {
+              ...completionOptions,
+              raw: true,
+              stop,
+            }),
       multiline,
     );
 
@@ -492,6 +498,11 @@ export class CompletionProvider {
         ...config.tabAutocompleteOptions,
       };
 
+      // Check whether we're in the config.json file
+      if (input.filepath === getConfigJsonPath()) {
+        return undefined;
+      }
+
       // Check whether autocomplete is disabled for this file
       if (options.disableInFiles) {
         // Relative path needed for `ignore`
@@ -509,7 +520,8 @@ export class CompletionProvider {
           filepath = getBasename(filepath);
         }
 
-        const pattern = ignore().add(options.disableInFiles);
+        // @ts-ignore
+        const pattern = ignore.default().add(options.disableInFiles);
         if (pattern.ignores(filepath)) {
           return undefined;
         }
@@ -527,6 +539,7 @@ export class CompletionProvider {
         return undefined;
       }
 
+      // Debounce
       if (CompletionProvider.debouncing) {
         CompletionProvider.debounceTimeout?.refresh();
         const lastUUID = await new Promise((resolve) =>

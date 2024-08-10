@@ -130,6 +130,7 @@ class OpenAI extends BaseLLM {
   private _getEndpoint(
     endpoint: "chat/completions" | "completions" | "models",
   ) {
+    console.log("getting endpoint..")
     if (this.apiType === "azure") {
       return new URL(
         `openai/deployments/${this.engine}/${endpoint}?api-version=${this.apiVersion}`,
@@ -165,7 +166,7 @@ class OpenAI extends BaseLLM {
     const args: any = this._convertArgs(options, []);
     args.prompt = prompt;
     delete args.messages;
-
+    console.log("legacystreamcomple")
     const response = await this.fetch(this._getEndpoint("completions"), {
       method: "POST",
       headers: this._getHeaders(),
@@ -205,7 +206,7 @@ class OpenAI extends BaseLLM {
       return;
     }
 
-    let body = {
+    const body = {
       ...this._convertArgs(options, messages),
       stream: true,
     };
@@ -214,7 +215,6 @@ class OpenAI extends BaseLLM {
       ...m,
       content: m.content === "" ? " " : m.content,
     })) as any;
-    console.log('Access Token2:', this.apiKey);
     const response = await this.fetch(this._getEndpoint("chat/completions"), {
       method: "POST",
       headers: this._getHeaders(),
@@ -236,6 +236,39 @@ class OpenAI extends BaseLLM {
 
     const data = await response.json();
     return data.data.map((m: any) => m.id);
+  }
+
+  async *_streamFim(
+    prefix: string,
+    suffix: string,
+    options: CompletionOptions,
+  ): AsyncGenerator<string> {
+    console.log("OpenAi.ts streamFim")
+    const endpoint = new URL("fim/completions", this.apiBase);
+    const resp = await this.fetch(endpoint, {
+      method: "POST",
+      body: JSON.stringify({
+        model: options.model,
+        prompt: prefix,
+        suffix,
+        max_tokens: options.maxTokens,
+        temperature: options.temperature,
+        top_p: options.topP,
+        frequency_penalty: options.frequencyPenalty,
+        presence_penalty: options.presencePenalty,
+        stop: options.stop,
+        stream: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "x-api-key": this.apiKey ?? "",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    for await (const chunk of streamSse(resp)) {
+      yield chunk.choices[0].delta.content;
+    }
   }
 }
 

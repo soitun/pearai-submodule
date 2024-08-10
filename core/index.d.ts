@@ -58,7 +58,7 @@ export interface ILLM extends LLMOptions {
   contextLength: number;
   completionOptions: CompletionOptions;
   requestOptions?: RequestOptions;
-  promptTemplates?: Record<string, string>;
+  promptTemplates?: Record<string, PromptTemplate>;
   templateMessages?: (messages: ChatMessage[]) => string;
   writeLog?: (str: string) => Promise<void>;
   llmRequestHook?: (model: string, prompt: string) => any;
@@ -75,6 +75,12 @@ export interface ILLM extends LLMOptions {
 
   streamComplete(
     prompt: string,
+    options?: LLMFullCompletionOptions,
+  ): AsyncGenerator<string, PromptLog>;
+
+  streamFim(
+    prefix: string,
+    suffix: string,
     options?: LLMFullCompletionOptions,
   ): AsyncGenerator<string, PromptLog>;
 
@@ -95,6 +101,8 @@ export interface ILLM extends LLMOptions {
   supportsCompletions(): boolean;
 
   supportsPrefill(): boolean;
+
+  supportsFim(): boolean;
 
   listModels(): Promise<string[]>;
 
@@ -287,7 +295,7 @@ export interface LLMOptions {
   completionOptions?: CompletionOptions;
   requestOptions?: RequestOptions;
   template?: TemplateType;
-  promptTemplates?: Record<string, string>;
+  promptTemplates?: Record<string, PromptTemplate>;
   templateMessages?: (messages: ChatMessage[]) => string;
   writeLog?: (str: string) => Promise<void>;
   llmRequestHook?: (model: string, prompt: string) => any;
@@ -538,10 +546,17 @@ export type ModelName =
   | "gpt-3.5-turbo-0613"
   | "gpt-4-32k"
   | "gpt-4o"
+  | "gpt-4o-mini"
   | "gpt-4-turbo"
   | "gpt-4-turbo-preview"
   | "gpt-4-vision-preview"
   // Mistral
+  | "codestral-latest"
+  | "open-mistral-7b"
+  | "open-mixtral-8x7b"
+  | "open-mixtral-8x22b"
+  | "mistral-small-latest"
+  | "mistral-large-latest"
   | "mistral-7b"
   | "mistral-8x7b"
   // Llama 2
@@ -567,18 +582,21 @@ export type ModelName =
   | "deepseek-33b"
   | "neural-chat-7b"
   // Anthropic
-  | "claude-2"
+  | "claude-3-5-sonnet-20240620"
   | "claude-3-opus-20240229"
   | "claude-3-sonnet-20240229"
-  | "claude-3-5-sonnet-20240620"
   | "claude-3-haiku-20240307"
   | "claude-2.1"
+  | "claude-2"
   // Cohere
   | "command-r"
   | "command-r-plus"
   // Gemini
   | "gemini-pro"
   | "gemini-1.5-pro-latest"
+  | "gemini-1.5-pro"
+  | "gemini-1.5-flash-latest"
+  | "gemini-1.5-flash"
   // Mistral
   | "mistral-tiny"
   | "mistral-small"
@@ -638,6 +656,10 @@ interface BaseCompletionOptions {
   stream?: boolean;
 }
 
+export interface ModelCapability {
+  uploadImage?: boolean;
+}
+
 export interface ModelDescription {
   title: string;
   provider: ModelProvider;
@@ -651,6 +673,7 @@ export interface ModelDescription {
   systemMessage?: string;
   requestOptions?: RequestOptions;
   promptTemplates?: { [key: string]: string };
+  capabilities?: ModelCapability
 }
 
 export type EmbeddingsProviderName =
@@ -708,6 +731,7 @@ export interface TabAutocompleteOptions {
   useRecentlyEdited: boolean;
   recentLinePrefixMatchMinLength: number;
   disableInFiles?: string[];
+  useImports?: boolean;
 }
 
 export interface ContinueUIConfig {
@@ -747,7 +771,7 @@ export interface SerializedContinueConfig {
   disableSessionTitles?: boolean;
   userToken?: string;
   embeddingsProvider?: EmbeddingsProviderDescription;
-  tabAutocompleteModel?: ModelDescription;
+  tabAutocompleteModel?: ModelDescription | ModelDescription[];
   tabAutocompleteOptions?: Partial<TabAutocompleteOptions>;
   ui?: ContinueUIConfig;
   reranker?: RerankerDescription;
@@ -760,6 +784,7 @@ export type ContinueRcJson = Partial<SerializedContinueConfig> & {
   mergeBehavior: ConfigMergeType;
 };
 
+// config.ts - give users simplified interfaces
 export interface Config {
   /** If set to true, PearAI will collect anonymous usage data to improve the product. If set to false, we will collect nothing. Read here to learn more: https://trypear.ai */
   allowAnonymousTelemetry?: boolean;
@@ -789,7 +814,10 @@ export interface Config {
   /** The provider used to calculate embeddings. If left empty, PearAI will use transformers.js to calculate the embeddings with all-MiniLM-L6-v2 */
   embeddingsProvider?: EmbeddingsProviderDescription | EmbeddingsProvider;
   /** The model that PearAI will use for tab autocompletions. */
-  tabAutocompleteModel?: CustomLLM | ModelDescription;
+  tabAutocompleteModel?:
+    | CustomLLM
+    | ModelDescription
+    | (CustomLLM | ModelDescription)[];
   /** Options for tab autocomplete */
   tabAutocompleteOptions?: Partial<TabAutocompleteOptions>;
   /** UI styles customization */
@@ -812,7 +840,7 @@ export interface ContinueConfig {
   disableIndexing?: boolean;
   userToken?: string;
   embeddingsProvider: EmbeddingsProvider;
-  tabAutocompleteModel?: ILLM;
+  tabAutocompleteModels?: ILLM[];
   tabAutocompleteOptions?: Partial<TabAutocompleteOptions>;
   ui?: ContinueUIConfig;
   reranker?: Reranker;

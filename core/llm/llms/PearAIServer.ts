@@ -183,10 +183,96 @@ class PearAIServer extends BaseLLM {
     this._countTokens(completion, args.model, false);
   }
 
+  async *_streamFim(
+    prefix: string,
+    suffix: string,
+    options: CompletionOptions
+  ): AsyncGenerator<string> {
+    console.log("pearaiserver");
+    options.stream = true;
+    const args = this._convertArgs(this.collectArgs(options));
+
+    await this._countTokens(prefix + suffix, args.model, true);
+
+    try {
+      let creds = undefined;
+      if (this.getCredentials) {
+        console.log("Attempting to get credentials...");
+        creds = await this.getCredentials();
+        if (creds && creds.accessToken && creds.refreshToken) {
+          this.apiKey = creds.accessToken;
+          this.refreshToken = creds.refreshToken;
+        }
+      }
+
+      const tokens = await checkTokens(this.apiKey, this.refreshToken);
+      // Update tokens if needed (similar to _streamChat method)
+      if (tokens.accessToken !== this.apiKey || tokens.refreshToken !== this.refreshToken) {
+        if (tokens.accessToken !== this.apiKey) {
+          this.apiKey = tokens.accessToken;
+          console.log(
+            "PearAI access token changed from:",
+            this.apiKey,
+            "to:",
+            tokens.accessToken,
+          );
+        }
+        if (tokens.refreshToken !== this.refreshToken) {
+          this.refreshToken = tokens.refreshToken;
+          console.log(
+            "PearAI refresh token changed from:",
+            this.refreshToken,
+            "to:",
+            tokens.refreshToken,
+          );
+        }
+        if (creds) {
+          creds.accessToken = tokens.accessToken
+          creds.refreshToken = tokens.refreshToken
+          this.setCredentials(creds)
+        }
+      }
+    } catch (error) {
+      console.error("Error checking token expiration:", error);
+    }
+
+    const response = await this.fetch(`${SERVER_URL}/server_fim`, {
+      method: "POST",
+      headers: {
+        ...(await this._getHeaders()),
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify({
+        prefix,
+        suffix,
+        ...args,
+      }),
+    });
+    console.log("pearai stream fim response", response.json)
+
+    let completion = "";
+    for await (const value of streamJSON(response)) {
+      if (value.metadata && Object.keys(value.metadata).length > 0) {
+        console.log("Metadata received:", value.metadata);
+      }
+      if (value.content) {
+        const content = value.content;
+        yield stripImages(content);
+        completion += content;
+      }
+    }
+    this._countTokens(completion, args.model, false);
+  }
+
+
   async listModels(): Promise<string[]> {
     return [
       "pearai-latest",
     ];
+  }
+  supportsFim(): boolean {
+    console.log("checking if pearaiserver supports fim")
+    return true;
   }
 }
 

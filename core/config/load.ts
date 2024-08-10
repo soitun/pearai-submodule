@@ -44,7 +44,7 @@ import {
   getConfigJsonPathForRemote,
   getConfigTsPath,
   getContinueDotEnv,
-} from "../util/paths.js";
+  } from "../util/paths.js";
 import {
   defaultContextProvidersJetBrains,
   defaultContextProvidersVsCode,
@@ -91,10 +91,10 @@ function loadSerializedConfig(
 ): SerializedContinueConfig {
   const configPath = getConfigJsonPath(ideType);
   let config: SerializedContinueConfig;
-  try {
-    config = resolveSerializedConfig(configPath);
-  } catch (e) {
-    throw new Error(`Failed to parse config.json: ${e}`);
+    try {
+      config = resolveSerializedConfig(configPath);
+    } catch (e) {
+      throw new Error(`Failed to parse config.json: ${e}`);
   }
 
   if (config.allowAnonymousTelemetry === undefined) {
@@ -151,16 +151,16 @@ async function serializedToIntermediateConfig(
 
   const workspaceDirs = await ide.getWorkspaceDirs();
   const promptFiles = (
-    await Promise.all(
-      workspaceDirs.map((dir) =>
+      await Promise.all(
+        workspaceDirs.map((dir) =>
         getPromptFiles(ide, path.join(dir, ".prompts")),
-      ),
+        ),
+      )
     )
-  )
-    .flat()
-    .filter(({ path }) => path.endsWith(".prompt"));
-  for (const file of promptFiles) {
-    slashCommands.push(slashCommandFromPromptFile(file.path, file.content));
+      .flat()
+      .filter(({ path }) => path.endsWith(".prompt"));
+    for (const file of promptFiles) {
+      slashCommands.push(slashCommandFromPromptFile(file.path, file.content));
   }
 
   const config: Config = {
@@ -288,21 +288,31 @@ async function intermediateToFinalConfig(
   }
 
   // Tab autocomplete model
-  let autocompleteLlm: BaseLLM | undefined = undefined;
+  let tabAutocompleteModels: BaseLLM[] = [];
   if (config.tabAutocompleteModel) {
-    if (isModelDescription(config.tabAutocompleteModel)) {
-      autocompleteLlm = await llmFromDescription(
-        config.tabAutocompleteModel,
-        ide.readFile.bind(ide),
-        uniqueId,
-        ideSettings,
-        writeLog,
-        config.completionOptions,
-        config.systemMessage,
-      );
-    } else {
-      autocompleteLlm = new CustomLLMClass(config.tabAutocompleteModel);
-    }
+    tabAutocompleteModels = (
+      await Promise.all(
+        (Array.isArray(config.tabAutocompleteModel)
+          ? config.tabAutocompleteModel
+          : [config.tabAutocompleteModel]
+        ).map(async (desc) => {
+          if (isModelDescription(desc)) {
+            const llm = await llmFromDescription(
+              desc,
+              ide.readFile.bind(ide),
+              uniqueId,
+              ideSettings,
+              writeLog,
+              config.completionOptions,
+              config.systemMessage,
+            );
+            return llm;
+          } else {
+            return new CustomLLMClass(desc);
+          }
+        }),
+      )
+    ).filter((x) => x !== undefined) as BaseLLM[];
   }
 
   // Context providers
@@ -311,7 +321,7 @@ async function intermediateToFinalConfig(
     if (isContextProviderWithParams(provider)) {
       const cls = contextProviderClassFromName(provider.name) as any;
       if (!cls) {
-        console.warn(`Unknown context provider ${provider.name}`);
+          console.warn(`Unknown context provider ${provider.name}`);
         continue;
       }
       contextProviders.push(new cls(provider.params));
@@ -328,14 +338,14 @@ async function intermediateToFinalConfig(
     const { provider, ...options } = embeddingsProviderDescription;
     const embeddingsProviderClass = AllEmbeddingsProviders[provider];
     if (embeddingsProviderClass) {
-      config.embeddingsProvider = new embeddingsProviderClass(
-        options,
-        (url: string | URL, init: any) =>
-          fetchwithRequestOptions(url, init, {
-            ...config.requestOptions,
-            ...options.requestOptions,
-          }),
-      );
+        config.embeddingsProvider = new embeddingsProviderClass(
+          options,
+          (url: string | URL, init: any) =>
+            fetchwithRequestOptions(url, init, {
+              ...config.requestOptions,
+              ...options.requestOptions,
+            }),
+        );
     }
   }
 
@@ -365,7 +375,7 @@ async function intermediateToFinalConfig(
     contextProviders,
     models,
     embeddingsProvider: config.embeddingsProvider as any,
-    tabAutocompleteModel: autocompleteLlm,
+    tabAutocompleteModels,
     reranker: config.reranker as any,
   };
 }
@@ -376,17 +386,25 @@ function finalToBrowserConfig(
   return {
     allowAnonymousTelemetry: final.allowAnonymousTelemetry,
     models: final.models.map((m) => ({
+      title: m.title ?? m.model,
       provider: m.providerName,
       model: m.model,
-      title: m.title ?? m.model,
       apiKey: m.apiKey,
       apiBase: m.apiBase,
+      refreshToken: m.refreshToken,
       contextLength: m.contextLength,
       template: m.template,
       completionOptions: m.completionOptions,
       systemMessage: m.systemMessage,
       requestOptions: m.requestOptions,
-      promptTemplates: m.promptTemplates,
+      promptTemplates: m.promptTemplates
+        ? Object.fromEntries(
+            Object.entries(m.promptTemplates).map(([key, value]) => [
+              key,
+              typeof value === 'string' ? value : JSON.stringify(value)
+            ])
+          )
+        : undefined
     })),
     systemMessage: final.systemMessage,
     completionOptions: final.completionOptions,
@@ -456,12 +474,12 @@ async function buildConfigTs() {
       execSync(
         escapeSpacesInPath(path.dirname(process.execPath)) +
           `/esbuild${
-            getTarget().startsWith("win32") ? ".exe" : ""
-          } ${escapeSpacesInPath(
-            getConfigTsPath(),
-          )} --bundle --outfile=${escapeSpacesInPath(
-            getConfigJsPath(),
-          )} --platform=node --format=cjs --sourcemap --external:fetch --external:fs --external:path --external:os --external:child_process`,
+          getTarget().startsWith("win32") ? ".exe" : ""
+        } ${escapeSpacesInPath(
+          getConfigTsPath(),
+        )} --bundle --outfile=${escapeSpacesInPath(
+          getConfigJsPath(),
+        )} --platform=node --format=cjs --sourcemap --external:fetch --external:fs --external:path --external:os --external:child_process`,
       );
     } else {
       // Dynamic import esbuild so potentially disastrous errors can be caught

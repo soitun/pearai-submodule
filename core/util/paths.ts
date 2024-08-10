@@ -31,6 +31,10 @@ export function getIndexFolderPath(): string {
   return indexPath;
 }
 
+export function getGlobalContextFilePath(): string {
+  return path.join(getIndexFolderPath(), "globalContext.json");
+}
+
 export function getSessionFilePath(sessionId: string): string {
   return path.join(getSessionsFolderPath(), `${sessionId}.json`);
 }
