@@ -1,3 +1,8 @@
+/**
+ * This is the entry point for the extension.
+ */
+
+import { setupCa } from "core/util/ca";
 import { Telemetry } from "core/util/posthog";
 import * as vscode from "vscode";
 import * as fs from 'fs';
@@ -26,8 +31,7 @@ function getVSCodeExtensionsDir() {
 
 async function dynamicImportAndActivate(context: vscode.ExtensionContext) {
   try {
-    const { activateExtension } = await import("./activation/activate");
-    await activateExtension(context);
+    return activateExtension(context);
   } catch (e) {
     console.log("Error activating extension: ", e);
     vscode.window
@@ -113,16 +117,18 @@ function copyDirectoryRecursiveSync(source: string, destination: string) {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  if (!fs.existsSync(firstLaunchFlag)) {
-    copySettingsAndInformUser();
-  }
-  dynamicImportAndActivate(context);
-  console.log('Congratulations, your extension "pearai" is now active!');
+  setupCa();
+  return dynamicImportAndActivate(context);
 }
 
 export function deactivate() {
-  Telemetry.capture("deactivate", {
-    extensionVersion: getExtensionVersion(),
-  });
+  Telemetry.capture(
+    "deactivate",
+    {
+      extensionVersion: getExtensionVersion(),
+    },
+    true,
+  );
+
   Telemetry.shutdownPosthogClient();
 }

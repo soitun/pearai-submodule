@@ -13,9 +13,12 @@
   "terminal.integrated.profiles.linux": {
     "bash": {
       "path": "bash",
-      "args": [
-        "-l"
-      ]
+      "args": ["-l"]
     }
+  },
+  "search.exclude": {
+    "**/binary": true,
+    "**/core/vendor/**": true,
+    "**/gui/dist": true
   }
 }

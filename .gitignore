@@ -166,3 +166,8 @@ Icon
 Icon?
 
 .continue
+
+# Sandbox env default file
+extensions/vscode/manual-testing-sandbox/example.ts
+
+.prompts/

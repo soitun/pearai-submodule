@@ -8,7 +8,7 @@ keywords: [introduction, intro, continue, autopilot, chatgpt]
 
 ![continue-cover-logo](/img/intro.png)
 
-**PearAI keeps developers in flow. Our open-source [VS Code](https://marketplace.visualstudio.com/items?itemName=Continue.continue) and [JetBrains](https://plugins.jetbrains.com/plugin/22707-continue-extension) extensions enable you to easily create your own modular AI software development system that you can improve.**
+**Continue is the leading open-source AI code assistant. You can connect any models and any context to build custom autocomplete and chat experiences inside [VS Code](https://marketplace.visualstudio.com/items?itemName=Continue.continue) and [JetBrains](https://plugins.jetbrains.com/plugin/22707-continue-extension)**
 
 Some examples of what you can achieve are:
 

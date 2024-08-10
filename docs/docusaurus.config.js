@@ -86,13 +86,13 @@ const config = {
             to: "https://github.com/trypear/pearai-app",
             label: "GitHub",
             position: "right",
-            className: 'github-navbar',
+            className: "github-navbar",
           },
           {
             to: "https://discord.gg/vapESyrFmJ",
             label: "Discord",
             position: "right",
-            className: 'discord-navbar',
+            className: "discord-navbar",
           },
         ],
       },
@@ -184,6 +184,26 @@ const config = {
           {
             from: "/model-setup/configuration",
             to: "/setup/configuration",
+          },
+          {
+            from: "/setup/select-provider",
+            to: "/setup/model-providers",
+          },
+          {
+            from: "/walkthroughs/codebase-embeddings",
+            to: "/features/codebase-embeddings",
+          },
+          {
+            from: "/walkthroughs/tab-autocomplete",
+            to: "/features/tab-autocomplete",
+          },
+          {
+            from: "/walkthroughs/prompt-files",
+            to: "/features/prompt-files",
+          },
+          {
+            from: "/walkthroughs/quick-actions",
+            to: "/features/quick-actions",
           },
         ],
       },
