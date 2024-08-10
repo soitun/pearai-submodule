@@ -11,7 +11,7 @@ import {
 import { createNewPromptFile } from "./config/promptFile";
 import { addModel, addOpenAIKey, deleteModel } from "./config/util";
 import { recentlyEditedFilesCache } from "./context/retrieval/recentlyEditedFilesCache";
-import { ContinueServerClient } from "./pearaiServer/stubs/client";
+import { PearAIServerClient } from "./pearaiServer/stubs/client";
 import { getAuthUrlForTokenPage } from "./control-plane/auth/index";
 import { ControlPlaneClient } from "./control-plane/client";
 import { CodebaseIndexer, PauseToken } from "./indexing/CodebaseIndexer";
@@ -33,7 +33,7 @@ export class Core {
   configHandler: ConfigHandler;
   codebaseIndexerPromise: Promise<CodebaseIndexer>;
   completionProvider: CompletionProvider;
-  pearaiServerClientPromise: Promise<ContinueServerClient>;
+  pearaiServerClientPromise: Promise<PearAIServerClient>;
   indexingState: IndexingProgressUpdate;
   controlPlaneClient: ControlPlaneClient;
   private docsService: DocsService;
@@ -107,7 +107,7 @@ export class Core {
       this.messenger.send("didChangeAvailableProfiles", { profiles }),
     );
 
-    // Codebase Indexer and ContinueServerClient depend on IdeSettings
+    // Codebase Indexer and PearAIServerClient depend on IdeSettings
     let codebaseIndexerResolve: (_: any) => void | undefined;
     this.codebaseIndexerPromise = new Promise(
       async (resolve) => (codebaseIndexerResolve = resolve),
@@ -119,7 +119,7 @@ export class Core {
     );
 
     ideSettingsPromise.then((ideSettings) => {
-      const pearaiServerClient = new ContinueServerClient(
+      const pearaiServerClient = new PearAIServerClient(
         ideSettings.remoteConfigServerUrl,
         ideSettings.userToken,
       );

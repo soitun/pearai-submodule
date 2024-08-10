@@ -1,6 +1,6 @@
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { IndexingProgressUpdate } from "core";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -30,7 +30,6 @@ import IndexingProgressBar from "./loaders/IndexingProgressBar";
 import ProgressBar from "./loaders/ProgressBar";
 import PostHogPageView from "./PosthogPageView";
 import ProfileSwitcher from "./ProfileSwitcher";
-import { postToIde } from "../util/ide";
 
 // check mac or window
 const platform = navigator.userAgent.toLowerCase();
@@ -103,10 +102,10 @@ const Header = styled.header`
   overflow: hidden;
 `;
 
-const GridDiv = styled.div<{ showHeader: boolean }>`
+const GridDiv = styled.div`
   display: grid;
-  grid-template-rows: ${(props) => (props.showHeader ? "auto 1fr auto" : "1fr auto")};
-  min-height: 100vh;
+  grid-template-rows: 1fr auto;
+  height: 100vh;
   overflow-x: visible;
 `;
 
@@ -178,7 +177,7 @@ const Shortcut = ({
 const ShortcutContainer = () => {
   const shortcutContainerRef = useRef<HTMLDivElement>(null);
   const [modifier] = useState(isMac ? 'Cmd' : 'Ctrl');
-
+  const ideMessenger = useContext(IdeMessengerContext);
 
   useEffect(() => {
     const shortcutContainer = shortcutContainerRef.current;
@@ -197,13 +196,13 @@ const ShortcutContainer = () => {
     }
   }, []);
 
-const shortcuts = [
-  { modifiers: [modifier], keyCode: '[', description: 'Big', onClick: () => postToIde('bigChat', undefined) },
-  { modifiers: [modifier], keyCode: '0', description: 'Prev', onClick: () => postToIde('lastChat', undefined) },
-  { modifiers: [modifier], keyCode: 'O', description: 'History' },
-  { modifiers: [modifier], keyCode: ';', description: 'Close', onClick: () => postToIde('closeChat', undefined) },
-  { modifiers: [modifier, 'Shift'], keyCode: 'L', description: 'Add Selected' },
-];
+  const shortcuts = [
+    { modifiers: [modifier], keyCode: '[', description: 'Big', onClick: () => ideMessenger.post('bigChat', undefined) },
+    { modifiers: [modifier], keyCode: '0', description: 'Prev', onClick: () => ideMessenger.post('lastChat', undefined) },
+    { modifiers: [modifier], keyCode: 'O', description: 'History' },
+    { modifiers: [modifier], keyCode: ';', description: 'Close', onClick: () => ideMessenger.post('closeChat', undefined) },
+    { modifiers: [modifier, 'Shift'], keyCode: 'L', description: 'Add Selected' },
+  ];
 
 
   return (

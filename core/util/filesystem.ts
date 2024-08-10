@@ -12,12 +12,25 @@ import {
   Range,
   RangeInFile,
   Thread,
+  PearAuth
 } from "../index.d.js";
 
 import { getPearAIGlobalPath } from "./paths.js";
 
 class FileSystemIde implements IDE {
   constructor(private readonly workspaceDir: string) {}
+  getPearAuth(): Promise<PearAuth | undefined> {
+    return Promise.resolve(undefined);
+  }
+  
+  updatePearCredentials(auth: PearAuth): Promise<void> {
+    return Promise.resolve();
+  }
+  
+  authenticatePear(): Promise<void> {
+    return Promise.resolve();
+  }
+
   pathSep(): Promise<string> {
     return Promise.resolve(path.sep);
   }

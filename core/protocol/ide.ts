@@ -11,7 +11,9 @@ import type {
   Range,
   RangeInFile,
   Thread,
+  PearAuth,
 } from "../index.js";
+
 
 export type ToIdeFromWebviewOrCoreProtocol = {
   // Methods from IDE type
@@ -82,6 +84,9 @@ export type ToIdeFromWebviewOrCoreProtocol = {
   ];
   logoutOfControlPlane: [undefined, void];
   pathSep: [undefined, string];
+  getPearAuth: [undefined, PearAuth];
+  updatePearCredentials: [PearAuth, void];
+  authenticatePear: [undefined, void];
 };
 
 export type ToWebviewOrCoreFromIdeProtocol = {

@@ -2,8 +2,8 @@
   "name": "pearai",
   "publisher": "pearai",
   "icon": "media/icon.png",
-  "author": "Continue Dev, Inc",
-  "version": "0.8.45",
+  "author": "PearAI",
+  "version": "0.0.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/trypear/pearai-app"
@@ -21,7 +21,6 @@
   "displayName": "Continue - Codestral, Claude, and more",
   "pricing": "Free",
   "description": "The leading open-source AI code assistant",
-  "publisher": "Continue",
   "engines": {
     "vscode": "^1.70.0",
     "node": ">=20.11.0"
@@ -76,37 +75,37 @@
           "default": true,
           "markdownDescription": "PearAI collects anonymous usage data, cleaned of PII, to help us improve the product for our users. Read more  at [pearai.dev › Telemetry](https://trypear.ai)."
         },
-        "continue.enableContinueForTeams": {
+        "pearai.enableContinueForTeams": {
           "type": "boolean",
           "default": false,
           "markdownDescription": "_(Requires window reload)_ Enable Continue for teams beta features. To sign in, click the person icon in the bottom right of the sidebar."
         },
-        "continue.showInlineTip": {
+        "pearai.showInlineTip": {
           "type": "boolean",
           "default": true,
           "description": "Show inline suggestion to use the PearAI keyboard shortcuts (e.g. \"Cmd/Ctrl L to select code, Cmd/Ctrl I to edit\")."
         },
-        "continue.enableQuickActions": {
+        "pearai.enableQuickActions": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "Enable the experimental Quick Actions feature. Read our walkthrough to learn about configuration and how to share feedback: [continue.dev › Walkthrough: Quick Actions (experimental)](https://docs.continue.dev/features/quick-actions)"
+          "markdownDescription": "Enable the experimental Quick Actions feature. Read our walkthrough to learn about configuration and how to share feedback: [pearai.dev › Walkthrough: Quick Actions (experimental)](https://docs.pearai.dev/features/quick-actions)"
         },
-        "continue.enableTabAutocomplete": {
+        "pearai.enableTabAutocomplete": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "Enable Continue's tab autocomplete feature. Read our walkthrough to learn about configuration and how to share feedback: [continue.dev › Walkthrough: Tab Autocomplete (beta)](https://docs.continue.dev/features/tab-autocomplete)"
+          "markdownDescription": "Enable Continue's tab autocomplete feature. Read our walkthrough to learn about configuration and how to share feedback: [pearai.dev › Walkthrough: Tab Autocomplete (beta)](https://docs.pearai.dev/features/tab-autocomplete)"
         },
-        "continue.pauseTabAutocompleteOnBattery": {
+        "pearai.pauseTabAutocompleteOnBattery": {
           "type": "boolean",
           "default": false,
           "markdownDescription": "Pause Continue's tab autocomplete feature when your battery is low."
         },
-        "continue.pauseCodebaseIndexOnStart": {
+        "pearai.pauseCodebaseIndexOnStart": {
           "type": "boolean",
           "default": false,
           "markdownDescription": "Pause Continue's codebase index on start."
         },
-        "continue.enableDebugLogs": {
+        "pearai.enableDebugLogs": {
           "type": "boolean",
           "default": false,
           "markdownDescription": "Enable Continue Debug Logs in the Output panel."
@@ -173,7 +172,7 @@
         "group": "PearAI"
       },
       {
-        "command": "continue.focusContinueInput",
+        "command": "pearai.focusContinueInput",
         "category": "Continue",
         "title": "Add Highlighted Code to Context",
         "group": "PearAI"
@@ -210,7 +209,7 @@
         "group": "PearAI"
       },
       {
-        "command": "continue.selectFilesAsContext",
+        "command": "pearai.selectFilesAsContext",
         "category": "Continue",
         "title": "Continue: Select Files as Context",
         "group": "Continue"
@@ -278,19 +277,19 @@
         "group": "Continue"
       },
       {
-        "command": "continue.codebaseForceReIndex",
+        "command": "pearai.codebaseForceReIndex",
         "category": "Continue",
         "title": "Codebase Force Re-Index",
         "group": "Continue"
       },
       {
-        "command": "continue.docsIndex",
+        "command": "pearai.docsIndex",
         "category": "Continue",
         "title": "Docs Index",
         "group": "Continue"
       },
       {
-        "command": "continue.docsReIndex",
+        "command": "pearai.docsReIndex",
         "category": "Continue",
         "title": "Docs Force Re-Index",
         "group": "Continue"
@@ -308,12 +307,12 @@
         "key": "ctrl+shift+l"
       },
       {
-        "command": "continue.toggleAuxiliaryBar",
+        "command": "pearai.toggleAuxiliaryBar",
         "mac": "alt+cmd+l",
         "key": "alt+ctrl+l"
       },
       {
-        "command": "continue.acceptDiff",
+        "command": "pearai.acceptDiff",
         "mac": "shift+cmd+enter",
         "key": "shift+ctrl+enter"
       },
@@ -329,19 +328,19 @@
         "when": "pearai.diffVisible"
       },
       {
-        "command": "continue.quickEditHistoryUp",
+        "command": "pearai.quickEditHistoryUp",
         "mac": "up",
         "key": "up",
-        "when": "false && continue.quickEditHistoryFocused"
+        "when": "false && pearai.quickEditHistoryFocused"
       },
       {
-        "command": "continue.quickEditHistoryDown",
+        "command": "pearai.quickEditHistoryDown",
         "mac": "down",
         "key": "down",
-        "when": "false && continue.quickEditHistoryFocused"
+        "when": "false && pearai.quickEditHistoryFocused"
       },
       {
-        "command": "continue.acceptVerticalDiffBlock",
+        "command": "pearai.acceptVerticalDiffBlock",
         "mac": "alt+cmd+y",
         "key": "alt+ctrl+y"
       },
@@ -356,7 +355,7 @@
         "key": "ctrl+i"
       },
       {
-        "command": "continue.debugTerminal",
+        "command": "pearai.debugTerminal",
         "mac": "cmd+shift+r",
         "key": "ctrl+shift+r"
       },
@@ -385,7 +384,7 @@
           "command": "pearai.quickEdit"
         },
         {
-          "command": "continue.focusContinueInput"
+          "command": "pearai.focusContinueInput"
         },
         {
           "command": "pearai.focusContinueInputWithoutClear"

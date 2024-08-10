@@ -13,6 +13,7 @@ import type {
   Problem,
   RangeInFile,
   Thread,
+  PearAuth,
 } from "core";
 import { Range } from "core";
 import { walkDir } from "core/indexing/walkDir";

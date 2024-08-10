@@ -1,4 +1,4 @@
-import { ContinueServerClient } from "core/pearaiServer/stubs/client";
+import { PearAIServerClient } from "core/pearaiServer/stubs/client";
 import {
   getConfigJsPathForRemote,
   getConfigJsonPathForRemote,
@@ -103,7 +103,7 @@ export class RemoteConfigSync {
 
   async sync(userToken: string, remoteConfigServerUrl: string) {
     try {
-      const client = new ContinueServerClient(
+      const client = new PearAIServerClient(
         remoteConfigServerUrl.toString(),
         userToken,
       );

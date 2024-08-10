@@ -26,6 +26,19 @@ export class MessageIde implements IDE {
       callback: (data: FromIdeProtocol[T][0]) => FromIdeProtocol[T][1],
     ) => void,
   ) {}
+
+  getPearAuth(): Promise<PearAuth> {
+    return this.request("getPearAuth", undefined);
+  }
+
+  updatePearCredentials(auth: PearAuth): Promise<void> {
+    return this.request("updatePearCredentials", auth);
+  }
+
+  authenticatePear(): Promise<void> {
+    return this.request("authenticatePear", undefined);
+  }
+  
   pathSep(): Promise<string> {
     return this.request("pathSep", undefined);
   }
@@ -61,18 +74,6 @@ export class MessageIde implements IDE {
 
   errorPopup(message: string): Promise<void> {
     return this.request("errorPopup", { message });
-  }
-
-  getPearAuth(): Promise<PearAuth> {
-    return this.request("getPearAuth", undefined);
-  }
-
-  updatePearCredentials(auth: PearAuth): Promise<void> {
-    return this.request("updatePearCredentials", auth);
-  }
-
-  authenticatePear(): Promise<void> {
-    return this.request("authenticatePear", undefined);
   }
 
   getRepoName(dir: string): Promise<string | undefined> {

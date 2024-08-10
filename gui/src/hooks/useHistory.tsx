@@ -134,6 +134,7 @@ function useHistory(dispatch: Dispatch) {
     getLastSessionId,
     updateSession,
     getSession,
+    loadMostRecentChat,
   };
 }
 
