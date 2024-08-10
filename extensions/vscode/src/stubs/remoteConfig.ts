@@ -1,4 +1,4 @@
-import { ContinueServerClient } from "core/continueServer/stubs/client";
+import { ContinueServerClient } from "core/pearaiServer/stubs/client";
 import {
   getConfigJsPathForRemote,
   getConfigJsonPathForRemote,

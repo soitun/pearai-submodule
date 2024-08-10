@@ -203,7 +203,7 @@ export class VsCodeExtension {
       this.configHandler,
       this.diffManager,
       this.verticalDiffManager,
-      this.core.continueServerClientPromise,
+      this.core.pearaiServerClientPromise,
       this.battery,
       quickEdit,
       this.core,

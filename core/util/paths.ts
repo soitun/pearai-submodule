@@ -8,16 +8,14 @@ import Types from "../config/types.js";
 import { IdeType, SerializedContinueConfig } from "../index.js";
 
 dotenv.config();
-const CONTINUE_GLOBAL_DIR =
-  process.env.CONTINUE_GLOBAL_DIR ?? path.join(os.homedir(), ".continue");
 
-export function getContinueGlobalPath(): string {
-  // This is ~/.continue on mac/linux
-  const continuePath = CONTINUE_GLOBAL_DIR;
-  if (!fs.existsSync(continuePath)) {
-    fs.mkdirSync(continuePath);
+export function getPearAIGlobalPath(): string {
+  // This is ~/.pearai on mac/linux
+  const pearaiPath = path.join(os.homedir(), ".pearai");
+  if (!fs.existsSync(pearaiPath)) {
+    fs.mkdirSync(pearaiPath);
   }
-  return continuePath;
+  return pearaiPath;
 }
 
 export function getSessionsFolderPath(): string {
@@ -141,7 +139,7 @@ export function getTsConfigPath(): string {
 
 export function getContinueRcPath(): string {
   // Disable indexing of the config folder to prevent infinite loops
-  const continuercPath = path.join(getContinueGlobalPath(), ".continuerc.json");
+  const continuercPath = path.join(getPearAIGlobalPath(), ".continuerc.json");
   if (!fs.existsSync(continuercPath)) {
     fs.writeFileSync(
       continuercPath,
@@ -257,7 +255,7 @@ export function getPathToRemoteConfig(remoteConfigServerUrl: string): string {
 }
 
 export function internalBetaPathExists(): boolean {
-  const sPath = path.join(getContinueGlobalPath(), ".internal_beta");
+  const sPath = path.join(getPearAIGlobalPath(), ".internal_beta");
   return fs.existsSync(sPath);
 }
 
@@ -282,7 +280,7 @@ export function getContinueDotEnv(): { [key: string]: string } {
 }
 
 export function getLogsDirPath(): string {
-  const logsPath = path.join(getContinueGlobalPath(), "logs");
+  const logsPath = path.join(getPearAIGlobalPath(), "logs");
   if (!fs.existsSync(logsPath)) {
     fs.mkdirSync(logsPath);
   }
@@ -298,7 +296,7 @@ export function getPromptLogsPath(): string {
 }
 
 export function getGlobalPromptsPath(): string {
-  return path.join(getContinueGlobalPath(), ".prompts");
+  return path.join(getPearAIGlobalPath(), ".prompts");
 }
 
 export function readAllGlobalPromptFiles(

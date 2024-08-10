@@ -11,7 +11,7 @@ import {
 import { createNewPromptFile } from "./config/promptFile";
 import { addModel, addOpenAIKey, deleteModel } from "./config/util";
 import { recentlyEditedFilesCache } from "./context/retrieval/recentlyEditedFilesCache";
-import { ContinueServerClient } from "./continueServer/stubs/client";
+import { ContinueServerClient } from "./pearaiServer/stubs/client";
 import { getAuthUrlForTokenPage } from "./control-plane/auth/index";
 import { ControlPlaneClient } from "./control-plane/client";
 import { CodebaseIndexer, PauseToken } from "./indexing/CodebaseIndexer";
@@ -33,7 +33,7 @@ export class Core {
   configHandler: ConfigHandler;
   codebaseIndexerPromise: Promise<CodebaseIndexer>;
   completionProvider: CompletionProvider;
-  continueServerClientPromise: Promise<ContinueServerClient>;
+  pearaiServerClientPromise: Promise<ContinueServerClient>;
   indexingState: IndexingProgressUpdate;
   controlPlaneClient: ControlPlaneClient;
   private docsService: DocsService;
@@ -113,24 +113,24 @@ export class Core {
       async (resolve) => (codebaseIndexerResolve = resolve),
     );
 
-    let continueServerClientResolve: (_: any) => void | undefined;
-    this.continueServerClientPromise = new Promise(
-      (resolve) => (continueServerClientResolve = resolve),
+    let pearaiServerClientResolve: (_: any) => void | undefined;
+    this.pearaiServerClientPromise = new Promise(
+      (resolve) => (pearaiServerClientResolve = resolve),
     );
 
     ideSettingsPromise.then((ideSettings) => {
-      const continueServerClient = new ContinueServerClient(
+      const pearaiServerClient = new ContinueServerClient(
         ideSettings.remoteConfigServerUrl,
         ideSettings.userToken,
       );
-      continueServerClientResolve(continueServerClient);
+      pearaiServerClientResolve(pearaiServerClient);
 
       codebaseIndexerResolve(
         new CodebaseIndexer(
           this.configHandler,
           this.ide,
           this.indexingPauseToken,
-          continueServerClient,
+          pearaiServerClient,
         ),
       );
 

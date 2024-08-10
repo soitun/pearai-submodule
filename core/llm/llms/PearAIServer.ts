@@ -11,7 +11,7 @@ import { Telemetry } from "../../util/posthog.js";
 import { BaseLLM } from "../index.js";
 import { streamResponse, streamJSON } from "../stream.js";
 import { checkTokens } from "../../db/token.js";
-import { stripImages } from "../countTokens.js";
+import { stripImages } from "../images.js";
 
 class PearAIServer extends BaseLLM {
   getCredentials: (() => Promise<PearAuth | undefined>) | undefined = undefined;
@@ -24,9 +24,6 @@ class PearAIServer extends BaseLLM {
   
   private async _getHeaders() {
     return {
-      uniqueId: this.uniqueId || "None",
-      extensionVersion: Telemetry.extensionVersion ?? "Unknown",
-      os: Telemetry.os ?? "Unknown",
       "Content-Type": "application/json",
       ...(await getHeaders()),
     };

@@ -607,7 +607,9 @@ type ModelProvider =
   | "azure"
   | "openai-aiohttp"
   | "msty"
-  | "watsonx";
+  | "watsonx"  
+  | "pearai-proxy"
+  | "pearai-server"
 
 export type ModelName =
   | "AUTODETECT"
@@ -681,6 +683,11 @@ export type ModelName =
   | "starcoder2-3b"
   | "stable-code-3b"
   | "pearai-latest";
+
+export interface PearAuth {
+  accessToken?: string;
+  refreshToken?: string;
+}
 
 export interface RequestOptions {
   timeout?: number;

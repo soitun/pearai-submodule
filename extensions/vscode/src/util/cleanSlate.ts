@@ -1,4 +1,4 @@
-import { getContinueGlobalPath } from "core/util/paths";
+import { getPearAIGlobalPath } from "core/util/paths";
 import { ExtensionContext } from "vscode";
 import fs from "fs";
 

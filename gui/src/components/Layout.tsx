@@ -30,6 +30,7 @@ import IndexingProgressBar from "./loaders/IndexingProgressBar";
 import ProgressBar from "./loaders/ProgressBar";
 import PostHogPageView from "./PosthogPageView";
 import ProfileSwitcher from "./ProfileSwitcher";
+import { postToIde } from "../util/ide";
 
 // check mac or window
 const platform = navigator.userAgent.toLowerCase();

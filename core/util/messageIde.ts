@@ -10,6 +10,7 @@ import type {
   Range,
   RangeInFile,
   Thread,
+  PearAuth,
 } from "../index.js";
 import { ToIdeFromWebviewOrCoreProtocol } from "../protocol/ide.js";
 import { FromIdeProtocol } from "../protocol/index.js";

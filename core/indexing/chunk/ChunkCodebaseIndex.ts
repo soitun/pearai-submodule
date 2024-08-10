@@ -17,7 +17,7 @@ export class ChunkCodebaseIndex implements CodebaseIndex {
 
   constructor(
     private readonly readFile: (filepath: string) => Promise<string>,
-    private readonly continueServerClient: IContinueServerClient,
+    private readonly pearaiServerClient: IPearAIServerClient,
     private readonly maxChunkSize: number,
   ) {
     this.readFile = readFile;
@@ -72,18 +72,28 @@ export class ChunkCodebaseIndex implements CodebaseIndex {
     }
 
     // Check the remote cache
-    if (this.PearAIServerClient.connected) {
+    if (this.pearaiServerClient.connected) {
       try {
         const keys = results.compute.map(({ cacheKey }) => cacheKey);
-        const resp = await this.PearAIServerClient.getFromIndexCache(
+        const resp = await this.pearaiServerClient.getFromIndexCache(
           keys,
           "chunks",
           repoName,
         );
 
         for (const [cacheKey, chunks] of Object.entries(resp.files)) {
-          for (const chunk of chunks) {
-            await handleChunk(chunk);
+          if (Array.isArray(chunks)) {
+            for (const chunkData of chunks) {
+              const chunk: Chunk = {
+                digest: chunkData.digest,
+                filepath: chunkData.filepath,
+                index: chunkData.index,
+                startLine: chunkData.startLine,
+                endLine: chunkData.endLine,
+                content: chunkData.content
+              };
+              await handleChunk(chunk);
+            }
           }
         }
         results.compute = results.compute.filter(

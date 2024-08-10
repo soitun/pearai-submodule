@@ -7,7 +7,7 @@ import * as vscode from "vscode";
 import { ContextMenuConfig, IDE } from "core";
 import { CompletionProvider } from "core/autocomplete/completionProvider";
 import { ConfigHandler } from "core/config/ConfigHandler";
-import { ContinueServerClient } from "core/continueServer/stubs/client";
+import { ContinueServerClient } from "core/pearaiServer/stubs/client";
 import { Core } from "core/core";
 import { GlobalContext } from "core/util/GlobalContext";
 import { getConfigJsonPath, getDevDataFilePath } from "core/util/paths";
@@ -167,7 +167,7 @@ const commandsMap: (
   configHandler: ConfigHandler,
   diffManager: DiffManager,
   verticalDiffManager: VerticalPerLineDiffManager,
-  continueServerClientPromise: Promise<ContinueServerClient>,
+  pearaiServerClientPromise: Promise<ContinueServerClient>,
   battery: Battery,
   quickEdit: QuickEdit,
   core: Core,
@@ -178,7 +178,7 @@ const commandsMap: (
   configHandler,
   diffManager,
   verticalDiffManager,
-  continueServerClientPromise,
+  pearaiServerClientPromise,
   battery,
   quickEdit,
   core,
@@ -679,7 +679,7 @@ const commandsMap: (
           "Please share what went wrong with the last completion. The details of the completion as well as this message will be sent to the Continue team in order to improve.",
       });
       if (feedback) {
-        const client = await continueServerClientPromise;
+        const client = await pearaiServerClientPromise;
         const completionsPath = getDevDataFilePath("autocomplete");
 
         const lastLines = await readLastLines.read(completionsPath, 2);
@@ -704,7 +704,7 @@ export function registerAllCommands(
   configHandler: ConfigHandler,
   diffManager: DiffManager,
   verticalDiffManager: VerticalPerLineDiffManager,
-  continueServerClientPromise: Promise<ContinueServerClient>,
+  pearaiServerClientPromise: Promise<ContinueServerClient>,
   battery: Battery,
   quickEdit: QuickEdit,
   core: Core,
@@ -717,7 +717,7 @@ export function registerAllCommands(
       configHandler,
       diffManager,
       verticalDiffManager,
-      continueServerClientPromise,
+      pearaiServerClientPromise,
       battery,
       quickEdit,
       core,

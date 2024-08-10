@@ -19,7 +19,7 @@ import { walkDir } from "core/indexing/walkDir";
 import {
   editConfigJson,
   getConfigJsonPath,
-  getContinueGlobalPath,
+  getPearAIGlobalPath,
 } from "core/util/paths";
 import * as vscode from "vscode";
 import { executeGotoProvider } from "./autocomplete/lsp";

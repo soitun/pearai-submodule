@@ -1,5 +1,5 @@
 import { TRIAL_FIM_MODEL } from "../../config/onboarding.js";
-import { getHeaders } from "../../continueServer/stubs/headers.js";
+import { getHeaders } from "../../pearaiServer/stubs/headers.js";
 import { constants } from "../../deploy/constants.js";
 import { ChatMessage, CompletionOptions, ModelProvider } from "../../index.js";
 import { Telemetry } from "../../util/posthog.js";

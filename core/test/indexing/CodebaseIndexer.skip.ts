@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { ConfigHandler } from "../../config/ConfigHandler.js";
-import { ContinueServerClient } from "../../continueServer/stubs/client.js";
+import { ContinueServerClient } from "../../pearaiServer/stubs/client.js";
 import { CodebaseIndexer, PauseToken } from "../../indexing/CodebaseIndexer.js";
 import { LanceDbIndex } from "../../indexing/LanceDbIndex.js";
 import TransformersJsEmbeddingsProvider from "../../indexing/embeddings/TransformersJsEmbeddingsProvider.js";
@@ -62,17 +62,17 @@ describe.skip("CodebaseIndexer", () => {
     undefined as any, // TODO
   );
   const pauseToken = new PauseToken(false);
-  const continueServerClient = new ContinueServerClient(undefined, undefined);
+  const pearaiServerClient = new ContinueServerClient(undefined, undefined);
   const codebaseIndexer = new CodebaseIndexer(
     configHandler,
     ide,
     pauseToken,
-    continueServerClient,
+    pearaiServerClient,
   );
   const lancedbIndex = new LanceDbIndex(
     new TransformersJsEmbeddingsProvider(),
     ide.readFile.bind(ide),
-    continueServerClient,
+    pearaiServerClient,
   );
 
   beforeAll(async () => {
