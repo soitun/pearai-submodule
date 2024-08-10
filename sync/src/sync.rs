@@ -526,7 +526,7 @@ mod tests {
             .add("dir1/file1.txt", "File 1")
             .add("dir1/file2.txt", "File 2")
             .add("dir2/file3.txt", "File 3")
-            .add("dir2/subdir/continue.py", "[continue for i in range(10)]")
+            .add("dir2/subdir/pearai.py", "[continue for i in range(10)]")
             .add("__init__.py", "a = 5")
             .create();
 

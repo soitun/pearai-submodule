@@ -173,7 +173,7 @@ class AsyncFileSaveListener : AsyncFileListener {
     }
     override fun prepareChange(events: MutableList<out VFileEvent>): AsyncFileListener.ChangeApplier? {
         for (event in events) {
-            if (event.path.endsWith(".continue/config.json") || event.path.endsWith(".continue/config.ts") || event.path.endsWith(".continue\\config.json") || event.path.endsWith(".continue\\config.ts") || event.path.endsWith(".continuerc.json")) {
+            if (event.path.endsWith(".continue/config.json") || event.path.endsWith(".continue/config.ts") || event.path.endsWith(".continue\\config.json") || event.path.endsWith(".continue\\config.ts") || event.path.endsWith(".pearairc.json")) {
                 return object : AsyncFileListener.ChangeApplier {
                     override fun afterVfsChange() {
                         val config = readConfigJson()
@@ -343,9 +343,9 @@ class IdeProtocolClient (
                             if (dir != null) {
                                 val contents = dir.children.map { it.name }
 
-                                // Find any .continuerc.json files
+                                // Find any .pearairc.json files
                                 for (file in contents) {
-                                    if (file.endsWith(".continuerc.json")) {
+                                    if (file.endsWith(".pearairc.json")) {
                                         val filePath = workspacePath.resolve(file)
                                         val fileContent = File(filePath.toString()).readText()
                                         configs.plus(fileContent)

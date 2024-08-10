@@ -240,7 +240,7 @@ function ProfileSwitcher(props: {}) {
           } else {
             ideMessenger.post(
               "openUrl",
-              `http://app.continue.dev/workspaces/${selectedProfileId}/config`,
+              `http://app.pearai.dev/workspaces/${selectedProfileId}/config`,
             );
           }
         }}

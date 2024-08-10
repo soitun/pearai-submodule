@@ -105,7 +105,7 @@ class VsCodeIde implements IDE {
           .then(async (selection) => {
             if (selection === "Use API key / local model") {
               await vscode.commands.executeCommand(
-                "continue.continueGUIView.focus",
+                "pearai.continueGUIView.focus",
               );
               (await this.vscodeWebviewProtocolPromise).request(
                 "openOnboarding",
@@ -136,7 +136,7 @@ class VsCodeIde implements IDE {
             } else if (selection === "Learn more") {
               vscode.env.openExternal(
                 vscode.Uri.parse(
-                  "https://docs.continue.dev/reference/Model%20Providers/freetrial",
+                  "https://docs.pearai.dev/reference/Model%20Providers/freetrial",
                 ),
               );
             } else if (selection === "Sign in") {
@@ -327,7 +327,7 @@ class VsCodeIde implements IDE {
     for (const workspaceDir of workspaceDirs) {
       const files = await vscode.workspace.fs.readDirectory(workspaceDir);
       for (const [filename, type] of files) {
-        if (type === vscode.FileType.File && filename === ".continuerc.json") {
+        if (type === vscode.FileType.File && filename === ".pearairc.json") {
           const contents = await this.ideUtils.readFile(
             vscode.Uri.joinPath(workspaceDir, filename).fsPath,
           );

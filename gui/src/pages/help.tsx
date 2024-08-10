@@ -50,7 +50,7 @@ function HelpPage() {
           </div>
           <a
             className="col-span-1 "
-            href="https://docs.continue.dev/"
+            href="https://docs.pearai.dev/"
             target="_blank"
           >
             <SecondaryButton className="w-full">View docs</SecondaryButton>

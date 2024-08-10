@@ -27,7 +27,7 @@ By default, Quick Actions include a single predefined action:
 
 Quick Actions are enabled by default _for pre-release versions of Contine_.
 
-To disable Quick Actions, open the settings menu (`⌘ + ,`), search for `"continue.enableQuickActions"`, and toggle the checkbox to disable.
+To disable Quick Actions, open the settings menu (`⌘ + ,`), search for `"pearai.enableQuickActions"`, and toggle the checkbox to disable.
 
 ## Custom Quick Actions
 

@@ -122,7 +122,7 @@ export class VerticalPerLineDiffManager {
 
     this.disableDocumentChangeListener();
 
-    vscode.commands.executeCommand("setContext", "continue.diffVisible", false);
+    vscode.commands.executeCommand("setContext", "pearai.diffVisible", false);
   }
 
   async acceptRejectVerticalDiffBlock(

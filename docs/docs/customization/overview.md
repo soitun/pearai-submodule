@@ -15,4 +15,4 @@ Currently, you can customize the following:
 - [Slash Commands](./slash-commands.md)
 - [Other configuration options](../reference/config.mdx)
 
-If you'd like to share PearAI configuration with others, you can add a `.continuerc.json` to the root of your project. It has the same JSON Schema definition as `config.json`, and will automatically be applied on top of the local `config.json`.
+If you'd like to share PearAI configuration with others, you can add a `.pearairc.json` to the root of your project. It has the same JSON Schema definition as `config.json`, and will automatically be applied on top of the local `config.json`.

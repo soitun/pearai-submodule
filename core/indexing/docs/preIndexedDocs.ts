@@ -168,11 +168,11 @@ const preIndexedDocs: Record<
     rootUrl: "https://code.visualstudio.com/api",
     faviconUrl: "https://code.visualstudio.com/favicon.ico",
   },
-  "https://docs.continue.dev/intro": {
+  "https://docs.pearai.dev/intro": {
     title: "Continue",
-    startUrl: "https://docs.continue.dev/intro",
-    rootUrl: "https://docs.continue.dev",
-    faviconUrl: "https://docs.continue.dev/favicon.ico",
+    startUrl: "https://docs.pearai.dev/intro",
+    rootUrl: "https://docs.pearai.dev",
+    faviconUrl: "https://docs.pearai.dev/favicon.ico",
   },
   "https://api.jquery.com/": {
     title: "jQuery",

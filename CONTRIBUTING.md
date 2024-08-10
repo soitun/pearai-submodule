@@ -60,7 +60,7 @@ Continue is quickly adding features, and we'd love to hear which are the most im
 
 ## 📖 Updating / Improving Documentation
 
-Continue is continuously improving, but a feature isn't complete until it is reflected in the documentation! If you see something out-of-date or missing, you can help by clicking "Edit this page" at the bottom of any page on [docs.continue.dev](https://docs.continue.dev).
+Continue is continuously improving, but a feature isn't complete until it is reflected in the documentation! If you see something out-of-date or missing, you can help by clicking "Edit this page" at the bottom of any page on [docs.pearai.dev](https://docs.pearai.dev).
 
 ### Running the Documentation Server Locally
 
@@ -103,7 +103,7 @@ nvm use
 
 1. Go to the [Continue GitHub repository](https://github.com/continuedev/continue) and fork it to your GitHub account. **Ensure all branches are included in the fork**.
 
-2. Clone your forked repository to your local machine. Use: `git clone https://github.com/YOUR_USERNAME/continue.git`
+2. Clone your forked repository to your local machine. Use: `git clone https://github.com/YOUR_USERNAME/pearai.git`
 
 3. Navigate to the cloned directory and switch to the **dev** branch. Execute: `git checkout dev`, then create your feature/fix branch from there, like so: `git checkout -b 123-my-feature-branch`
 

@@ -156,7 +156,7 @@ class QuickTextEntryAction : AnAction() {
              }
 
              continuePluginService.continuePluginWindow?.content?.components?.get(0)?.requestFocus()
-             continuePluginService.sendToWebview("focusContinueInput", null)
+             continuePluginService.sendToWebview("focusPearAIInput", null)
 
          }
     }
@@ -190,7 +190,7 @@ class FocusContinueInputWithoutClearAction : AnAction() {
 
         val continuePluginService = pluginServiceFromActionEvent(e) ?: return
         continuePluginService.continuePluginWindow?.content?.components?.get(0)?.requestFocus()
-        continuePluginService.sendToWebview("focusContinueInputWithoutClear", null)
+        continuePluginService.sendToWebview("focusPearAIInputWithoutClear", null)
 
         continuePluginService.ideProtocolClient?.sendHighlightedCode()
     }
@@ -213,7 +213,7 @@ class FocusContinueInputAction : AnAction() {
         val continuePluginService = pluginServiceFromActionEvent(e) ?: return
 
         continuePluginService.continuePluginWindow?.content?.components?.get(0)?.requestFocus()
-        continuePluginService.sendToWebview("focusContinueInput", null)
+        continuePluginService.sendToWebview("focusPearAIInput", null)
 
         continuePluginService.ideProtocolClient?.sendHighlightedCode()
     }
@@ -236,7 +236,7 @@ class NewContinueSessionAction : AnAction() {
         val continuePluginService = pluginServiceFromActionEvent(e) ?: return
 
         continuePluginService.continuePluginWindow?.content?.components?.get(0)?.requestFocus()
-        continuePluginService.sendToWebview("focusContinueInputWithNewSession", null)
+        continuePluginService.sendToWebview("focusPearAIInputWithNewSession", null)
     }
 }
 

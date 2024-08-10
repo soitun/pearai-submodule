@@ -84,7 +84,7 @@ export class VsCodeExtension {
     // Sidebar
     context.subscriptions.push(
       vscode.window.registerWebviewViewProvider(
-        "continue.continueGUIView",
+        "pearai.continueGUIView",
         this.sidebar,
         {
           webviewOptions: { retainContextWhenHidden: true },
@@ -244,7 +244,7 @@ export class VsCodeExtension {
       }
 
       if (
-        filepath.endsWith(".continuerc.json") ||
+        filepath.endsWith(".pearairc.json") ||
         filepath.endsWith(".prompt")
       ) {
         this.configHandler.reloadConfig();

@@ -3,7 +3,7 @@
   "publisher": "pearai",
   "icon": "media/icon.png",
   "author": "PearAI",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/trypear/pearai-app"
@@ -62,7 +62,7 @@
       {
         "filenames": [
           "config.json",
-          ".continuerc.json"
+          ".pearairc.json"
         ],
         "id": "jsonc"
       }
@@ -172,13 +172,13 @@
         "group": "PearAI"
       },
       {
-        "command": "pearai.focusContinueInput",
+        "command": "pearai.focusPearAIInput",
         "category": "Continue",
         "title": "Add Highlighted Code to Context",
         "group": "PearAI"
       },
       {
-        "command": "pearai.focusContinueInputWithoutClear",
+        "command": "pearai.focusPearAIInputWithoutClear",
         "category": "PearAI",
         "title": "Add Highlighted Code to Context",
         "group": "PearAI"
@@ -297,12 +297,12 @@
     ],
     "keybindings": [
       {
-        "command": "pearai.focusContinueInput",
+        "command": "pearai.focusPearAIInput",
         "mac": "cmd+l",
         "key": "ctrl+l"
       },
       {
-        "command": "pearai.focusContinueInputWithoutClear",
+        "command": "pearai.focusPearAIInputWithoutClear",
         "mac": "cmd+shift+l",
         "key": "ctrl+shift+l"
       },
@@ -384,10 +384,10 @@
           "command": "pearai.quickEdit"
         },
         {
-          "command": "pearai.focusContinueInput"
+          "command": "pearai.focusPearAIInput"
         },
         {
-          "command": "pearai.focusContinueInputWithoutClear"
+          "command": "pearai.focusPearAIInputWithoutClear"
         },
         {
           "command": "pearai.debugTerminal"
@@ -414,7 +414,7 @@
       ],
       "pearai.continueSubMenu": [
         {
-          "command": "pearai.focusContinueInputWithoutClear",
+          "command": "pearai.focusPearAIInputWithoutClear",
           "group": "PearAI",
           "when": "editorHasSelection"
         },
@@ -506,7 +506,7 @@
         "url": "./config_schema.json"
       },
       {
-        "fileMatch": ".continuerc.json",
+        "fileMatch": ".pearairc.json",
         "url": "./continue_rc_schema.json"
       }
     ]

@@ -12,7 +12,7 @@ stack_overflow_ranking = data['so_2023_language_rank']
 
 introduction = f'''# {language}
 
-Recently, many folks have been claiming that their LLM is the best at coding. Their claims are typically based off self-reported evaluations on the [HumanEval benchmark](https://blog.continue.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=most%20common%20benchmarks-,1.%20HumanEval,-Creator%3A%20OpenAI). But when you look into that benchmark, you realize that *it only consists of 164 Python programming problems.*
+Recently, many folks have been claiming that their LLM is the best at coding. Their claims are typically based off self-reported evaluations on the [HumanEval benchmark](https://blog.pearai.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=most%20common%20benchmarks-,1.%20HumanEval,-Creator%3A%20OpenAI). But when you look into that benchmark, you realize that *it only consists of 164 Python programming problems.*
 
 This led me down a rabbit hole of trying to figure out how helpful LLMs actually are with different programming, scripting, and markup languages. I am estimating this for each language by reviewing LLM code benchmark results, public LLM dataset compositions, available GitHub and Stack Overflow data, and anecdotes from developers on Reddit. Below you will find what I have figured out about {language} so far.
 
@@ -27,24 +27,24 @@ stack_overflow = f'''{language} is the #{stack_overflow_ranking} most popular la
 benchmarks = "## Benchmarks\n\n"
 
 if data["multiple"] == "N/A":
-    multiple = f'''❌ {language} is not one of the 19 languages in the [MultiPL-E benchmark](https://blog.continue.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=couple%20notable%20mentions-,4.%20MultiPL%2DE,-Creator%3A%20Northeastern)\n\n'''
+    multiple = f'''❌ {language} is not one of the 19 languages in the [MultiPL-E benchmark](https://blog.pearai.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=couple%20notable%20mentions-,4.%20MultiPL%2DE,-Creator%3A%20Northeastern)\n\n'''
 else:
-    multiple = f'''✅ {language} is one of the 19 languages in the [MultiPL-E benchmark](https://blog.continue.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=couple%20notable%20mentions-,4.%20MultiPL%2DE,-Creator%3A%20Northeastern)\n\n'''
+    multiple = f'''✅ {language} is one of the 19 languages in the [MultiPL-E benchmark](https://blog.pearai.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=couple%20notable%20mentions-,4.%20MultiPL%2DE,-Creator%3A%20Northeastern)\n\n'''
 
 if data["babel"] == "N/A":
-    babel = f'''❌ {language} is not one of the 16 languages in the [BabelCode / TP3 benchmark](https://blog.continue.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=amazon%2Dscience/mxeval-,12.%20BabelCode%20/%20TP3,-Creator%3A%20Google)\n\n'''
+    babel = f'''❌ {language} is not one of the 16 languages in the [BabelCode / TP3 benchmark](https://blog.pearai.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=amazon%2Dscience/mxeval-,12.%20BabelCode%20/%20TP3,-Creator%3A%20Google)\n\n'''
 else:
-    babel = f'''✅ {language} is one of the 16 languages in the [BabelCode / TP3 benchmark](https://blog.continue.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=amazon%2Dscience/mxeval-,12.%20BabelCode%20/%20TP3,-Creator%3A%20Google)\n\n'''
+    babel = f'''✅ {language} is one of the 16 languages in the [BabelCode / TP3 benchmark](https://blog.pearai.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=amazon%2Dscience/mxeval-,12.%20BabelCode%20/%20TP3,-Creator%3A%20Google)\n\n'''
 
 if data["mbxp"] == "N/A":
-    mbxp = f'''❌ {language} is not one of the 13 languages in the [MBXP / Multilingual HumanEval benchmark](https://blog.continue.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=11.%20MBXP%20/%20Multilingual%20HumanEval)\n\n'''
+    mbxp = f'''❌ {language} is not one of the 13 languages in the [MBXP / Multilingual HumanEval benchmark](https://blog.pearai.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=11.%20MBXP%20/%20Multilingual%20HumanEval)\n\n'''
 else:
-    mbxp = f'''✅ {language} is one of the 13 languages in the [MBXP / Multilingual HumanEval benchmark](https://blog.continue.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=11.%20MBXP%20/%20Multilingual%20HumanEval)\n\n'''
+    mbxp = f'''✅ {language} is one of the 13 languages in the [MBXP / Multilingual HumanEval benchmark](https://blog.pearai.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=11.%20MBXP%20/%20Multilingual%20HumanEval)\n\n'''
 
 if data["humaneval_x"] == "N/A":
-    humaneval_x = f'''❌ {language} is not one of the 5 languages in the [HumanEval-X benchmark](https://blog.continue.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=Some%20multilingual%C2%A0benchmarks-,10.%20HumanEval%2DX,-Creator%3A%20Tsinghua)\n\n'''
+    humaneval_x = f'''❌ {language} is not one of the 5 languages in the [HumanEval-X benchmark](https://blog.pearai.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=Some%20multilingual%C2%A0benchmarks-,10.%20HumanEval%2DX,-Creator%3A%20Tsinghua)\n\n'''
 else:
-    humaneval_x = f'''✅ {language} is one of the 5 languages in the [HumanEval-X benchmark](https://blog.continue.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=Some%20multilingual%C2%A0benchmarks-,10.%20HumanEval%2DX,-Creator%3A%20Tsinghua)\n\n'''
+    humaneval_x = f'''✅ {language} is one of the 5 languages in the [HumanEval-X benchmark](https://blog.pearai.dev/an-introduction-to-code-llm-benchmarks-for-software-engineers/#:~:text=Some%20multilingual%C2%A0benchmarks-,10.%20HumanEval%2DX,-Creator%3A%20Tsinghua)\n\n'''
 
 datasets = "## Datasets\n\n"
 

@@ -6,7 +6,7 @@ keywords: [codestral, mistral, model setup]
 
 # How to set up Codestral with Continue
 
-![mistral x continue](../../static/img/mistral-x-continue.png)
+![mistral x continue](../../static/img/mistral-x-pearai.png)
 
 **Here is a step-by-step guide on how to set up Codestral with Continue using the Mistral AI API:**
 

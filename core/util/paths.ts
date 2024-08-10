@@ -86,7 +86,7 @@ export function getConfigTsPath(): string {
     fs.writeFileSync(
       packageJsonPath,
       JSON.stringify({
-        name: "continue-config",
+        name: "pearai-config",
         version: "1.0.0",
         description: "My Continue Configuration",
         main: "config.js",
@@ -137,9 +137,9 @@ export function getTsConfigPath(): string {
   return tsConfigPath;
 }
 
-export function getContinueRcPath(): string {
+export function getPearAIRcPath(): string {
   // Disable indexing of the config folder to prevent infinite loops
-  const continuercPath = path.join(getPearAIGlobalPath(), ".continuerc.json");
+  const continuercPath = path.join(getPearAIGlobalPath(), ".pearairc.json");
   if (!fs.existsSync(continuercPath)) {
     fs.writeFileSync(
       continuercPath,

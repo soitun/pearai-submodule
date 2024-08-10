@@ -12,7 +12,7 @@ Continue collects and reports **anonymous** usage information.
 
 This data is essential to understanding how we should improve the product. You can opt out of it at any time.
 
-We use [Posthog](https://posthog.com/), an open source platform for product analytics, to collect and store the data. You can review the code [here](https://github.com/continuedev/continue/blob/main/gui/src/hooks/CustomPostHogProvider.tsx), or review our official policy [here](https://continue.dev/privacy).
+We use [Posthog](https://posthog.com/), an open source platform for product analytics, to collect and store the data. You can review the code [here](https://github.com/continuedev/continue/blob/main/gui/src/hooks/CustomPostHogProvider.tsx), or review our official policy [here](https://pearai.dev/privacy).
 
 ## Tracking policy
 
