@@ -82,4 +82,4 @@ Check out the [contribution ideas board](https://github.com/orgs/continuedev/pro
 
 ## License
 
-[Apache 2.0 © 2023 Continue Dev, Inc.](./LICENSE)
+[Apache 2.0 © 2023 PearAI.](./LICENSE)

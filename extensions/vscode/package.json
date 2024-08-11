@@ -1,27 +1,25 @@
 {
-  "name": "continue",
+  "name": "pearai",
+  "publisher": "pearai",
   "icon": "media/icon.png",
-  "author": "Continue Dev, Inc",
-  "version": "0.8.47",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/continuedev/continue"
+    "url": "https://github.com/trypear/pearai-app"
   },
   "extensionKind": [
     "ui",
     "workspace"
   ],
   "bugs": {
-    "url": "https://github.com/continuedev/continue/issues",
-    "email": "nate@pearai.dev"
+    "url": "https://github.com/trypear/pearai-app/issues"
   },
-  "homepage": "https://pearai.dev",
-  "qna": "https://github.com/continuedev/continue/issues/new/choose",
-  "license": "Apache-2.0",
-  "displayName": "Continue - Codestral, Claude, and more",
+  "homepage": "https://trypear.ai",
+  "qna": "https://github.com/trypear/pearai-app/issues/new/choose",
+  "license": "EE",
+  "displayName": "PearAI",
   "pricing": "Free",
-  "description": "The leading open-source AI code assistant",
-  "publisher": "Continue",
+  "description": "Supercharge your development with AI",
   "engines": {
     "vscode": "^1.70.0",
     "node": ">=20.11.0"

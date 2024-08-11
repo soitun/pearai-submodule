@@ -50,4 +50,4 @@ Learn more about the models and providers [here](https://pearai.dev/docs/setup/o
 
 ## License
 
-[Apache 2.0 © 2023-2024 Continue Dev, Inc.](./LICENSE)
+[Apache 2.0 © 2023-2024 PearAI.](./LICENSE)
