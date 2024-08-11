@@ -609,7 +609,8 @@ type ModelProvider =
   | "openai-aiohttp"
   | "msty"
   | "watsonx"
-  | "pearai_server";
+  | "pearai_server"
+  | "other";
 
 export type ModelName =
   | "AUTODETECT"
