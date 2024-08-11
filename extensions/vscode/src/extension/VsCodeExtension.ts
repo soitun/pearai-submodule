@@ -84,7 +84,7 @@ export class VsCodeExtension {
     // Sidebar
     context.subscriptions.push(
       vscode.window.registerWebviewViewProvider(
-        "continue.continueGUIView",
+        "pearai.continueGUIView",
         this.sidebar,
         {
           webviewOptions: { retainContextWhenHidden: true },

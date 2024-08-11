@@ -28,7 +28,7 @@ export async function activateExtension(context: vscode.ExtensionContext) {
       ),
     );
 
-    vscode.commands.executeCommand("continue.focusContinueInput");
+    vscode.commands.executeCommand("pearai.focusContinueInput");
   });
 
   // Load Continue configuration

@@ -32,7 +32,7 @@ function SetupLocalOrKeyDialog() {
           onClick={() =>
             ideMessenger.request(
               "openUrl",
-              "https://docs.continue.dev/reference/Model%20Providers/freetrial",
+              "https://trypear.ai/reference/Model%20Providers/freetrial",
             )
           }
         >

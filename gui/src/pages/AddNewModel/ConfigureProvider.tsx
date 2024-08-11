@@ -135,7 +135,7 @@ function ConfigureProvider() {
             className="inline-block ml-4 cursor-pointer"
           />
           <h3 className="text-lg font-bold m-2 inline-block">
-            Configure provider
+            Configure
           </h3>
         </div>
 
@@ -170,7 +170,7 @@ function ConfigureProvider() {
                 <Toggle
                   selected={watsonxAuthenticate}
                   optionOne={"Authenticate by API key"}
-                  optionTwo={"Authenticate by crendentials"}
+                  optionTwo={"Authenticate by credentials"}
                   onClick={() => {
                     setWatsonxAuthenticate((prev) => !prev);
                   }}

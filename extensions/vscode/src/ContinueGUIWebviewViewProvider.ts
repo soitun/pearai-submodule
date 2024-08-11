@@ -9,7 +9,7 @@ import { VsCodeWebviewProtocol } from "./webviewProtocol";
 export class ContinueGUIWebviewViewProvider
   implements vscode.WebviewViewProvider
 {
-  public static readonly viewType = "continue.continueGUIView";
+  public static readonly viewType = "pearai.continueGUIView";
   public webviewProtocol: VsCodeWebviewProtocol;
 
   private updateDebugLogsStatus() {
@@ -25,7 +25,7 @@ export class ContinueGUIWebviewViewProvider
   // Show or hide the output channel on enableDebugLogs
   private setupDebugLogsListener() {
     vscode.workspace.onDidChangeConfiguration((event) => {
-      if (event.affectsConfiguration('continue.enableDebugLogs')) {
+      if (event.affectsConfiguration('pearai.enableDebugLogs')) {
         const settings = vscode.workspace.getConfiguration("continue");
         const enableDebugLogs = settings.get<boolean>("enableDebugLogs", false);
         if (enableDebugLogs) {

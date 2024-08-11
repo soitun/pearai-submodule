@@ -119,7 +119,7 @@ export class DiffManager {
 
     if (
       this.extensionContext.globalState.get<boolean>(
-        "continue.showDiffInfoMessage",
+        "pearai.showDiffInfoMessage",
       ) !== false
     ) {
       vscode.window
@@ -132,7 +132,7 @@ export class DiffManager {
           if (selection === "Don't show again") {
             // Get the global state
             this.extensionContext.globalState.update(
-              "continue.showDiffInfoMessage",
+              "pearai.showDiffInfoMessage",
               false,
             );
           }

@@ -76,7 +76,7 @@ function Models() {
           onClick={handleBackArrowClick}
           className="inline-block ml-4 cursor-pointer"
         />
-        <h3 className="text-lg font-bold m-2 inline-block">Add a new model</h3>
+        <h3 className="text-lg font-bold m-2 inline-block">Add Model</h3>
       </div>
       <br />
       <IntroDiv style={{ textAlign: "center" }}>
@@ -92,8 +92,8 @@ function Models() {
               tags={providers["pearai_server"].tags}
               icon={providers["pearai_server"].icon}
               onClick={(e) => {
-                console.log(`/addModel/provider/pearai`);
-                navigate(`/addModel/provider/pearai`);
+                console.log(`/addModel/provider/pearai_server`);
+                navigate(`/addModel/provider/pearai_server`);
               }}
             />
             <ModelCard

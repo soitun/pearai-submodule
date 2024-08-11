@@ -138,7 +138,7 @@ export class VsCodeIdeUtils {
   showMultiFileEdit(edits: FileEdit[]) {
     vscode.commands.executeCommand("workbench.action.closeAuxiliaryBar");
     const panel = vscode.window.createWebviewPanel(
-      "continue.continueGUIView",
+      "pearai.continueGUIView",
       "Continue",
       vscode.ViewColumn.One,
     );

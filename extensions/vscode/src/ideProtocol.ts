@@ -105,7 +105,7 @@ class VsCodeIde implements IDE {
           .then(async (selection) => {
             if (selection === "Use API key / local model") {
               await vscode.commands.executeCommand(
-                "continue.continueGUIView.focus",
+                "pearai.continueGUIView.focus",
               );
               (await this.vscodeWebviewProtocolPromise).request(
                 "openOnboarding",
@@ -136,7 +136,7 @@ class VsCodeIde implements IDE {
             } else if (selection === "Learn more") {
               vscode.env.openExternal(
                 vscode.Uri.parse(
-                  "https://docs.continue.dev/reference/Model%20Providers/freetrial",
+                  "https://trypear.ai/reference/Model%20Providers/freetrial",
                 ),
               );
             } else if (selection === "Sign in") {
@@ -240,7 +240,7 @@ class VsCodeIde implements IDE {
       version: vscode.version,
       remoteName: vscode.env.remoteName || "local",
       extensionVersion:
-        vscode.extensions.getExtension("continue.continue")?.packageJSON
+        vscode.extensions.getExtension("pearai.continue")?.packageJSON
           .version,
     });
   }

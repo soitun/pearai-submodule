@@ -33,7 +33,7 @@ function FTCDialog() {
         You've reached the free trial limit of {FREE_TRIAL_LIMIT_REQUESTS} free
         inputs. To keep using Continue, you can either use your own API key, or
         use a local LLM. To read more about the options, see our{" "}
-        <a href="https://docs.continue.dev/setup/overview" target="_blank">
+        <a href="https://trypear.ai/setup/overview" target="_blank">
           documentation
         </a>
         .

@@ -36,7 +36,7 @@ export const models: { [key: string]: ModelPackage } = {
     description:
       "Experience seamless, fully-managed LLM integration with PearAI, featuring the most advanced and current best-in-market language model.",
     params: {
-      model: "pearai-latest",
+      model: "pearai_model",
       contextLength: 128_000,
       title: "PearAI Server",
       systemMessage:
