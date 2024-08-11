@@ -28,6 +28,7 @@ import {
   RerankerDescription,
   SerializedContinueConfig,
   SlashCommand,
+  PearAuth,
 } from "../index.js";
 import TransformersJsEmbeddingsProvider from "../indexing/embeddings/TransformersJsEmbeddingsProvider.js";
 import { allEmbeddingsProviders } from "../indexing/embeddings/index.js";
@@ -62,6 +63,7 @@ import {
   getPromptFiles,
   slashCommandFromPromptFile,
 } from "./promptFile.js";
+import PearAIServer from "../llm/llms/PearAIServer.js";
 
 function resolveSerializedConfig(filepath: string): SerializedContinueConfig {
   let content = fs.readFileSync(filepath, "utf8");
@@ -233,6 +235,19 @@ async function intermediateToFinalConfig(
       );
       if (!llm) {
         continue;
+      }
+
+      // TODO: There is most definately a better way to do this
+      //       windows is bad so its hard to set this up locally - Ender
+      // inject callbacks to backend
+      if (llm instanceof PearAIServer) {
+        llm.getCredentials = async () => {
+          return await ide.getPearAuth();
+        };
+
+        llm.setCredentials = async (auth: PearAuth) => {
+          await ide.updatePearCredentials(auth);
+        };
       }
 
       if (llm.model === "AUTODETECT") {

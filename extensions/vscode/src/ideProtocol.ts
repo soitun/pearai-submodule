@@ -13,6 +13,7 @@ import type {
   Problem,
   RangeInFile,
   Thread,
+  PearAuth,
 } from "core";
 import { Range } from "core";
 import { walkDir } from "core/indexing/walkDir";
@@ -541,6 +542,19 @@ class VsCodeIde implements IDE {
 
   async getIdeSettings(): Promise<IdeSettings> {
     return this.getIdeSettingsSync();
+  }
+
+  async getPearAuth(): Promise<PearAuth | undefined> {
+    const creds = await this.ideUtils.getPearCredentials();
+    return creds;
+  }
+
+  async updatePearCredentials(auth: PearAuth): Promise<void> {
+    await this.ideUtils.updatePearCredentials(auth);
+  }
+
+  async authenticatePear(): Promise<void> {
+    this.ideUtils.executePearLogin();
   }
 }
 

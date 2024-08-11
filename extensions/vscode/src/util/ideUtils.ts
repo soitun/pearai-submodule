@@ -1,4 +1,4 @@
-import type { FileEdit, RangeInFile, Thread } from "core";
+import type { FileEdit, RangeInFile, Thread, PearAuth } from "core";
 import path from "node:path";
 import * as vscode from "vscode";
 import { threadStopped } from "../debug/debug";
@@ -653,5 +653,26 @@ export class VsCodeIdeUtils {
         });
       });
     return rangeInFiles;
+  }
+
+  /**
+   * Request credentials object from vscode
+   */
+  async getPearCredentials(): Promise<PearAuth> {
+    return await vscode.commands.executeCommand("pearai.getPearAuth");
+  }
+
+  /**
+   * Send login request to IDE via commands, this opens the website
+   */
+  async executePearLogin() {
+    vscode.commands.executeCommand("pearai.login");
+  }
+
+  /**
+   * Set the stored credentials in vscode
+   */
+  async updatePearCredentials(auth: PearAuth) {
+    await vscode.commands.executeCommand("pearai.updateUserAuth", auth);
   }
 }

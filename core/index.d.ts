@@ -64,6 +64,7 @@ export interface ILLM extends LLMOptions {
   llmRequestHook?: (model: string, prompt: string) => any;
   apiKey?: string;
   apiBase?: string;
+  refreshToken?: string;
 
   engine?: string;
   apiVersion?: string;
@@ -328,6 +329,7 @@ export interface LLMOptions {
   apiKey?: string;
   aiGatewaySlug?: string;
   apiBase?: string;
+  refreshToken?: string;
 
   useLegacyCompletionsEndpoint?: boolean;
 
@@ -440,6 +442,9 @@ export interface IdeSettings {
 }
 
 export interface IDE {
+  getPearAuth(): Promise<PearAuth | undefined>;
+  updatePearCredentials(auth: PearAuth): Promise<void>;
+  authenticatePear(): Promise<void>;
   getIdeInfo(): Promise<IdeInfo>;
   getIdeSettings(): Promise<IdeSettings>;
   getDiff(): Promise<string>;
@@ -603,7 +608,8 @@ type ModelProvider =
   | "azure"
   | "openai-aiohttp"
   | "msty"
-  | "watsonx";
+  | "watsonx"
+  | "pearai_server";
 
 export type ModelName =
   | "AUTODETECT"
@@ -674,7 +680,8 @@ export type ModelName =
   | "starcoder-1b"
   | "starcoder-3b"
   | "starcoder2-3b"
-  | "stable-code-3b";
+  | "stable-code-3b"
+  | "pearai-latest";
 
 export interface RequestOptions {
   timeout?: number;
@@ -1001,4 +1008,9 @@ export interface BrowserSerializedContinueConfig {
   reranker?: RerankerDescription;
   experimental?: ExperimentalConfig;
   analytics?: AnalyticsConfig;
+}
+
+export interface PearAuth {
+  accessToken?: string;
+  refreshToken?: string;
 }

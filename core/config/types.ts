@@ -630,6 +630,7 @@ declare global {
     model: string;
     apiKey?: string;
     apiBase?: string;
+    refreshToken?: string;
     contextLength?: number;
     template?: TemplateType;
     completionOptions?: BaseCompletionOptions;
@@ -648,6 +649,7 @@ declare global {
   
   export interface EmbedOptions {
     apiBase?: string;
+    refreshToken?: string;
     apiKey?: string;
     model?: string;
     requestOptions?: RequestOptions;

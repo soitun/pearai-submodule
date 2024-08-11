@@ -55,6 +55,7 @@ const PROVIDER_SUPPORTS_IMAGES: ModelProvider[] = [
   "anthropic",
   "bedrock",
   "continue-proxy",
+  "pearai_server",
 ];
 
 const MODEL_SUPPORTS_IMAGES: string[] = [
@@ -70,6 +71,7 @@ const MODEL_SUPPORTS_IMAGES: string[] = [
   "sonnet",
   "opus",
   "haiku",
+  "pearai-latest",
 ];
 
 function modelSupportsImages(

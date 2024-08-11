@@ -56,6 +56,20 @@ export const apiBaseInput: InputDescriptor = {
 };
 
 export const providers: Partial<Record<ModelProvider, ProviderInfo>> = {
+  pearai_server: {
+    title: "PearAI Server",
+    provider: "pearai_server",
+    refPage: "pearai_server",
+    description:
+      "Use PearAI's hosted services for convenient, fully-managed integration, with the current best-in-market language models.",
+    icon: "pearai.png",
+    tags: [ModelProviderTags.Recommended, ModelProviderTags.Hosted],
+    packages: [
+      {
+        ...models.pearai_model
+      }
+    ],
+  },
   openai: {
     title: "OpenAI",
     provider: "openai",
