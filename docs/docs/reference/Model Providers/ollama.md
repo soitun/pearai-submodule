@@ -1,8 +1,8 @@
 # Ollama
 
-[Ollama](https://ollama.ai/) is an application for Mac, Windows, and Linux that makes it easy to locally run open-source models, including Llama3. Download the app from the website, and it will walk you through setup in a couple of minutes. You can also read more in their [README](https://github.com/ollama/ollama). Continue can then be configured to use the `"ollama"` provider:
+[Ollama](https://ollama.ai/) is an application for Mac, Windows, and Linux that makes it easy to locally run open-source models, including Llama3. Download the app from the website, and it will walk you through setup in a couple of minutes. You can also read more in their [README](https://github.com/ollama/ollama). PearAI can then be configured to use the `"ollama"` provider:
 
-```json title="~/.continue/config.json"
+```json title="~/.pearai/config.json"
 {
   "models": [
     {
@@ -30,7 +30,7 @@ In addition to the model type, you can also configure some of the parameters tha
 
 If you need to send custom headers for authentication, you may use the `requestOptions.headers` property like this:
 
-```json title="~/.continue/config.json"
+```json title="~/.pearai/config.json"
 {
   "models": [
     {
@@ -47,4 +47,4 @@ If you need to send custom headers for authentication, you may use the `requestO
 }
 ```
 
-[View the source](https://github.com/continuedev/continue/blob/main/core/llm/llms/Ollama.ts)
+[View the source](https://github.com/trypear/pearai-app/blob/main/core/llm/llms/Ollama.ts)

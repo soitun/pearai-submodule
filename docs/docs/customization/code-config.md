@@ -1,10 +1,10 @@
 # Code Configuration
 
-To allow added flexibility and eventually support an entire plugin ecosystem, Continue can be configured programmatically in a TypeScript file, `~/.continue/config.ts`.
+To allow added flexibility and eventually support an entire plugin ecosystem, PearAI can be configured programmatically in a Python file, `~/.continue/config.ts`.
 
-Whenever Continue loads, it carries out the following steps:
+Whenever PearAI loads, it carries out the following steps:
 
-1. Load `~/.continue/config.json`
+1. Load `~/.pearai/config.json`
 2. Convert this into a `Config` object
 3. If `~/.continue/config.ts` exists and has defined `modifyConfig` correctly, call `modifyConfig` with the `Config` object to generate the final configuration
 

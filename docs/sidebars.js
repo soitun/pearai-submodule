@@ -24,9 +24,9 @@ const sidebars = {
       collapsed: true,
       items: [
         "setup/overview",
-        "setup/configuration",
-        "setup/model-providers",
+        "setup/select-provider",
         "setup/select-model",
+        "setup/configuration",
       ],
     },
     {
@@ -42,22 +42,17 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "🪄 Features",
-      collapsible: true,
-      collapsed: true,
-      items: [
-        "features/codebase-embeddings",
-        "features/tab-autocomplete",
-        "features/prompt-files",
-        "features/quick-actions",
-      ],
-    },
-    {
-      type: "category",
       label: "🚶 Walkthroughs",
       collapsible: true,
       collapsed: true,
-      items: ["walkthroughs/set-up-codestral", "walkthroughs/llama3.1"],
+      items: [
+        // "walkthroughs/codellama",
+        "walkthroughs/running-continue-without-internet",
+        "walkthroughs/codebase-embeddings",
+        "walkthroughs/tab-autocomplete",
+        "walkthroughs/prompt-files",
+        // "walkthroughs/config-file-migration",
+      ],
     },
     "development-data",
     "telemetry",
@@ -74,7 +69,6 @@ const sidebars = {
         },
       ],
     },
-    "changelog",
   ],
 };
 

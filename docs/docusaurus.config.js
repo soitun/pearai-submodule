@@ -13,7 +13,7 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: "https://continue.dev",
+  url: "https://trypear.ai",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
@@ -44,7 +44,7 @@ const config = {
         docs: {
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/continuedev/continue/tree/main/docs",
+          editUrl: "https://github.com/trypear/pearai-app/tree/main/docs",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -73,7 +73,7 @@ const config = {
         logo: {
           alt: "Continue Logo",
           src: "img/logo.png",
-          href: "https://continue.dev",
+          href: "https://trypear.ai",
         },
         items: [
           {
@@ -83,16 +83,16 @@ const config = {
             label: "Docs",
           },
           {
-            to: "https://github.com/continuedev/continue",
+            to: "https://github.com/trypear/pearai-app",
             label: "GitHub",
             position: "right",
-            className: "github-navbar",
+            className: 'github-navbar',
           },
           {
             to: "https://discord.gg/vapESyrFmJ",
             label: "Discord",
             position: "right",
-            className: "discord-navbar",
+            className: 'discord-navbar',
           },
         ],
       },
@@ -121,7 +121,7 @@ const config = {
               },
               {
                 label: "GitHub",
-                to: "https://github.com/continuedev/continue",
+                to: "https://github.com/trypear/pearai-app",
               },
             ],
           },
@@ -139,7 +139,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} PearAI.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Continue Dev, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
@@ -184,26 +184,6 @@ const config = {
           {
             from: "/model-setup/configuration",
             to: "/setup/configuration",
-          },
-          {
-            from: "/setup/select-provider",
-            to: "/setup/model-providers",
-          },
-          {
-            from: "/walkthroughs/codebase-embeddings",
-            to: "/features/codebase-embeddings",
-          },
-          {
-            from: "/walkthroughs/tab-autocomplete",
-            to: "/features/tab-autocomplete",
-          },
-          {
-            from: "/walkthroughs/prompt-files",
-            to: "/features/prompt-files",
-          },
-          {
-            from: "/walkthroughs/quick-actions",
-            to: "/features/quick-actions",
           },
         ],
       },

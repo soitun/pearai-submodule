@@ -2,7 +2,7 @@
 
 To setup Cohere, add the following to your `config.json` file:
 
-```json title="~/.continue/config.json"
+```json title="~/.pearai/config.json"
 {
   "models": [
     {
@@ -17,4 +17,4 @@ To setup Cohere, add the following to your `config.json` file:
 
 Visit the [Cohere dashboard](https://dashboard.cohere.com/api-keys) to create an API key.
 
-[View the source](https://github.com/continuedev/continue/blob/main/core/llm/llms/Cohere.ts)
+[View the source](https://github.com/trypear/pearai-app/blob/main/core/llm/llms/Cohere.ts)
