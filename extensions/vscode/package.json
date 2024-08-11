@@ -261,6 +261,12 @@
         "category": "PearAI",
         "title": "Docs Force Re-Index",
         "group": "PearAI"
+      },
+      {
+        "command": "pearai.login",
+        "category": "PearAI",
+        "title": "Login to PearAI",
+        "group": "PearAI"
       }
     ],
     "keybindings": [

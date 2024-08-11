@@ -13,7 +13,7 @@ export class ContinueGUIWebviewViewProvider
   public webviewProtocol: VsCodeWebviewProtocol;
 
   private updateDebugLogsStatus() {
-    const settings = vscode.workspace.getConfiguration("continue");
+    const settings = vscode.workspace.getConfiguration("pearai");
     this.enableDebugLogs = settings.get<boolean>("enableDebugLogs", false);
     if (this.enableDebugLogs) {
       this.outputChannel.show(true);
@@ -26,7 +26,7 @@ export class ContinueGUIWebviewViewProvider
   private setupDebugLogsListener() {
     vscode.workspace.onDidChangeConfiguration((event) => {
       if (event.affectsConfiguration('pearai.enableDebugLogs')) {
-        const settings = vscode.workspace.getConfiguration("continue");
+        const settings = vscode.workspace.getConfiguration("pearai");
         const enableDebugLogs = settings.get<boolean>("enableDebugLogs", false);
         if (enableDebugLogs) {
           this.outputChannel.show(true);
@@ -39,7 +39,7 @@ export class ContinueGUIWebviewViewProvider
 
   private async handleWebviewMessage(message: any) {
   if (message.messageType === "log") {
-    const settings = vscode.workspace.getConfiguration("continue");
+    const settings = vscode.workspace.getConfiguration("pearai");
     const enableDebugLogs = settings.get<boolean>("enableDebugLogs", false);
 
     if (message.level === "debug" && !enableDebugLogs) {

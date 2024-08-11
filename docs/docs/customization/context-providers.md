@@ -122,7 +122,7 @@ Type '@issue' to reference the conversation in a GitHub issue. Make sure to incl
     "repos": [
       {
         "owner": "continuedev",
-        "repo": "continue"
+        "repo": "pearai"
       }
     ],
     "githubToken": "ghp_xxx"

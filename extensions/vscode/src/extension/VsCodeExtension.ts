@@ -50,8 +50,8 @@ export class VsCodeExtension {
   constructor(context: vscode.ExtensionContext) {
     // Register auth provider
     this.workOsAuthProvider = new WorkOsAuthProvider(context);
-    this.workOsAuthProvider.initialize();
-    context.subscriptions.push(this.workOsAuthProvider);
+    // this.workOsAuthProvider.initialize();
+    // context.subscriptions.push(this.workOsAuthProvider);
 
     let resolveWebviewProtocol: any = undefined;
     this.webviewProtocolPromise = new Promise<VsCodeWebviewProtocol>(
@@ -134,6 +134,31 @@ export class VsCodeExtension {
       this.configHandler.reloadConfig.bind(this.configHandler),
     );
 
+    // handleURI
+    context.subscriptions.push(
+      vscode.window.registerUriHandler({
+        handleUri(uri: vscode.Uri) {
+          console.log(uri);
+          console.log("Received a custom URI!");
+          if (uri.authority === "pearai.pearai") {
+            if (uri.path === "/ping") {
+              vscode.window.showInformationMessage(
+                "PearAI received a custom URI!",
+              );
+            } else if (uri.path === "/auth") {
+              const queryParams = new URLSearchParams(uri.query);
+              const data = {
+                accessToken: queryParams.get("accessToken"),
+                refreshToken: queryParams.get("refreshToken"),
+              };
+
+              vscode.commands.executeCommand("pearai.updateUserAuth", data);
+            }
+          }
+        },
+      }),
+    );
+
     // Indexing + pause token
     this.diffManager.webviewProtocol = this.sidebar.webviewProtocol;
 
@@ -163,7 +188,7 @@ export class VsCodeExtension {
     });
 
     // Tab autocomplete
-    const config = vscode.workspace.getConfiguration("continue");
+    const config = vscode.workspace.getConfiguration("pearai");
     const enabled = config.get<boolean>("enableTabAutocomplete");
 
     // Register inline completion provider
@@ -268,7 +293,7 @@ export class VsCodeExtension {
     vscode.authentication.onDidChangeSessions(async (e) => {
       if (e.provider.id === "github") {
         this.configHandler.reloadConfig();
-      } else if (e.provider.id === "continue") {
+      } else if (e.provider.id === "pearai") {
         const sessionInfo = await getControlPlaneSessionInfo(true);
         this.webviewProtocolPromise.then(async (webviewProtocol) => {
           webviewProtocol.request("didChangeControlPlaneSessionInfo", {
@@ -331,7 +356,7 @@ export class VsCodeExtension {
     });
   }
 
-  static continueVirtualDocumentScheme = "continue";
+  static continueVirtualDocumentScheme = "pearai";
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   private PREVIOUS_BRANCH_FOR_WORKSPACE_DIR: { [dir: string]: string } = {};

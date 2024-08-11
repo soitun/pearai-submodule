@@ -274,7 +274,7 @@ class VsCodeIde implements IDE {
     const globalEnabled = vscode.env.isTelemetryEnabled;
     const continueEnabled: boolean =
       (await vscode.workspace
-        .getConfiguration("continue")
+        .getConfiguration("pearai")
         .get("telemetryEnabled")) ?? true;
     return globalEnabled && continueEnabled;
   }
@@ -511,7 +511,7 @@ class VsCodeIde implements IDE {
   }
 
   getIdeSettingsSync(): IdeSettings {
-    const settings = vscode.workspace.getConfiguration("continue");
+    const settings = vscode.workspace.getConfiguration("pearai");
     const remoteConfigServerUrl = settings.get<string | undefined>(
       "remoteConfigServerUrl",
       undefined,

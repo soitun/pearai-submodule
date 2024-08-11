@@ -12,7 +12,7 @@ const inlineTipDecoration = vscode.window.createTextEditorDecorationType({
 
 function showInlineTip() {
   return vscode.workspace
-    .getConfiguration("continue")
+    .getConfiguration("pearai")
     .get<boolean>("showInlineTip");
 }
 
