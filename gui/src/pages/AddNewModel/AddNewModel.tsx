@@ -46,8 +46,6 @@ function Models() {
     location.state?.showOtherProviders ?? false
   );
 
-  const [providersSelected, setProvidersSelected] = useState(true);
-
   const handleOtherClick = () => setShowOtherProviders(true);
 
   const handleBackArrowClick = () => {
@@ -83,7 +81,7 @@ function Models() {
         To add a model, select one of the options below:
       </IntroDiv>
       <GridDiv>
-        {!showOtherProviders && providersSelected ? (
+        {!showOtherProviders ? (
           <>
             <ModelCard
               key="pearai_server"
@@ -108,17 +106,19 @@ function Models() {
         ) : (
           <>
             {Object.entries(providers).map(([providerName, modelInfo], i) => (
-              <ModelCard
-                key={`${providerName}-${i}`}
-                title={modelInfo.title}
-                description={modelInfo.description}
-                tags={modelInfo.tags}
-                icon={modelInfo.icon}
-                onClick={(e) => {
-                  console.log(`/addModel/provider/${providerName}`);
-                  navigate(`/addModel/provider/${providerName}`);
-                }}
-              />
+              providerName !== "pearai_server" && providerName !== "other" && (
+                <ModelCard
+                  key={`${providerName}-${i}`}
+                  title={modelInfo.title}
+                  description={modelInfo.description}
+                  tags={modelInfo.tags}
+                  icon={modelInfo.icon}
+                  onClick={(e) => {
+                    console.log(`/addModel/provider/${providerName}`);
+                    navigate(`/addModel/provider/${providerName}`);
+                  }}
+                />
+              )
             ))}
           </>
         )}

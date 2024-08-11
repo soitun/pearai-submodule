@@ -130,6 +130,7 @@ function ModelCard(props: ModelCardProps) {
           style={{
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
           {window.vscMediaUrl && props.icon && (
