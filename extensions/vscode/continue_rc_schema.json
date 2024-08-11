@@ -1494,7 +1494,7 @@
                 "properties": {
                   "recap": {
                     "type": "boolean",
-                    "markdownDescription": "If recap is set to `true`, Continue will generate a summary of the changes after making the edit."
+                    "markdownDescription": "If recap is set to `true`, PearAI will generate a summary of the changes after making the edit."
                   },
                   "tokenLimit": {
                     "type": "integer",
@@ -2239,13 +2239,13 @@
         },
         "disableIndexing": {
           "title": "Disable Indexing",
-          "markdownDescription": "If set to `true`, Continue will not index the codebase. This is mainly used for debugging purposes.",
+          "markdownDescription": "If set to `true`, PearAI will not index the codebase. This is mainly used for debugging purposes.",
           "default": false,
           "type": "boolean"
         },
         "disableSessionTitles": {
           "title": "Disable Session Titles",
-          "markdownDescription": "If set to `true`, Continue will not make extra requests to the LLM to generate a summary title of each session.",
+          "markdownDescription": "If set to `true`, PearAI will not make extra requests to the LLM to generate a summary title of each session.",
           "default": false,
           "type": "boolean"
         },
@@ -2516,7 +2516,7 @@
         },
         "tabAutocompleteModel": {
           "title": "Tab Autocomplete Model",
-          "markdownDescription": "The model used for tab autocompletion. If undefined, Continue will default to using starcoder2:3b on a local Ollama instance.\n\n*IMPORTANT*:\n\nIf you use a custom model, ensure that it is one trained for fill-in-the-middle completions. An instruct model is typically not well-suited to autocomplete and you may receive unsatisfactory completions.",
+          "markdownDescription": "The model used for tab autocompletion. If undefined, PearAI will default to using starcoder2:3b on a local Ollama instance.\n\n*IMPORTANT*:\n\nIf you use a custom model, ensure that it is one trained for fill-in-the-middle completions. An instruct model is typically not well-suited to autocomplete and you may receive unsatisfactory completions.",
           "default": {
             "title": "Tab Autocomplete Model",
             "provider": "ollama",
@@ -2578,7 +2578,7 @@
                 "never",
                 "auto"
               ],
-              "description": "If set to true, Continue will only complete a single line at a time."
+              "description": "If set to true, PearAI will only complete a single line at a time."
             },
             "useCache": {
               "type": "boolean",
@@ -2586,11 +2586,11 @@
             },
             "onlyMyCode": {
               "type": "boolean",
-              "description": "If set to true, Continue will not include any snippets from go to definition unless they are within your repository"
+              "description": "If set to true, PearAI will not include any snippets from go to definition unless they are within your repository"
             },
             "useOtherFiles": {
               "type": "boolean",
-              "description": "Defaults to true. If set to false, Continue will not attempt to include snippets from other files."
+              "description": "Defaults to true. If set to false, PearAI will not attempt to include snippets from other files."
             },
             "disableInFiles": {
               "description": "A list of files / glob patterns in which to disable tab autocomplete. For example, *.csv if you'd like to disable autocomplete in .csv files.",
@@ -2771,7 +2771,7 @@
           ],
           "default": "merge",
           "title": "Merge behavior",
-          "markdownDescription": "If set to 'merge', .continuerc.json will be applied on top of config.json (arrays and objects are merged). If set to 'overwrite', then every top-level property of .continuerc.json will overwrite that property from config.json."
+          "markdownDescription": "If set to 'merge', .pearairc.json will be applied on top of config.json (arrays and objects are merged). If set to 'overwrite', then every top-level property of .pearairc.json will overwrite that property from config.json."
         }
       }
     }

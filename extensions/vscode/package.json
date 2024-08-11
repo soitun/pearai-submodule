@@ -60,28 +60,28 @@
       {
         "filenames": [
           "config.json",
-          ".continuerc.json"
+          ".pearairc.json"
         ],
         "id": "jsonc"
       }
     ],
     "configuration": {
-      "title": "Continue",
+      "title": "PearAI",
       "properties": {
         "pearai.telemetryEnabled": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "Continue collects anonymous usage data, cleaned of PII, to help us improve the product for our users. Read more  at [pearai.dev › Telemetry](https://trypear.ai/telemetry)."
+          "markdownDescription": "PearAI collects anonymous usage data, cleaned of PII, to help us improve the product for our users. Read more  at [pearai.dev › Telemetry](https://trypear.ai/telemetry)."
         },
         "pearai.enableContinueForTeams": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "_(Requires window reload)_ Enable Continue for teams beta features. To sign in, click the person icon in the bottom right of the sidebar."
+          "markdownDescription": "_(Requires window reload)_ Enable PearAI for teams beta features. To sign in, click the person icon in the bottom right of the sidebar."
         },
         "pearai.showInlineTip": {
           "type": "boolean",
           "default": true,
-          "description": "Show inline suggestion to use the Continue keyboard shortcuts (e.g. \"Cmd/Ctrl L to select code, Cmd/Ctrl I to edit\")."
+          "description": "Show inline suggestion to use the PearAI keyboard shortcuts (e.g. \"Cmd/Ctrl L to select code, Cmd/Ctrl I to edit\")."
         },
         "pearai.enableQuickActions": {
           "type": "boolean",
@@ -91,22 +91,22 @@
         "pearai.enableTabAutocomplete": {
           "type": "boolean",
           "default": true,
-          "markdownDescription": "Enable Continue's tab autocomplete feature. Read our walkthrough to learn about configuration and how to share feedback: [pearai.dev › Walkthrough: Tab Autocomplete (beta)](https://trypear.ai/features/tab-autocomplete)"
+          "markdownDescription": "Enable PearAI's tab autocomplete feature. Read our walkthrough to learn about configuration and how to share feedback: [pearai.dev › Walkthrough: Tab Autocomplete (beta)](https://trypear.ai/features/tab-autocomplete)"
         },
         "pearai.pauseTabAutocompleteOnBattery": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "Pause Continue's tab autocomplete feature when your battery is low."
+          "markdownDescription": "Pause PearAI's tab autocomplete feature when your battery is low."
         },
         "pearai.pauseCodebaseIndexOnStart": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "Pause Continue's codebase index on start."
+          "markdownDescription": "Pause PearAI's codebase index on start."
         },
         "pearai.enableDebugLogs": {
           "type": "boolean",
           "default": false,
-          "markdownDescription": "Enable Continue Debug Logs in the Output panel."
+          "markdownDescription": "Enable PearAI Debug Logs in the Output panel."
         },
         "pearai.remoteConfigServerUrl": {
           "type": "string",
@@ -128,139 +128,139 @@
     "commands": [
       {
         "command": "pearai.acceptDiff",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Accept Diff",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.rejectDiff",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Reject Diff",
-        "group": "Continue",
+        "group": "PearAI",
         "icon": "$(stop)"
       },
       {
         "command": "pearai.acceptVerticalDiffBlock",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Accept Vertical Diff Block",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.rejectVerticalDiffBlock",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Reject Vertical Diff Block",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.quickEdit",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Generate Code",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.focusContinueInput",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Add Highlighted Code to Context",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.focusContinueInputWithoutClear",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Add Highlighted Code to Context",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.debugTerminal",
-        "category": "Continue",
-        "title": "Continue: Debug Terminal",
-        "group": "Continue"
+        "category": "PearAI",
+        "title": "PearAI: Debug Terminal",
+        "group": "PearAI"
       },
       {
         "command": "pearai.toggleFullScreen",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Toggle Full Screen",
         "icon": "$(fullscreen)",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.openConfigJson",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Open config.json",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.toggleTabAutocompleteEnabled",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Toggle Autocomplete Enabled",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.selectFilesAsContext",
-        "category": "Continue",
-        "title": "Continue: Select Files as Context",
-        "group": "Continue"
+        "category": "PearAI",
+        "title": "PearAI: Select Files as Context",
+        "group": "PearAI"
       },
       {
         "command": "pearai.newSession",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "New Session",
         "icon": "$(add)",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.viewHistory",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "View History",
         "icon": "$(history)",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.writeCommentsForCode",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Write Comments for this Code",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.writeDocstringForCode",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Write a Docstring for this Code",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.fixCode",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Fix this Code",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.optimizeCode",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Optimize this Code",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.fixGrammar",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Fix Grammar / Spelling",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.codebaseForceReIndex",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Codebase Force Re-Index",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.docsIndex",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Docs Index",
-        "group": "Continue"
+        "group": "PearAI"
       },
       {
         "command": "pearai.docsReIndex",
-        "category": "Continue",
+        "category": "PearAI",
         "title": "Docs Force Re-Index",
-        "group": "Continue"
+        "group": "PearAI"
       }
     ],
     "keybindings": [
@@ -343,7 +343,7 @@
     "submenus": [
       {
         "id": "pearai.continueSubMenu",
-        "label": "Continue"
+        "label": "PearAI"
       }
     ],
     "menus": {
@@ -376,39 +376,39 @@
       "editor/title/run": [
         {
           "command": "pearai.rejectDiff",
-          "group": "Continue",
+          "group": "PearAI",
           "when": "pearai.streamingDiff"
         }
       ],
       "pearai.continueSubMenu": [
         {
           "command": "pearai.focusContinueInputWithoutClear",
-          "group": "Continue",
+          "group": "PearAI",
           "when": "editorHasSelection"
         },
         {
           "command": "pearai.writeCommentsForCode",
-          "group": "Continue",
+          "group": "PearAI",
           "when": "editorHasSelection"
         },
         {
           "command": "pearai.writeDocstringForCode",
-          "group": "Continue",
+          "group": "PearAI",
           "when": "editorHasSelection"
         },
         {
           "command": "pearai.fixCode",
-          "group": "Continue",
+          "group": "PearAI",
           "when": "editorHasSelection"
         },
         {
           "command": "pearai.optimizeCode",
-          "group": "Continue",
+          "group": "PearAI",
           "when": "editorHasSelection"
         },
         {
           "command": "pearai.fixGrammar",
-          "group": "Continue",
+          "group": "PearAI",
           "when": "editorHasSelection && editorLangId == 'markdown'"
         }
       ],
@@ -452,14 +452,14 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "continue",
-          "title": "Continue",
+          "id": "PearAI",
+          "title": "PearAI",
           "icon": "media/sidebar-icon.png"
         }
       ]
     },
     "views": {
-      "continue": [
+      "PearAI": [
         {
           "type": "webview",
           "id": "pearai.continueGUIView",
@@ -470,14 +470,14 @@
     },
     "walkthroughs": [
       {
-        "id": "continue",
+        "id": "PearAI",
         "title": "Getting Started",
-        "description": "Learn how to use Continue",
+        "description": "Learn how to use PearAI",
         "steps": [
           {
             "id": "edit",
             "title": "Edit in natural language",
-            "description": "Highlight a section of code and instruct Continue to refactor it (e.g. `/edit rewrite this function to be async`)",
+            "description": "Highlight a section of code and instruct PearAI to refactor it (e.g. `/edit rewrite this function to be async`)",
             "media": {
               "image": "media/edit.png",
               "altText": "Empty image"
@@ -487,7 +487,7 @@
           {
             "id": "explain",
             "title": "Get possible explanations",
-            "description": "Ask Continue about a part of your code to get another perspective (e.g. `where in the page should I be making this request to the backend?`)",
+            "description": "Ask PearAI about a part of your code to get another perspective (e.g. `where in the page should I be making this request to the backend?`)",
             "media": {
               "image": "media/explain.png",
               "altText": "Empty image"
@@ -497,7 +497,7 @@
           {
             "id": "generate",
             "title": "Generate files from scratch",
-            "description": "Let Continue build the scaffolding of Python scripts, React components, and more (e.g. `/edit here is a connector for postgres, now write one for kafka`)",
+            "description": "Let PearAI build the scaffolding of Python scripts, React components, and more (e.g. `/edit here is a connector for postgres, now write one for kafka`)",
             "media": {
               "image": "media/generate.png",
               "altText": "Empty image"
@@ -513,7 +513,7 @@
         "url": "./config_schema.json"
       },
       {
-        "fileMatch": ".continuerc.json",
+        "fileMatch": ".pearairc.json",
         "url": "./continue_rc_schema.json"
       }
     ]

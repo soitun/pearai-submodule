@@ -385,7 +385,7 @@ const commandsMap: (
       captureCommandTelemetry("viewLogs");
 
       // Open ~/.continue/pearai.log
-      const logFile = path.join(os.homedir(), ".continue", "pearai.log");
+      const logFile = path.join(os.homedir(), ".pearai", "pearai.log");
       // Make sure the file/directory exist
       if (!fs.existsSync(logFile)) {
         fs.mkdirSync(path.dirname(logFile), { recursive: true });

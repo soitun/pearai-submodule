@@ -244,7 +244,7 @@ export class VsCodeExtension {
       }
 
       if (
-        filepath.endsWith(".continuerc.json") ||
+        filepath.endsWith(".pearairc.json") ||
         filepath.endsWith(".prompt")
       ) {
         this.configHandler.reloadConfig();
