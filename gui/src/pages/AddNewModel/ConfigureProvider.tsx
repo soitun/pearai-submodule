@@ -135,7 +135,7 @@ function ConfigureProvider() {
             className="inline-block ml-4 cursor-pointer"
           />
           <h3 className="text-lg font-bold m-2 inline-block">
-            Configure
+            Configure Provider
           </h3>
         </div>
 
@@ -170,7 +170,7 @@ function ConfigureProvider() {
                 <Toggle
                   selected={watsonxAuthenticate}
                   optionOne={"Authenticate by API key"}
-                  optionTwo={"Authenticate by credentials"}
+                  optionTwo={"Authenticate by crendentials"}
                   onClick={() => {
                     setWatsonxAuthenticate((prev) => !prev);
                   }}
@@ -302,7 +302,7 @@ function ConfigureProvider() {
             </details>
           )}
 
-        {/* {providerName === "pearai_server" ? (
+        {providerName === "pearai_server" ? (
             <>
               <h3>1. Sign Up and Subscribe at <a href="https://trypear.ai/pricing" target="_blank" rel="noopener noreferrer">trypear.ai/pricing</a></h3>
               <h3>2. Login w/ PearAI </h3>
@@ -334,76 +334,114 @@ function ConfigureProvider() {
                     description={""}
                     tags={pkg.tags}
                     dimensions={pkg.dimensions}
-                    onClick={null}
+                    onClick={(e, dimensionChoices) => {
+                      if (
+                        disableModelCards() &&
+                        enablecardsForApikey() &&
+                        enablecardsForCredentials()
+                      )
+                        return;
+                      let formParams: any = {};
+                      for (const d of modelInfo.collectInputFor || []) {
+                        const val = formMethods.watch(d.key);
+                        if (val === "" || val === undefined || val === null) {
+                          continue;
+                        }
+                        formParams = updatedObj(formParams, {
+                          [d.key]: d.inputType === "text" ? val : parseFloat(val),
+                        });
+                      }
+    
+                      const model = {
+                        ...pkg.params,
+                        ...modelInfo.params,
+                        ..._.merge(
+                          {},
+                          ...(pkg.dimensions?.map((dimension, i) => {
+                            if (!dimensionChoices?.[i]) return {};
+                            return {
+                              ...dimension.options[dimensionChoices[i]],
+                            };
+                          }) || []),
+                        ),
+                        ...formParams,
+                        provider: modelInfo.provider,
+                      };
+                      ideMessenger.post("config/addModel", { model });
+                      dispatch(
+                        setDefaultModel({ title: model.title, force: true }),
+                      );
+                      navigate("/");
+                    }}
                   />
                 ))}
               </GridDiv>
             </>
             ) : (
-              <></>
-          )} */}
-
-          <h3 className="mb-2">Select a model preset</h3>
-        </div>
-        <GridDiv>
-          {modelInfo?.packages.map((pkg, idx) => {
-            return (
-              <ModelCard
-                key={idx}
-                disabled={
-                  disableModelCards() &&
-                  enablecardsForApikey() &&
-                  enablecardsForCredentials()
-                }
-                title={pkg.title}
-                description={pkg.description}
-                tags={pkg.tags}
-                refUrl={pkg.refUrl}
-                icon={pkg.icon || modelInfo.icon}
-                dimensions={pkg.dimensions}
-                onClick={(e, dimensionChoices) => {
-                  if (
-                    disableModelCards() &&
-                    enablecardsForApikey() &&
-                    enablecardsForCredentials()
-                  )
-                    return;
-                  let formParams: any = {};
-                  for (const d of modelInfo.collectInputFor || []) {
-                    const val = formMethods.watch(d.key);
-                    if (val === "" || val === undefined || val === null) {
-                      continue;
-                    }
-                    formParams = updatedObj(formParams, {
-                      [d.key]: d.inputType === "text" ? val : parseFloat(val),
-                    });
-                  }
-
-                  const model = {
-                    ...pkg.params,
-                    ...modelInfo.params,
-                    ..._.merge(
-                      {},
-                      ...(pkg.dimensions?.map((dimension, i) => {
-                        if (!dimensionChoices?.[i]) return {};
-                        return {
-                          ...dimension.options[dimensionChoices[i]],
+              <>
+              <h3 className="mb-2">Select a model preset</h3>
+              <GridDiv>
+                {modelInfo?.packages.map((pkg, idx) => {
+                  return (
+                    <ModelCard
+                      key={idx}
+                      disabled={
+                        disableModelCards() &&
+                        enablecardsForApikey() &&
+                        enablecardsForCredentials()
+                      }
+                      title={pkg.title}
+                      description={pkg.description}
+                      tags={pkg.tags}
+                      refUrl={pkg.refUrl}
+                      icon={pkg.icon || modelInfo.icon}
+                      dimensions={pkg.dimensions}
+                      onClick={(e, dimensionChoices) => {
+                        if (
+                          disableModelCards() &&
+                          enablecardsForApikey() &&
+                          enablecardsForCredentials()
+                        )
+                          return;
+                        let formParams: any = {};
+                        for (const d of modelInfo.collectInputFor || []) {
+                          const val = formMethods.watch(d.key);
+                          if (val === "" || val === undefined || val === null) {
+                            continue;
+                          }
+                          formParams = updatedObj(formParams, {
+                            [d.key]: d.inputType === "text" ? val : parseFloat(val),
+                          });
+                        }
+      
+                        const model = {
+                          ...pkg.params,
+                          ...modelInfo.params,
+                          ..._.merge(
+                            {},
+                            ...(pkg.dimensions?.map((dimension, i) => {
+                              if (!dimensionChoices?.[i]) return {};
+                              return {
+                                ...dimension.options[dimensionChoices[i]],
+                              };
+                            }) || []),
+                          ),
+                          ...formParams,
+                          provider: modelInfo.provider,
                         };
-                      }) || []),
-                    ),
-                    ...formParams,
-                    provider: modelInfo.provider,
-                  };
-                  ideMessenger.post("config/addModel", { model });
-                  dispatch(
-                    setDefaultModel({ title: model.title, force: true }),
+                        ideMessenger.post("config/addModel", { model });
+                        dispatch(
+                          setDefaultModel({ title: model.title, force: true }),
+                        );
+                        navigate("/");
+                      }}
+                    />
                   );
-                  navigate("/");
-                }}
-              />
-            );
-          })}
-        </GridDiv>
+                })}
+              </GridDiv>
+            </>
+          )} 
+        </div>
       </div>
     </FormProvider>
   );
