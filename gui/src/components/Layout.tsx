@@ -1,6 +1,6 @@
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { IndexingProgressUpdate } from "core";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -9,6 +9,7 @@ import {
   defaultBorderRadius,
   vscForeground,
   vscInputBackground,
+  vscBackground,
 } from ".";
 import { IdeMessengerContext } from "../context/IdeMessenger";
 import { useWebviewListener } from "../hooks/useWebviewListener";
@@ -29,8 +30,15 @@ import IndexingProgressBar from "./loaders/IndexingProgressBar";
 import ProgressBar from "./loaders/ProgressBar";
 import PostHogPageView from "./PosthogPageView";
 import ProfileSwitcher from "./ProfileSwitcher";
+import ShortcutContainer from "./ShortcutContainer"
+
+// check mac or window
+const platform = navigator.userAgent.toLowerCase();
+const isMac = platform.includes('mac');
+const isWindows = platform.includes('win');
 
 // #region Styled Components
+const HEADER_HEIGHT = "1.55rem";
 const FOOTER_HEIGHT = "1.8em";
 
 const LayoutTopDiv = styled(CustomScrollbarDiv)`
@@ -77,15 +85,28 @@ const Footer = styled.footer`
   height: ${FOOTER_HEIGHT};
   background-color: transparent;
   backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(136, 136, 136, 0.3);
-  border-bottom: 1px solid rgba(136, 136, 136, 0.3);
+
   overflow: hidden;
 `;
 
-const GridDiv = styled.div`
+const Header = styled.header`
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background-color: ${vscBackground};
+  display: flex;
+  justify-content: right;
+  padding: 1px;
+  width: calc(100% - 8px);
+  height: ${HEADER_HEIGHT};
+  overflow: hidden;
+`;
+
+
+const GridDiv = styled.div<{ showHeader: boolean }>`
   display: grid;
-  grid-template-rows: 1fr auto;
-  height: 100vh;
+  grid-template-rows: ${(props) => (props.showHeader ? "auto 1fr auto" : "1fr auto")};
+  min-height: 100vh;
   overflow-x: visible;
 `;
 
@@ -111,6 +132,10 @@ const HIDE_FOOTER_ON_PAGES = [
   "/onboarding",
   "/localOnboarding",
   "/apiKeyOnboarding",
+];
+
+const SHOW_SHORTCUTS_ON_PAGES = [
+  "/",
 ];
 
 const Layout = () => {
@@ -265,7 +290,12 @@ const Layout = () => {
           message={dialogMessage}
         />
 
-        <GridDiv>
+        <GridDiv showHeader={SHOW_SHORTCUTS_ON_PAGES.includes(location.pathname)}>
+            {SHOW_SHORTCUTS_ON_PAGES.includes(location.pathname) && (
+              <Header>
+                <ShortcutContainer />
+              </Header>
+            )}
           <PostHogPageView />
           <Outlet />
           <ModelDropdownPortalDiv id="model-select-top-div"></ModelDropdownPortalDiv>

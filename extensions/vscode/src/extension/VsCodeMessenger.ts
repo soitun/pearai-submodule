@@ -108,6 +108,15 @@ export class VsCodeMessenger {
     this.onWebview("toggleFullScreen", (msg) => {
       vscode.commands.executeCommand("pearai.toggleFullScreen");
     });
+    this.onWebview("bigChat", (msg) => {
+      vscode.commands.executeCommand("pearai.resizeAuxiliaryBarWidth");
+    });
+    this.onWebview("lastChat", (msg) => {
+      vscode.commands.executeCommand("pearai.loadRecentChat");
+    });
+    this.onWebview("closeChat", (msg) => {
+      vscode.commands.executeCommand("pearai.closeChat");
+    });
     // History
     this.onWebview("saveFile", async (msg) => {
       return await ide.saveFile(msg.data.filepath);

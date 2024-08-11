@@ -488,7 +488,7 @@ const commandsMap: (
       //create the full screen panel
       let panel = vscode.window.createWebviewPanel(
         "pearai.continueGUIView",
-        "Continue",
+        "PearAI",
         vscode.ViewColumn.One,
         {
           retainContextWhenHidden: true,
@@ -727,6 +727,15 @@ const commandsMap: (
       extensionContext.secrets.store("pearai-refresh", data.refreshToken);
 
       vscode.window.showInformationMessage("PearAI: Successfully logged in!");
+    },
+    "pearai.winshortcutResizeAuxiliaryBarWidth": () => {
+      vscode.commands.executeCommand("pearai.resizeAuxiliaryBarWidth");
+    },
+    "pearai.macResizeAuxiliaryBarWidth": () => {
+      vscode.commands.executeCommand("pearai.resizeAuxiliaryBarWidth");
+    },
+    "pearai.closeChat": () => {
+      vscode.commands.executeCommand("workbench.action.toggleAuxiliaryBar");
     },
   };
 };
