@@ -97,7 +97,7 @@ class VsCodeIde implements IDE {
       if (!this.askedForAuth) {
         vscode.window
           .showInformationMessage(
-            "PearAI will request read access to your GitHub email so that we can prevent abuse of the free trial. If you prefer not to sign in, you can use Continue with your own API keys or local model.",
+            "PearAI will request read access to your GitHub email so that we can prevent abuse of the free trial. If you prefer not to sign in, you can use PearAI with your own API keys or local model.",
             "Sign in",
             "Use API key / local model",
             "Learn more",

@@ -35,7 +35,7 @@
                 parentId="tools"
                 instance="com.github.continuedev.continueintellijextension.services.ContinueExtensionConfigurable"
                 id="com.github.continuedev.continueintellijextension.services.ContinueExtensionConfigurable"
-                displayName="Continue"/>
+                displayName="PearAI"/>
         <applicationService
                 serviceImplementation="com.github.continuedev.continueintellijextension.services.ContinueExtensionSettings"/>
     </extensions>

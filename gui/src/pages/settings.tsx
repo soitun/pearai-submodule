@@ -159,7 +159,7 @@ function Settings() {
                 filepath:
                   getPlatform() == "windows"
                     ? "~\\.continue\\config.json"
-                    : "~/.continue/config.json",
+                    : "~/.pearai/config.json",
               });
             }}
           >

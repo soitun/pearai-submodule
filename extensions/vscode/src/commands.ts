@@ -384,7 +384,7 @@ const commandsMap: (
     "pearai.viewLogs": async () => {
       captureCommandTelemetry("viewLogs");
 
-      // Open ~/.continue/pearai.log
+      // Open ~/.pearai/pearai.log
       const logFile = path.join(os.homedir(), ".pearai", "pearai.log");
       // Make sure the file/directory exist
       if (!fs.existsSync(logFile)) {

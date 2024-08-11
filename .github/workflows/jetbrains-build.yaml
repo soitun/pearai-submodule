@@ -290,7 +290,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: core-logs-${{ matrix.platform }}-${{ matrix.arch }}
-          path: binary/.continue/logs/core.log
+          path: binary/.pearai/logs/core.log
 
   # Run tests and upload a code coverage report
   test:

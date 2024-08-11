@@ -181,7 +181,7 @@ async function serializedToIntermediateConfig(
       .flat()
       .filter(({ path }) => path.endsWith(".prompt"));
 
-    // Also read from ~/.continue/.prompts
+    // Also read from ~/.pearai/.prompts
     promptFiles.push(...readAllGlobalPromptFiles());
 
     for (const file of promptFiles) {
@@ -563,7 +563,7 @@ async function buildConfigTs() {
     }
   } catch (e) {
     console.log(
-      `Build error. Please check your ~/.continue/config.ts file: ${e}`,
+      `Build error. Please check your ~/.pearai/config.ts file: ${e}`,
     );
     return undefined;
   }

@@ -31,7 +31,7 @@ To disable Quick Actions, open the settings menu (`⌘ + ,`), search for `"conti
 
 ## Custom Quick Actions
 
-Custom Quick Actions allow you to tailor functionality to your specific needs, extending beyond the default actions. You can easily configure these custom actions in your `~/.continue/config.json` file.
+Custom Quick Actions allow you to tailor functionality to your specific needs, extending beyond the default actions. You can easily configure these custom actions in your `~/.pearai/config.json` file.
 
 :::info
 [View the Configuration Options reference](../reference/config) for specific schema details.
@@ -43,7 +43,7 @@ Custom Quick Actions allow you to tailor functionality to your specific needs, e
 
 A quick action that generates and inserts a unit test above the selected code.
 
-```json title=~/.continue/config.json
+```json title=~/.pearai/config.json
 "experimental": {
     "quickActions": [
       {
@@ -58,7 +58,7 @@ A quick action that generates and inserts a unit test above the selected code.
 
 The default "Explain" aims to provide a brief overview of the code. This quick action sends the prompt and the code to the chat to provides a more detailed explanation.
 
-```json title=~/.continue/config.json
+```json title=~/.pearai/config.json
 "experimental": {
     "quickActions": [
       {
@@ -74,7 +74,7 @@ The default "Explain" aims to provide a brief overview of the code. This quick a
 
 A quick action that generates and inserts a Typescript interface above the selected code.
 
-```json title=~/.continue/config.json
+```json title=~/.pearai/config.json
 "experimental": {
     "quickActions": [
       {
