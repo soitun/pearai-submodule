@@ -472,6 +472,12 @@ const commandsMap: (
     "pearai.newSession": () => {
       sidebar.webviewProtocol?.request("newSession", undefined);
     },
+    "pearai.cycleModel": async () => {
+      const models = ["pearai", "claude-3.5-sonnet", "gpt-4o"];
+      const currentModel = await sidebar.webviewProtocol.request("getCurrentModel", undefined);
+      const nextModel = models[(models.indexOf(currentModel) + 1) % models.length];
+      sidebar.webviewProtocol.request("setCurrentModel", nextModel);
+    },
     "pearai.viewHistory": () => {
       sidebar.webviewProtocol?.request("viewHistory", undefined);
     },

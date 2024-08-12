@@ -31,6 +31,7 @@ import StepContainer from "../components/gui/StepContainer";
 import TimelineItem from "../components/gui/TimelineItem";
 import ContinueInputBox from "../components/mainInput/ContinueInputBox";
 import { defaultInputModifiers } from "../components/mainInput/inputModifiers";
+import PearAIModelSelector from "../components/modelSelection/PearAIModelSelector";
 import useChatHandler from "../hooks/useChatHandler";
 import useHistory from "../hooks/useHistory";
 import { useWebviewListener } from "../hooks/useWebviewListener";
@@ -240,6 +241,22 @@ function GUI(props: GUIProps) {
 
   // #endregion
 
+  // #region
+  const [currentModel, setCurrentModel] = useState("pearai");
+  const isPearAIServer = useSelector((state: RootState) => state.state.defaultModel?.provider === "pearai-server");
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.altKey && e.key === "0") {
+        const models = ["pearai", "claude-3.5-sonnet", "gpt-4o"];
+        setCurrentModel(models[(models.indexOf(currentModel) + 1) % models.length]);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [currentModel]);
+
   const { streamResponse } = useChatHandler(dispatch);
 
   const sendInput = useCallback(
@@ -261,7 +278,7 @@ function GUI(props: GUIProps) {
         }
       }
 
-      streamResponse(editorState, modifiers);
+      streamResponse(editorState, { ...modifiers, model: currentModel });
 
       // Increment localstorage counter for popup
       const currentCount = getLocalStorage("mainTextEntryCounter");
@@ -339,6 +356,7 @@ function GUI(props: GUIProps) {
       defaultModel,
       state,
       streamResponse,
+      currentModel,
     ],
   );
 
@@ -477,6 +495,15 @@ function GUI(props: GUIProps) {
             isMainInput={true}
             hidden={active}
           ></ContinueInputBox>
+
+          {isPearAIServer && (
+            <div className="flex justify-center mt-2">
+              <PearAIModelSelector
+                currentModel={currentModel}
+                onModelChange={setCurrentModel}
+              />
+            </div>
+          )}
 
           {active ? (
             <>

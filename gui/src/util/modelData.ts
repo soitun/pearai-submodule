@@ -29,8 +29,8 @@ export enum ModelProviderTag {
 
 export const MODEL_PROVIDER_TAG_COLORS: any = {};
 MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Recommended"]] = "#1E90FF";
-MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Requires Login"]] = "#FF4500"; 
-MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Hosted"]] = "#008000"; 
+MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Requires Login"]] = "#FF4500";
+MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Hosted"]] = "#008000";
 MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Requires API Key"]] = "#FF0000";
 MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Local"]] = "#00bb00";
 MODEL_PROVIDER_TAG_COLORS[ModelProviderTag["Open-Source"]] = "#0033FF";
@@ -716,8 +716,33 @@ export const PROVIDER_HOME: { [key: string]: ModelInfo } = {
     tags: [ModelProviderTag["Recommended"], ModelProviderTag["Hosted"]],
     packages: [
       {
-        ...pearai_model
-      }
+        ...pearai_model,
+        title: "PearAI (recommended)",
+        params: {
+          ...pearai_model.params,
+          model: "pearai",
+        },
+      },
+      {
+        ...claude35Sonnet,
+        title: "Claude 3.5 Sonnet",
+        params: {
+          model: "claude-3.5-sonnet",
+          contextLength: 200_000,
+          title: "Claude 3.5 Sonnet",
+        },
+      },
+      {
+        ...gpt4o,
+        title: "GPT-4o",
+        params: {
+          model: "gpt-4o",
+          contextLength: 128_000,
+          title: "GPT-4o",
+          systemMessage:
+            "You are an expert software developer. You give helpful and concise responses.",
+        },
+      },
     ],
   },
   other: {

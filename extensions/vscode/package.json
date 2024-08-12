@@ -334,6 +334,12 @@
         "command": "pearai.loadRecentChat",
         "mac": "cmd+0",
         "key": "ctrl+0"
+      },
+      {
+        "command": "pearai.cycleModel",
+        "key": "ctrl+alt+0",
+        "mac": "cmd+alt+0",
+        "when": "editorTextFocus"
       }
     ],
     "submenus": [

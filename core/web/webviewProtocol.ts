@@ -82,6 +82,10 @@ export type WebviewProtocol = Protocol &
     showFile: [{ filepath: string }, void];
     openConfigJson: [undefined, void];
 
+    getCurrentModel: [undefined, string];
+    setCurrentModel: [string, void];
+    isPearAIServerProvider: [undefined, boolean];
+
     toggleDevTools: [undefined, void];
     reloadWindow: [undefined, void];
     focusEditor: [undefined, void];
@@ -129,6 +133,8 @@ export type ReverseWebviewProtocol = {
     { provider: string; submenuItems: ContextSubmenuItem[] },
     void,
   ];
+  getCurrentModel: [undefined, string];
+  setCurrentModel: [string, void];
   getDefaultModelTitle: [undefined, string];
   newSessionWithPrompt: [{ prompt: string }, void];
   userInput: [{ input: string }, void];
