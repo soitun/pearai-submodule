@@ -1,5 +1,5 @@
 {
-  "name": "@continuedev/llm-info",
+  "name": "@pearaidev/llm-info",
   "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
