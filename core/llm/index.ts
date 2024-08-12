@@ -59,13 +59,14 @@ export abstract class BaseLLM implements ILLM {
 
   supportsCompletions(): boolean {
     if (this.providerName === "openai") {
-      if (
-        this.apiBase?.includes("api.groq.com") ||
-        this.apiBase?.includes("api.mistral.ai") ||
-        this.apiBase?.includes(":1337") ||
-        this._llmOptions.useLegacyCompletionsEndpoint?.valueOf() === false
-      ) {
-        // Jan + Groq + Mistral don't support completions : (
+      // Check if it is a string before performing on it.
+      const isGroqApi = typeof this.apiBase === "string" && /^https:\/\/(?:[a-zA-Z0-9-]+\.)*api\.groq\.com(?:\/|$)/.test(this.apiBase);
+      const isMistralApi = typeof this.apiBase === "string" && /^https:\/\/(?:[a-zA-Z0-9-]+\.)*api\.mistral\.ai(?:\/|$)/.test(this.apiBase);
+      const isLegacyPort = this.apiBase?.includes(":1337");
+      const usesNewEndpoint = this._llmOptions.useLegacyCompletionsEndpoint?.valueOf() === false;
+      
+      if (isGroqApi || isMistralApi || isLegacyPort || usesNewEndpoint) {
+        // Jan + Groq + Mistral  don't support completions : (
         // Seems to be going out of style...
         return false;
       }

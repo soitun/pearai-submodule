@@ -81,7 +81,9 @@ const StopButton = styled.div`
   border: 0.5px solid ${lightGray};
   border-radius: ${defaultBorderRadius};
   padding: 4px 8px;
-  color: ${lightGray};
+  background: ${vscBackground};
+  z-index: 50;
+  color: var(--vscode-textPreformat-foreground);
 
   cursor: pointer;
 `;
@@ -238,6 +240,20 @@ function GUI() {
 
     setIsAtBottom(true);
   }, [active]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      window.scrollTo({
+        top: topGuiDivRef.current?.scrollHeight,
+        behavior: "instant" as any,
+      });
+    }, 1);
+
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [topGuiDivRef.current]);
 
   useEffect(() => {
     // Cmd + Backspace to delete current step
@@ -563,7 +579,7 @@ function GUI() {
       </TopGuiDiv>
       {active && (
         <StopButton
-          className="mt-auto mb-4"
+          className="mt-auto mb-4 sticky bottom-4"
           onClick={() => {
             dispatch(setInactive());
             if (
