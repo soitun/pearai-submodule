@@ -218,7 +218,7 @@ async function intermediateToFinalConfig(
   uniqueId: string,
   writeLog: (log: string) => Promise<void>,
   workOsAccessToken: string | undefined,
-  allowFreeTrial: boolean = true,
+  allowFreeTrial: boolean = false,
 ): Promise<ContinueConfig> {
   // Auto-detect models
   let models: BaseLLM[] = [];
@@ -326,9 +326,11 @@ async function intermediateToFinalConfig(
         (model as FreeTrial).setupGhAuthToken(ghAuthToken);
       }
     }
+    console.log("Free trial models:", freeTrialModels);
   } else {
     // Remove free trial models
     models = models.filter((model) => model.providerName !== "free-trial");
+    console.log("Models:", models);
   }
 
   // Tab autocomplete model
@@ -351,14 +353,14 @@ async function intermediateToFinalConfig(
               config.systemMessage,
             );
 
-            if (llm?.providerName === "free-trial") {
-              if (!allowFreeTrial) {
-                // This shouldn't happen
-                throw new Error("Free trial cannot be used with control plane");
-              }
-              const ghAuthToken = await ide.getGitHubAuthToken();
-              (llm as FreeTrial).setupGhAuthToken(ghAuthToken);
-            }
+            // if (llm?.providerName === "free-trial") {
+            //   if (!allowFreeTrial) {
+            //     // This shouldn't happen
+            //     throw new Error("Free trial cannot be used with control plane");
+            //   }
+            //   const ghAuthToken = await ide.getGitHubAuthToken();
+            //   (llm as FreeTrial).setupGhAuthToken(ghAuthToken);
+            // }
             return llm;
           } else {
             return new CustomLLMClass(desc);
