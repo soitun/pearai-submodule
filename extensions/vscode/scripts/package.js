@@ -1,18 +1,13 @@
 const { exec } = require("child_process");
 const fs = require("fs");
+const path = require("path");
 
 const args = process.argv.slice(2);
-let target;
-
-if (args[0] === "--target") {
-  target = args[1];
-}
+const isPreRelease = args.includes("--pre-release");
 
 if (!fs.existsSync("build")) {
   fs.mkdirSync("build");
 }
-
-const isPreRelease = args.includes("--pre-release");
 
 const command = isPreRelease
   ? "npx vsce package --out ./build --pre-release --no-dependencies"
