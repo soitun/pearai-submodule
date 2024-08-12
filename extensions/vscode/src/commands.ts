@@ -728,18 +728,23 @@ const commandsMap: (
 
       vscode.window.showInformationMessage("PearAI: Successfully logged in!");
     },
-    "pearai.winshortcutResizeAuxiliaryBarWidth": () => {
-      vscode.commands.executeCommand("pearai.resizeAuxiliaryBarWidth");
-    },
-    "pearai.macResizeAuxiliaryBarWidth": () => {
-      vscode.commands.executeCommand("pearai.resizeAuxiliaryBarWidth");
-    },
     "pearai.closeChat": () => {
       vscode.commands.executeCommand("workbench.action.toggleAuxiliaryBar");
     },
     "pearai.loadRecentChat": () => {
       sidebar.webviewProtocol?.request("loadMostRecentChat", undefined);
       sidebar.webviewProtocol?.request("focusContinueInput", undefined);
+    },
+    "pearai.resizeAuxiliaryBarWidth": () => {
+      vscode.commands.executeCommand(
+        "workbench.action.resizeAuxiliaryBarWidth",
+      );
+    },
+    "pearai.winshortcutResizeAuxiliaryBarWidth": () => {
+      vscode.commands.executeCommand("pearai.resizeAuxiliaryBarWidth");
+    },
+    "pearai.macResizeAuxiliaryBarWidth": () => {
+      vscode.commands.executeCommand("pearai.resizeAuxiliaryBarWidth");
     },
   };
 };
