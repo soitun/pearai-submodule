@@ -42,11 +42,11 @@ const statusBarItemText = (status: StatusBarStatus | undefined) => {
   switch (status) {
     case undefined:
     case StatusBarStatus.Disabled:
-      return "$(circle-slash) Continue";
+      return "$(circle-slash) PearAI";
     case StatusBarStatus.Enabled:
-      return "$(check) Continue";
+      return "$(check) PearAI";
     case StatusBarStatus.Paused:
-      return "$(debug-pause) Continue";
+      return "$(debug-pause) PearAI";
   }
 };
 
@@ -89,7 +89,7 @@ export function setupStatusBar(
   }
 
   statusBarItem.text = loading
-    ? "$(loading~spin) Continue"
+    ? "$(loading~spin) PearAI"
     : statusBarItemText(status);
   statusBarItem.tooltip = statusBarItemTooltip(status ?? statusBarStatus);
   statusBarItem.command = "pearai.openTabAutocompleteConfigMenu";

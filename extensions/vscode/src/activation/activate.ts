@@ -21,6 +21,9 @@ export async function activateExtension(context: vscode.ExtensionContext) {
   const vscodeExtension = new VsCodeExtension(context);
 
   migrate("showWelcome_1", () => {
+    // move pearai extension to auxiliary bar (we want secondary side bar to be default loaction for extension)
+    vscode.commands.executeCommand('workbench.action.movePearExtensionToAuxBar');
+    
     vscode.commands.executeCommand(
       "markdown.showPreview",
       vscode.Uri.file(
@@ -31,7 +34,7 @@ export async function activateExtension(context: vscode.ExtensionContext) {
     vscode.commands.executeCommand("pearai.focusContinueInput");
   });
 
-  // Load Continue configuration
+  // Load PearAI configuration
   if (!context.globalState.get("hasBeenInstalled")) {
     context.globalState.update("hasBeenInstalled", true);
     Telemetry.capture(

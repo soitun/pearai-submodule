@@ -95,7 +95,7 @@ export class VsCodeExtension {
 
     // Config Handler with output channel
     const outputChannel = vscode.window.createOutputChannel(
-      "Continue - LLM Prompt/Completion",
+      "PearAI",
     );
     const inProcessMessenger = new InProcessMessenger<
       ToCoreProtocol,
@@ -246,6 +246,21 @@ export class VsCodeExtension {
       this.configHandler.reloadConfig();
     });
 
+    // Create a file system watcher
+    const watcher = vscode.workspace.createFileSystemWatcher('**/*', false, false, false);
+
+    // Handle file creation
+    watcher.onDidCreate(uri => {
+      this.refreshContextProviders();
+    });
+
+    // Handle file deletion
+    watcher.onDidDelete(uri => {
+      this.refreshContextProviders();
+    });
+
+    context.subscriptions.push(watcher);
+
     vscode.workspace.onDidSaveTextDocument(async (event) => {
       // Listen for file changes in the workspace
       const filepath = event.uri.fsPath;
@@ -360,6 +375,10 @@ export class VsCodeExtension {
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   private PREVIOUS_BRANCH_FOR_WORKSPACE_DIR: { [dir: string]: string } = {};
+
+  private async refreshContextProviders() {
+    this.sidebar.webviewProtocol.request("refreshSubmenuItems", undefined); // Refresh all context providers
+  }
 
   registerCustomContextProvider(contextProvider: IContextProvider) {
     this.configHandler.registerCustomContextProvider(contextProvider);
