@@ -330,7 +330,7 @@ function ConfigureProvider() {
                   <ModelCard
                     key={idx}
                     disabled={disableModelCards()}
-                    title={"Start Coding 😎"}
+                    title={"Add To Configuration"}
                     description={""}
                     tags={pkg.tags}
                     dimensions={pkg.dimensions}
