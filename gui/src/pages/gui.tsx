@@ -359,7 +359,7 @@ function GUI() {
     ],
   );
 
-  const { saveSession, getLastSessionId, loadLastSession } =
+  const { saveSession, getLastSessionId, loadLastSession, loadMostRecentChat } =
     useHistory(dispatch);
 
   useWebviewListener(
@@ -369,6 +369,15 @@ function GUI() {
       mainTextInputRef.current?.focus?.();
     },
     [saveSession],
+  );
+
+  useWebviewListener(
+    "loadMostRecentChat",
+    async () => {
+      await loadMostRecentChat();
+      mainTextInputRef.current?.focus?.();
+    },
+    [loadMostRecentChat],
   );
 
   const isLastUserInput = useCallback(

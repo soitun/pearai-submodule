@@ -60,7 +60,7 @@ const ShortcutContainer = () => {
     { modifiers: [modifier], keyCode: '0', description: 'Prev', onClick: () => ideMessenger.post('lastChat', undefined) },
     { modifiers: [modifier], keyCode: 'O', description: 'History' },
     { modifiers: [modifier], keyCode: ';', description: 'Close', onClick: () => ideMessenger.post('closeChat', undefined) },
-    { modifiers: [modifier, 'Shift'], keyCode: 'L', description: 'Add Selected' },
+    { modifiers: [modifier, 'Shift'], keyCode: 'L', description: 'Append Selected' },
   ];
   return (
     <div ref={shortcutContainerRef} className='flex overflow-x-auto whitespace-nowrap no-scrollbar h-[1.55rem]'>
