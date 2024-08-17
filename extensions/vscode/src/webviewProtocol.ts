@@ -7,6 +7,8 @@ import * as vscode from "vscode";
 import { IMessenger } from "../../../core/util/messenger";
 import { getExtensionUri } from "./util/vscode";
 
+const UNAUTHORIZED_ERROR_CODE = "401";
+
 export async function showTutorial() {
   const tutorialPath = path.join(
     getExtensionUri().fsPath,
@@ -109,11 +111,41 @@ export class VsCodeWebviewProtocol
             } else if (e.cause.code === "ECONNREFUSED") {
               message = `Connection was refused. This likely means that there is no server running at the specified URL. If you are running your own server you may need to set the "apiBase" parameter in config.json. For example, you can set up an OpenAI-compatible server like here: https://trypear.ai/reference/Model%20Providers/openai#openai-compatible-servers--apis`;
             } else {
-              message = `The request failed with "${e.cause.name}": ${e.cause.message}. If you're having trouble setting up Continue, please see the troubleshooting guide for help.`;
+              message = `The request failed with "${e.cause.name}": ${e.cause.message}. If you're having trouble setting up PearAI, please see the troubleshooting guide for help.`;
             }
           }
 
-          if (message.includes("https://proxy-server")) {
+          else if (message.includes(UNAUTHORIZED_ERROR_CODE)) {
+            message = message.split("\n").filter((l: string) => l !== "")[1];
+            try {
+              message = JSON.parse(message).message;
+            } catch {}
+            if (message.includes("Invalid")) {
+              message +=
+                " PearAI token invalid! Please try logging in or contact PearAI support.";
+            }
+            vscode.window
+              .showErrorMessage(
+                message,
+                'Login To PearAI',
+                'Show Logs',
+              )
+              .then((selection) => {
+                if (selection === 'Login To PearAI') {
+                  // Redirect to auth login URL
+                  vscode.env.openExternal(
+                    vscode.Uri.parse(
+                      'https://trypear.ai/signin?callback=pearai://pearai.pearai/auth',
+                    ),
+                  );
+                } else if (selection === 'Show Logs') {
+                  vscode.commands.executeCommand(
+                    'workbench.action.toggleDevTools',
+                  );
+                }
+              });
+          }
+          else if (message.includes("https://proxy-server")) {
             message = message.split("\n").filter((l: string) => l !== "")[1];
             try {
               message = JSON.parse(message).message;
