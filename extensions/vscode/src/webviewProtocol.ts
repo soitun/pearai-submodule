@@ -7,8 +7,6 @@ import * as vscode from "vscode";
 import { IMessenger } from "../../../core/util/messenger";
 import { getExtensionUri } from "./util/vscode";
 
-const UNAUTHORIZED_ERROR_CODE = "401";
-
 export async function showTutorial() {
   const tutorialPath = path.join(
     getExtensionUri().fsPath,
@@ -105,6 +103,7 @@ export class VsCodeWebviewProtocol
           );
 
           let message = e.message;
+
           if (e.cause) {
             if (e.cause.name === "ConnectTimeoutError") {
               message = `Connection timed out. If you expect it to take a long time to connect, you can increase the timeout in config.json by setting "requestOptions": { "timeout": 10000 }. You can find the full config reference here: https://trypear.ai/reference/config`;
@@ -114,16 +113,8 @@ export class VsCodeWebviewProtocol
               message = `The request failed with "${e.cause.name}": ${e.cause.message}. If you're having trouble setting up PearAI, please see the troubleshooting guide for help.`;
             }
           }
-
-          else if (message.includes(UNAUTHORIZED_ERROR_CODE)) {
-            message = message.split("\n").filter((l: string) => l !== "")[1];
-            try {
-              message = JSON.parse(message).message;
-            } catch {}
-            if (message.includes("Invalid")) {
-              message +=
-                " PearAI token invalid! Please try logging in or contact PearAI support.";
-            }
+          // PearAI login issues
+          else if (message.includes("401") && message.includes("PearAI")) {            
             vscode.window
               .showErrorMessage(
                 message,
@@ -136,6 +127,29 @@ export class VsCodeWebviewProtocol
                   vscode.env.openExternal(
                     vscode.Uri.parse(
                       'https://trypear.ai/signin?callback=pearai://pearai.pearai/auth',
+                    ),
+                  );
+                } else if (selection === 'Show Logs') {
+                  vscode.commands.executeCommand(
+                    'workbench.action.toggleDevTools',
+                  );
+                }
+              });
+          }
+          // PearAI Free trial ended case
+          else if (message.includes("403") && message.includes("PearAI")) {            
+            vscode.window
+              .showErrorMessage(
+                message,
+                'View PearAI Pricing',
+                'Show Logs',
+              )
+              .then((selection) => {
+                if (selection === 'View PearAI Pricing') {
+                  // Redirect to auth login URL
+                  vscode.env.openExternal(
+                    vscode.Uri.parse(
+                      'https://trypear.ai/pricing',
                     ),
                   );
                 } else if (selection === 'Show Logs') {
@@ -187,7 +201,7 @@ export class VsCodeWebviewProtocol
           } else {
             vscode.window
               .showErrorMessage(
-                message.split("\n\n")[0],
+                message,
                 "Show Logs",
                 "Troubleshooting",
               )
