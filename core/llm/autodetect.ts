@@ -70,8 +70,8 @@ const MODEL_SUPPORTS_IMAGES: string[] = [
   "gemini-1.5-flash",
   "sonnet",
   "opus",
-  "haiku",  
-  "pearai_latest",
+  "haiku",
+  "pearai_model",
 ];
 
 function modelSupportsImages(

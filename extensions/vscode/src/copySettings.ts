@@ -49,7 +49,9 @@ function copyVSCodeSettingsToPearAIDir() {
         }
     });
 
-    copyDirectoryRecursiveSync(vscodeExtensionsDir, pearAIDevExtensionsDir);
+    const exclusions = ['vscode-pylance', 'ritwickdey.liveserver', 'pearai.pearai', 'continue.continue'] 
+    // Todo: remove liveserver from exclusions once PearAI has priority for shortcuts (Cmd+L)
+    copyDirectoryRecursiveSync(vscodeExtensionsDir, pearAIDevExtensionsDir, exclusions);
     }
   
 function getVSCodeSettingsDir() {
@@ -62,18 +64,26 @@ function getVSCodeSettingsDir() {
         return path.join(os.homedir(), '.config', 'Code', 'User');
     }
 }
-  
-function copyDirectoryRecursiveSync(source: string, destination: string) {
+
+function copyDirectoryRecursiveSync(source: string, destination: string, exclusions: string[] = []) {
     if (!fs.existsSync(destination)) {
         fs.mkdirSync(destination, { recursive: true });
     }
     fs.readdirSync(source).forEach(item => {
         const sourcePath = path.join(source, item);
         const destinationPath = path.join(destination, item);
-        if (fs.lstatSync(sourcePath).isDirectory()) {
-        copyDirectoryRecursiveSync(sourcePath, destinationPath);
-        } else {
-        fs.copyFileSync(sourcePath, destinationPath);
+        
+        // Check if the current item should be excluded
+        const shouldExclude = exclusions.some(exclusion => 
+            sourcePath.toLowerCase().includes(exclusion.toLowerCase())
+        );
+        
+        if (!shouldExclude) {
+            if (fs.lstatSync(sourcePath).isDirectory()) {
+                copyDirectoryRecursiveSync(sourcePath, destinationPath, exclusions);
+            } else {
+                fs.copyFileSync(sourcePath, destinationPath);
+            }
         }
     });
 }
