@@ -70,8 +70,8 @@ const MODEL_SUPPORTS_IMAGES: string[] = [
   "gemini-1.5-flash",
   "sonnet",
   "opus",
-  "haiku",
-  "pearai-latest",
+  "haiku",  
+  "pearai_latest",
 ];
 
 function modelSupportsImages(
@@ -204,6 +204,10 @@ function autodetectTemplateType(model: string): TemplateType | undefined {
 
   if (lower.includes("neural-chat")) {
     return "neural-chat";
+  }
+
+  if (lower.includes("pearai")) {
+    return "anthropic";
   }
 
   return "chatml";
