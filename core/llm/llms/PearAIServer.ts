@@ -122,10 +122,8 @@ class PearAIServer extends BaseLLM {
     });
 
     let completion = "";
-    console.log("TRYING8888")
 
     for await (const value of streamJSON(response)) {
-      console.log(value)
       // Handle initial metadata if necessary
       if (value.metadata && Object.keys(value.metadata).length > 0) {
         // Do something with metadata if needed, currently just logging
