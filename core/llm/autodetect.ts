@@ -208,7 +208,8 @@ function autodetectTemplateType(model: string): TemplateType | undefined {
   }
 
   if (lower.includes("pearai")) {
-    return "anthropic";
+    console.log("ANTROPIC FOUND")
+    return "none";
   }
 
   return "chatml";
