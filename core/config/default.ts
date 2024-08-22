@@ -94,7 +94,7 @@ export const defaultConfig: SerializedContinueConfig = {
   models: [
     {
       "model": "pearai_model",
-      "contextLength": 128000,
+      "contextLength": 200000,
       "title": "PearAI Server",
       "systemMessage": "You are an expert software developer. You give helpful and concise responses.",
       "provider": "pearai_server"
@@ -108,11 +108,12 @@ export const defaultConfig: SerializedContinueConfig = {
       description: "Write unit tests for highlighted code",
     },
   ],
-  tabAutocompleteModel: {
-    title: "Starcoder2 3b",
-    provider: "pearai_server",
-    model: "starcoder2:3b",
-  },
+  // TODO: Add this back when we have autocomplete working. 
+  // tabAutocompleteModel: {
+  //   title: "Starcoder2 3b",
+  //   provider: "pearai_server",
+  //   model: "starcoder2:3b",
+  // },
   contextProviders: defaultContextProvidersVsCode,
   slashCommands: defaultSlashCommandsVscode,
 };
