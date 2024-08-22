@@ -170,9 +170,6 @@ class Ollama extends BaseLLM {
     prompt: string,
     options: CompletionOptions,
   ): AsyncGenerator<string> {
-    console.log("ollama stream complete...")
-    console.log("prompt", prompt)
-    console.log("options", options)
     const response = await this.fetch(this.getEndpoint("api/generate"), {
       method: "POST",
       headers: {
@@ -181,7 +178,7 @@ class Ollama extends BaseLLM {
       },
       body: JSON.stringify(this._convertArgs(options, prompt)),
     });
-    console.log("ollama stream complete response", response)
+
     let buffer = "";
     for await (const value of streamResponse(response)) {
       // Append the received chunk to the buffer
@@ -189,7 +186,7 @@ class Ollama extends BaseLLM {
       // Split the buffer into individual JSON chunks
       const chunks = buffer.split("\n");
       buffer = chunks.pop() ?? "";
-      console.log(`ollama stream complete chunks`, chunks, buffer)
+
       for (let i = 0; i < chunks.length; i++) {
         const chunk = chunks[i];
         if (chunk.trim() !== "") {
@@ -212,9 +209,6 @@ class Ollama extends BaseLLM {
     messages: ChatMessage[],
     options: CompletionOptions,
   ): AsyncGenerator<ChatMessage> {
-    console.log("ollama streamchat....")
-    console.log("messages: " + messages)
-    console.log("options: " + options)
     const response = await this.fetch(this.getEndpoint("api/chat"), {
       method: "POST",
       headers: {
@@ -226,7 +220,6 @@ class Ollama extends BaseLLM {
 
     let buffer = "";
     for await (const value of streamResponse(response)) {
-      console.log("value: "+ value)
       // Append the received chunk to the buffer
       buffer += value;
       // Split the buffer into individual JSON chunks

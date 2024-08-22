@@ -519,7 +519,7 @@ ${prompt}`;
   ): AsyncGenerator<ChatMessage, PromptLog> {
     const { completionOptions, log, raw } =
       this._parseCompletionOptions(options);
-    console.log("index.ts streamChat...")
+
     const messages = this._compileChatMessages(completionOptions, _messages);
 
     const prompt = this.templateMessages

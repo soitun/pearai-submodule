@@ -142,7 +142,6 @@ class OpenAI extends BaseLLM {
   private _getEndpoint(
     endpoint: "chat/completions" | "completions" | "models",
   ) {
-    console.log("getting endpoint..")
     if (this.apiType === "azure") {
       return new URL(
         `openai/deployments/${this.engine}/${endpoint}?api-version=${this.apiVersion}`,
@@ -177,7 +176,7 @@ class OpenAI extends BaseLLM {
     const args: any = this._convertArgs(options, []);
     args.prompt = prompt;
     args.messages = undefined;
-    console.log("legacystreamcomple")
+
     const response = await this.fetch(this._getEndpoint("completions"), {
       method: "POST",
       headers: this._getHeaders(),
@@ -239,22 +238,11 @@ class OpenAI extends BaseLLM {
     }
   }
 
-  async listModels(): Promise<string[]> {
-    const response = await this.fetch(this._getEndpoint("models"), {
-      method: "GET",
-      headers: this._getHeaders(),
-    });
-
-    const data = await response.json();
-    return data.data.map((m: any) => m.id);
-  }
-
   async *_streamFim(
     prefix: string,
     suffix: string,
     options: CompletionOptions,
   ): AsyncGenerator<string> {
-    console.log("OpenAi.ts streamFim")
     const endpoint = new URL("fim/completions", this.apiBase);
     const resp = await this.fetch(endpoint, {
       method: "POST",
@@ -280,6 +268,16 @@ class OpenAI extends BaseLLM {
     for await (const chunk of streamSse(resp)) {
       yield chunk.choices[0].delta.content;
     }
+  }
+
+  async listModels(): Promise<string[]> {
+    const response = await this.fetch(this._getEndpoint("models"), {
+      method: "GET",
+      headers: this._getHeaders(),
+    });
+
+    const data = await response.json();
+    return data.data.map((m: any) => m.id);
   }
 }
 
