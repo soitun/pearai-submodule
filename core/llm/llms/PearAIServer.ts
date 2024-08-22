@@ -150,76 +150,37 @@ class PearAIServer extends BaseLLM {
     options.stream = true;
     const args = this._convertArgs(this.collectArgs(options));
 
-    await this._countTokens(prefix + suffix, args.model, true);
+    await this._checkAndUpdateCredentials();
 
-    try {
-      let creds = undefined;
-      if (this.getCredentials) {
-        console.log("Attempting to get credentials...");
-        creds = await this.getCredentials();
-        if (creds && creds.accessToken && creds.refreshToken) {
-          this.apiKey = creds.accessToken;
-          this.refreshToken = creds.refreshToken;
-        }
-      }
+    console.log("PearAI.ts streamFim");
 
-      const tokens = await checkTokens(this.apiKey, this.refreshToken);
-      // Update tokens if needed (similar to _streamChat method)
-      if (tokens.accessToken !== this.apiKey || tokens.refreshToken !== this.refreshToken) {
-        if (tokens.accessToken !== this.apiKey) {
-          this.apiKey = tokens.accessToken;
-          console.log(
-            "PearAI access token changed from:",
-            this.apiKey,
-            "to:",
-            tokens.accessToken,
-          );
-        }
-        if (tokens.refreshToken !== this.refreshToken) {
-          this.refreshToken = tokens.refreshToken;
-          console.log(
-            "PearAI refresh token changed from:",
-            this.refreshToken,
-            "to:",
-            tokens.refreshToken,
-          );
-        }
-        if (creds) {
-          creds.accessToken = tokens.accessToken
-          creds.refreshToken = tokens.refreshToken
-          this.setCredentials(creds)
-        }
-      }
-    } catch (error) {
-      console.error("Error checking token expiration:", error);
-    }
-
-    const response = await this.fetch(`${SERVER_URL}/server_fim`, {
-      method: "POST",
+    const endpoint = `${SERVER_URL}/server_fim`;
+    const resp = await this.fetch(endpoint, {
+        method: "POST",
+        body: JSON.stringify({
+        model: options.model,
+          prefix,
+          suffix,
+        max_tokens: options.maxTokens,
+        temperature: options.temperature,
+        top_p: options.topP,
+        frequency_penalty: options.frequencyPenalty,
+        presence_penalty: options.presencePenalty,
+        stop: options.stop,
+        stream: true,
+        }),
       headers: {
         ...(await this._getHeaders()),
+        "Content-Type": "application/json",
+        Accept: "application/json",
         Authorization: `Bearer ${this.apiKey}`,
       },
-      body: JSON.stringify({
-        prefix,
-        suffix,
-        ...args,
-      }),
     });
-    console.log("pearai stream fim response", response.json)
-
     let completion = "";
-    for await (const value of streamJSON(response)) {
-      if (value.metadata && Object.keys(value.metadata).length > 0) {
-        console.log("Metadata received:", value.metadata);
-      }
-      if (value.content) {
-        const content = value.content;
-        yield stripImages(content);
-        completion += content;
-      }
+    for await (const chunk of streamSse(resp)) {
+      yield chunk.choices[0].delta.content;
     }
-    this._countTokens(completion, args.model, false);
+  this._countTokens(completion, options.model, false);
   }
 
 
@@ -278,6 +239,65 @@ class PearAIServer extends BaseLLM {
     } catch (error) {
       console.error("Error checking token expiration:", error);
       // Handle the error (e.g., redirect to login page)
+    }
+  }
+}
+
+
+function parseDataLine(line: string): any {
+  const json = line.startsWith("data: ")
+    ? line.slice("data: ".length)
+    : line.slice("data:".length);
+
+  try {
+    const data = JSON.parse(json);
+    if (data.error) {
+      throw new Error(`Error streaming response: ${data.error}`);
+    }
+
+    return data;
+  } catch (e) {
+    throw new Error(`Malformed JSON sent from server: ${json}`);
+  }
+}
+
+function parseSseLine(line: string): { done: boolean; data: any } {
+  if (line.startsWith("data: [DONE]")) {
+    return { done: true, data: undefined };
+  }
+  if (line.startsWith("data:")) {
+    return { done: false, data: parseDataLine(line) };
+  }
+  if (line.startsWith(": ping")) {
+    return { done: true, data: undefined };
+  }
+  return { done: false, data: undefined };
+}
+
+export async function* streamSse(response: Response): AsyncGenerator<any> {
+  let buffer = "";
+  for await (const value of streamResponse(response)) {
+    buffer += value;
+
+    let position: number;
+    while ((position = buffer.indexOf("\n")) >= 0) {
+      const line = buffer.slice(0, position);
+      buffer = buffer.slice(position + 1);
+
+      const { done, data } = parseSseLine(line);
+      if (done) {
+        break;
+      }
+      if (data) {
+        yield data;
+      }
+    }
+  }
+
+  if (buffer.length > 0) {
+    const { done, data } = parseSseLine(buffer);
+    if (!done && data) {
+      yield data;
     }
   }
 }
