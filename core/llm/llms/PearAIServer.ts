@@ -146,13 +146,9 @@ class PearAIServer extends BaseLLM {
     suffix: string,
     options: CompletionOptions
   ): AsyncGenerator<string> {
-    console.log("pearaiserver");
     options.stream = true;
-    const args = this._convertArgs(this.collectArgs(options));
 
     await this._checkAndUpdateCredentials();
-
-    console.log("PearAI.ts streamFim");
 
     const endpoint = `${SERVER_URL}/server_fim`;
     const resp = await this.fetch(endpoint, {
@@ -190,7 +186,6 @@ class PearAIServer extends BaseLLM {
     ];
   }
   supportsFim(): boolean {
-    console.log("checking if pearaiserver supports fim")
     return true;
   }
 
