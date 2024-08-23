@@ -30,7 +30,6 @@ class PearAIServer extends BaseLLM {
 
   private async _getHeaders() {
     await this._checkAndUpdateCredentials();
-    console.log("getheader: ", this.pearAIAccessToken)
     return {
       "Content-Type": "application/json",
       ...(await getHeaders()),
@@ -156,12 +155,7 @@ class PearAIServer extends BaseLLM {
   ): AsyncGenerator<string> {
     options.stream = true;
 
-    console.log("stre: ", this.pearAIAccessToken)
-
     await this._checkAndUpdateCredentials();
-
-    console.log("streamfim: ", this.pearAIAccessToken)
-
 
     const endpoint = `${SERVER_URL}/server_fim`;
     const resp = await this.fetch(endpoint, {
