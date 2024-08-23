@@ -24,9 +24,8 @@ class PearAIServer extends BaseLLM {
   static providerName: ModelProvider = "pearai_server";
   constructor(options: LLMOptions) {
     super(options);
-    console.log("I AM BEING CALLED")
-    this.pearAIAccessToken = "hi";
-    this.pearAIRefreshToken = "hi2";
+    this.pearAIAccessToken = undefined;
+    this.pearAIRefreshToken = undefined;
   }
 
   private async _getHeaders() {
@@ -113,8 +112,6 @@ class PearAIServer extends BaseLLM {
       args.model,
       true,
     );
-
-    console.log("streamcaht: ", this.pearAIAccessToken)
 
     await this._checkAndUpdateCredentials();
 
