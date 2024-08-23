@@ -203,7 +203,8 @@ class PearAIServer extends BaseLLM {
     try {
       let creds = undefined;
 
-      if (this.getCredentials) {
+
+      if (this.getCredentials && this.pearAIAccessToken === undefined) {
         console.log("Attempting to get credentials...");
         creds = await this.getCredentials();
 
