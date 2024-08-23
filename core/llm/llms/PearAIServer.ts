@@ -141,10 +141,52 @@ class PearAIServer extends BaseLLM {
     this._countTokens(completion, args.model, false);
   }
 
+  async *_streamFim(
+    prefix: string,
+    suffix: string,
+    options: CompletionOptions
+  ): AsyncGenerator<string> {
+    options.stream = true;
+
+    await this._checkAndUpdateCredentials();
+
+    const endpoint = `${SERVER_URL}/server_fim`;
+    const resp = await this.fetch(endpoint, {
+        method: "POST",
+        body: JSON.stringify({
+        model: options.model,
+          prefix,
+          suffix,
+        max_tokens: options.maxTokens,
+        temperature: options.temperature,
+        top_p: options.topP,
+        frequency_penalty: options.frequencyPenalty,
+        presence_penalty: options.presencePenalty,
+        stop: options.stop,
+        stream: true,
+        }),
+      headers: {
+        ...(await this._getHeaders()),
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    });
+    let completion = "";
+    for await (const chunk of streamSse(resp)) {
+      yield chunk.choices[0].delta.content;
+    }
+  this._countTokens(completion, options.model, false);
+  }
+
+
   async listModels(): Promise<string[]> {
     return [
       "pearai_model",
     ];
+  }
+  supportsFim(): boolean {
+    return true;
   }
 
   private async _checkAndUpdateCredentials(): Promise<void> {
@@ -192,6 +234,65 @@ class PearAIServer extends BaseLLM {
     } catch (error) {
       console.error("Error checking token expiration:", error);
       // Handle the error (e.g., redirect to login page)
+    }
+  }
+}
+
+
+function parseDataLine(line: string): any {
+  const json = line.startsWith("data: ")
+    ? line.slice("data: ".length)
+    : line.slice("data:".length);
+
+  try {
+    const data = JSON.parse(json);
+    if (data.error) {
+      throw new Error(`Error streaming response: ${data.error}`);
+    }
+
+    return data;
+  } catch (e) {
+    throw new Error(`Malformed JSON sent from server: ${json}`);
+  }
+}
+
+function parseSseLine(line: string): { done: boolean; data: any } {
+  if (line.startsWith("data: [DONE]")) {
+    return { done: true, data: undefined };
+  }
+  if (line.startsWith("data:")) {
+    return { done: false, data: parseDataLine(line) };
+  }
+  if (line.startsWith(": ping")) {
+    return { done: true, data: undefined };
+  }
+  return { done: false, data: undefined };
+}
+
+export async function* streamSse(response: Response): AsyncGenerator<any> {
+  let buffer = "";
+  for await (const value of streamResponse(response)) {
+    buffer += value;
+
+    let position: number;
+    while ((position = buffer.indexOf("\n")) >= 0) {
+      const line = buffer.slice(0, position);
+      buffer = buffer.slice(position + 1);
+
+      const { done, data } = parseSseLine(line);
+      if (done) {
+        break;
+      }
+      if (data) {
+        yield data;
+      }
+    }
+  }
+
+  if (buffer.length > 0) {
+    const { done, data } = parseSseLine(buffer);
+    if (!done && data) {
+      yield data;
     }
   }
 }

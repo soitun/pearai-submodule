@@ -475,11 +475,12 @@ function finalToBrowserConfig(
   return {
     allowAnonymousTelemetry: final.allowAnonymousTelemetry,
     models: final.models.map((m) => ({
+      title: m.title ?? m.model,
       provider: m.providerName,
       model: m.model,
-      title: m.title ?? m.model,
       apiKey: m.apiKey,
       apiBase: m.apiBase,
+      refreshToken: m.refreshToken,
       contextLength: m.contextLength,
       template: m.template,
       completionOptions: m.completionOptions,
