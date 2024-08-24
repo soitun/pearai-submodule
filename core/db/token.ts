@@ -2,6 +2,18 @@ import { createClient, SupabaseClient, Session } from "@supabase/supabase-js";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { SERVER_URL } from "../util/parameters";
 
+let supabase: SupabaseClient | null = null;
+
+async function initializeSupabase() {
+  if (!supabase) {
+    const supabaseTokens = await requestTokens();
+    supabase = createClient(
+      supabaseTokens.supabaseUrl,
+      supabaseTokens.supabaseKey,
+    );
+  }
+}
+
 interface DecodedToken extends JwtPayload {
   exp: number;
 }
@@ -12,17 +24,14 @@ function isTokenExpired(token: string): boolean {
   return decodedToken.exp < currentTime;
 }
 
-async function requestTokens(
-  accessToken: string,
-): Promise<{ supabaseUrl: string; supabaseKey: string }> {
+async function requestTokens(): Promise<{
+  supabaseUrl: string;
+  supabaseKey: string;
+}> {
   const response = await fetch(`${SERVER_URL}/supabase-tokens`, {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
   });
   const supabaseTokens = await response.json();
-
   return supabaseTokens;
 }
 
@@ -30,6 +39,8 @@ export async function checkTokens(
   accessToken: string | undefined,
   refreshToken: string | undefined,
 ): Promise<{ accessToken: string; refreshToken: string }> {
+  await initializeSupabase();
+
   if (!accessToken) {
     return Promise.reject("Access token is not available");
   }
@@ -41,13 +52,7 @@ export async function checkTokens(
   if (isTokenExpired(accessToken)) {
     console.log("Access token is expired, attempting to refresh");
 
-    const supabaseTokens = await requestTokens(accessToken);
-    const supabase = createClient(
-      supabaseTokens.supabaseUrl,
-      supabaseTokens.supabaseKey,
-    );
-
-    const { data, error } = await supabase.auth.refreshSession({
+    const { data, error } = await supabase!.auth.refreshSession({
       refresh_token: refreshToken,
     });
 
