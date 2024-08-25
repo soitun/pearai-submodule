@@ -80,7 +80,7 @@ function HelpPage() {
         <TutorialButton
           onClick={() => {
             ideMessenger.post("showTutorial", undefined);
-            navigate("/onboarding");
+            navigate("/addModel/provider/pearai_server");
           }}
         >
           Open Tutorial

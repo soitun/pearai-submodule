@@ -70,6 +70,7 @@ function ConfigureProvider() {
   const [watsonxAuthenticate, setWatsonxAuthenticate] = React.useState(true);
 
   useEffect(() => {
+    console.log('hello99')
     if (providerName) {
       setModelInfo(providers[providerName]);
     }

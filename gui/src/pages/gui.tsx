@@ -285,7 +285,7 @@ function GUI() {
           setLocalStorage("ftc", u + 1);
 
           if (u >= FREE_TRIAL_LIMIT_REQUESTS) {
-            navigate("/onboarding");
+            navigate("/addModel/provider/pearai_server");
             posthog?.capture("ftc_reached");
             return;
           }

@@ -13,7 +13,10 @@ import {
 } from ".";
 import { IdeMessengerContext } from "../context/IdeMessenger";
 import { useWebviewListener } from "../hooks/useWebviewListener";
-import { shouldBeginOnboarding } from "../pages/onboarding/utils";
+import {
+  shouldBeginOnboarding,
+  useOnboarding,
+} from "../pages/onboarding/utils";
 import { defaultModelSelector } from "../redux/selectors/modelSelectors";
 import {
   setBottomMessage,
@@ -127,6 +130,7 @@ const Layout = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const ideMessenger = useContext(IdeMessengerContext);
+  const { completeOnboarding } = useOnboarding();
 
   const dialogMessage = useSelector(
     (state: RootState) => state.uiState.dialogMessage,
@@ -243,7 +247,13 @@ const Layout = () => {
       shouldBeginOnboarding() &&
       (location.pathname === "/" || location.pathname === "/index.html")
     ) {
-      navigate("/onboarding");
+      ideMessenger.post("completeOnboarding", {
+        mode: "custom",
+      });
+      console.log("HELLO2");
+      navigate("/addModel/provider/pearai_server", {
+        state: { referrer: "/onboarding" },
+      });
     }
   }, [location]);
 

@@ -38,7 +38,7 @@ export function useOnboarding() {
       setLocalStorage("showTutorialCard", true);
       posthog.capture("Onboarding Step", { status: "Completed" });
     }
-
+    console.log("HELLO1");
     navigate("/");
   };
 
