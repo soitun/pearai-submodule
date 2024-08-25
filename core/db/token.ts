@@ -5,13 +5,11 @@ import { SERVER_URL } from "../util/parameters";
 let supabase: SupabaseClient | null = null;
 
 async function initializeSupabase() {
-  if (!supabase) {
     const supabaseTokens = await requestTokens();
     supabase = createClient(
       supabaseTokens.supabaseUrl,
       supabaseTokens.supabaseKey,
     );
-  }
 }
 
 interface DecodedToken extends JwtPayload {
@@ -39,7 +37,10 @@ export async function checkTokens(
   accessToken: string | undefined,
   refreshToken: string | undefined,
 ): Promise<{ accessToken: string; refreshToken: string }> {
-  await initializeSupabase();
+
+  if (!supabase) {
+    await initializeSupabase();
+  }
 
   if (!accessToken) {
     return Promise.reject("Access token is not available");
