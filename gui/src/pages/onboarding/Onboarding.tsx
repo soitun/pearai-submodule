@@ -143,8 +143,7 @@ function Onboarding() {
       <h3 className="mx-3">Begin your journey by logging in!</h3>
 
       <p style={{ color: lightGray }} className="mx-3">
-        After login, the <a href="https://trypear.ai/">website</a> should
-        redirect you back here.
+        After login, the website should redirect you back here.
       </p>
       
       <CustomModelButton
