@@ -197,33 +197,27 @@ function Onboarding() {
         </Div>
         <br></br>
       </div> */}
+  <div className="absolute bottom-4 right-4">
+        <StyledButton
+          onClick={(e) => {
+            dispatch(setShowDialog(true));
+            dispatch(
+              setDialogMessage(
+                <ConfirmationDialog
+                  text="Are you sure you want to skip logging in? Unless you are an existing user or already have a config.json, we don't recommend this."
+                  onConfirm={() => {
+                    completeOnboarding();
+                  }}
+                />,
+              ),
+            );
+          }}
+          
+        >
+          Skip
+        </StyledButton>
+      </div>
 
-      {/* <div className="flex justify-end">
-        <div className="flex items-center gap-4 ml-auto">
-          <div
-            className="cursor-pointer"
-            style={{ color: lightGray }}
-            onClick={(e) => {
-              dispatch(setShowDialog(true));
-              dispatch(
-                setDialogMessage(
-                  <ConfirmationDialog
-                    text="Are you sure you want to skip setup? Unless you are an existing user or already have a config.json, we don't recommend this."
-                    onConfirm={() => {
-                      completeOnboarding();
-                    }}
-                  />,
-                ),
-              );
-            }}
-          >
-            Skip
-          </div>
-          <StyledButton disabled={!selectedOnboardingMode} onClick={onSubmit}>
-            Continue
-          </StyledButton>
-        </div>
-      </div> */}
     </div>
   );
 }
