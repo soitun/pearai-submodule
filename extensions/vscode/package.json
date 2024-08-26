@@ -395,11 +395,6 @@
         "command": "pearai.viewHistory",
         "mac": "cmd+o",
         "key": "ctrl+o"
-      },
-      {
-        "command": "pearai.splitEditor",
-        "mac": "cmd+option+\\",
-        "key": "ctrl+alt+\\"
       }
     ],
     "submenus": [

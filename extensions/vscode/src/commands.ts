@@ -763,9 +763,6 @@ const commandsMap: (
     "pearai.macResizeAuxiliaryBarWidth": () => {
       vscode.commands.executeCommand("pearai.resizeAuxiliaryBarWidth");
     },
-    "pearai.splitEditor": () => {
-      vscode.commands.executeCommand("workbench.action.splitEditor");
-    },
   };
 };
 
