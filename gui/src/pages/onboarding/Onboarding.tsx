@@ -140,16 +140,13 @@ function Onboarding() {
   return (
     <div className="max-w-96  mx-auto leading-normal">
       <h1 className="text-center">Welcome to PearAI!</h1>
+      <h3 className="mx-3">Begin your journey by logging in!</h3>
 
-      <h3 className="mx-3">Login w/ PearAI </h3>
       <p style={{ color: lightGray }} className="mx-3">
         After login, the <a href="https://trypear.ai/">website</a> should
-        redirect you back here, if it didn't, click again.
+        redirect you back here.
       </p>
-      <p style={{ color: lightGray }} className="mx-3">
-        If you haven't signed up, do that first and use the "Open PearAI" button
-        on your dashboard after signing in to come back to the app.
-      </p>
+      
       <CustomModelButton
         className="m-5"
         disabled={false}
@@ -160,14 +157,26 @@ function Onboarding() {
           )
         }
       >
-        <h3 className="text-center my-2">Login / Signup</h3>
+        <h3 className="text-center my-2">Sign Up / Log In</h3>
         <img
           src={`${window.vscMediaUrl}/logos/${modelInfo?.icon}`}
           height="24px"
           style={{ marginRight: "5px" }}
         />
       </CustomModelButton>
-
+      <small 
+        style={{ 
+          color: lightGray, 
+          fontSize: '0.85em', 
+          display: 'block' 
+        }} 
+        className="mx-3"
+      >
+        Note: Having trouble logging in? Open PearAI from the dashboard on the {' '}
+        <a href="https://trypear.ai/dashboard" target="_blank" rel="noopener noreferrer">
+          website
+        </a>.
+        </small>
       {/* <div>
         <Div
           selected={false}
