@@ -388,13 +388,18 @@
       },
       {
         "command": "pearai.resizeAuxiliaryBarWidth",
-        "mac": "cmd+[",
-        "key": "ctrl+["
+        "mac": "cmd+\\",
+        "key": "ctrl+\\"
       },
       {
         "command": "pearai.viewHistory",
         "mac": "cmd+o",
         "key": "ctrl+o"
+      },
+      {
+        "command": "pearai.splitEditor",
+        "mac": "cmd+option+\\",
+        "key": "ctrl+alt+\\"
       }
     ],
     "submenus": [
