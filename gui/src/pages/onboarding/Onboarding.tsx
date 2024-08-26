@@ -141,11 +141,6 @@ function Onboarding() {
     <div className="max-w-96  mx-auto leading-normal">
       <h1 className="text-center">Welcome to PearAI!</h1>
       <h3 className="mx-3">Begin your journey by logging in!</h3>
-
-      <p style={{ color: lightGray }} className="mx-3">
-        After login, the website should redirect you back here.
-      </p>
-      
       <CustomModelButton
         className="m-5"
         disabled={false}
@@ -163,6 +158,9 @@ function Onboarding() {
           style={{ marginRight: "5px" }}
         />
       </CustomModelButton>
+      <p style={{ color: lightGray }} className="mx-3">
+        After login, the website should redirect you back here.
+      </p>
       <small 
         style={{ 
           color: lightGray, 
