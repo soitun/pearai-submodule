@@ -197,7 +197,7 @@ function Onboarding() {
         </Div>
         <br></br>
       </div> */}
-  <div className="absolute bottom-4 right-4">
+      <div className="absolute bottom-4 right-4">
         <StyledButton
           onClick={(e) => {
             dispatch(setShowDialog(true));
@@ -212,12 +212,10 @@ function Onboarding() {
               ),
             );
           }}
-          
         >
           Skip
         </StyledButton>
       </div>
-
     </div>
   );
 }
