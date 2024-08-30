@@ -225,7 +225,7 @@ function ModelSelect() {
           </span>
         </StyledListboxButton>
         <StyledListboxOptions>
-          {options.filter((option) => option.isDefault).map((option, idx) => (
+          {options.map((option, idx) => (
             <ModelOption
               option={option}
               idx={idx}
@@ -237,17 +237,6 @@ function ModelSelect() {
           {selectedProfileId === "local" && (
             <>
               {options.length > 0 && <Divider />}
-
-              {options
-                .filter((option) => !option.isDefault)
-                .map((option, idx) => (
-                  <ModelOption
-                    key={idx}
-                    option={option}
-                    idx={idx}
-                    showDelete={!option.isDefault}
-                  />
-                ))}
 
               <StyledListboxOption
                 key={options.length}
